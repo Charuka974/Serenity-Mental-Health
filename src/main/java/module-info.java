@@ -9,6 +9,8 @@ module com.assignment.ijse.serenitymentalhealth {
     requires java.naming;
 
 
+
+    opens com.assignment.ijse.serenitymentalhealth.dto.tm to javafx.base;
     opens com.assignment.ijse.serenitymentalhealth.config to jakarta.persistence;
     opens com.assignment.ijse.serenitymentalhealth.entity to org.hibernate.orm.core;
 

@@ -2,16 +2,16 @@ package com.assignment.ijse.serenitymentalhealth.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-@Table(name = "payment")
-public class Payment implements SuperEntity{
-    @Id
-    private String paymentId;
+@Table(name = "patient_program")
+public class PatientProgram implements SuperEntity{
+
+    @EmbeddedId
+    private PatientProgramId id;
 
     @ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)
@@ -21,13 +21,10 @@ public class Payment implements SuperEntity{
     @JoinColumn(name = "program_id", nullable = false)
     private TherapyProgram therapyProgram;
 
-    @ManyToOne
-    @JoinColumn(name = "session_id")
-    private TherapySession therapySession;  // Nullable for upfront payments
-
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal amount;
-
     @Column(nullable = false)
-    private LocalDate paymentDate;
+    private LocalDate registrationDate;
+
+    @ManyToOne
+    @JoinColumn(name = "payment_id", nullable = false)
+    private Payment payment;
 }

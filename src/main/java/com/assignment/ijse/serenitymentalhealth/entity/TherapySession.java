@@ -1,16 +1,17 @@
 package com.assignment.ijse.serenitymentalhealth.entity;
 
 import jakarta.persistence.*;
-
+import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 @Table(name = "therapy_session")
-public class TherapySession {
+public class TherapySession implements SuperEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int sessionId;
+    private String sessionId;
 
     @ManyToOne
     @JoinColumn(name = "therapist_id", nullable = false)
@@ -22,7 +23,7 @@ public class TherapySession {
 
     @ManyToOne
     @JoinColumn(name = "program_id", nullable = false)
-    private TherapyProgram program;
+    private TherapyProgram therapyProgram;
 
     @Column(nullable = false)
     private LocalDate sessionDate;
@@ -30,6 +31,6 @@ public class TherapySession {
     @Column(nullable = false)
     private LocalTime sessionTime;
 
-    @Enumerated(EnumType.STRING)
-    private String status;
+    @Column(nullable = false)
+    private String status;  // "Scheduled", "Completed", "Cancelled"
 }

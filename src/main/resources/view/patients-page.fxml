@@ -59,7 +59,7 @@
             </HBox>
          </children>
       </VBox>
-      <TableView fx:id="patientsTable" layoutX="88.0" layoutY="495.0" prefHeight="246.0" prefWidth="1150.0">
+      <TableView fx:id="patientsTable" layoutX="88.0" layoutY="495.0" onMouseClicked="#tableClick" prefHeight="246.0" prefWidth="1150.0">
         <columns>
           <TableColumn fx:id="patientIdCol" prefWidth="75.0" text="Patient ID" />
           <TableColumn fx:id="patientNameCol" prefWidth="164.2666778564453" text="Patient Name" />

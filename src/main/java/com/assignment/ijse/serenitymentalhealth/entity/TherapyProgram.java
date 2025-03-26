@@ -1,14 +1,15 @@
 package com.assignment.ijse.serenitymentalhealth.entity;
 
 import jakarta.persistence.*;
-
+import lombok.*;
 import java.math.BigDecimal;
 
 @Entity
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 @Table(name = "therapy_program")
-public class TherapyProgram {
+public class TherapyProgram implements SuperEntity {
     @Id
-    @Column(length = 10)
     private String programId;
 
     @Column(nullable = false)

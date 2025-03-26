@@ -1,5 +1,7 @@
 package com.assignment.ijse.serenitymentalhealth.controller;
 
+import com.assignment.ijse.serenitymentalhealth.bo.custom.UserBO;
+import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.UserBOImpl;
 import com.assignment.ijse.serenitymentalhealth.util.NavigationUtil;
 import javafx.scene.control.Button;
 import com.jfoenix.controls.JFXTextField;
@@ -31,6 +33,8 @@ public class LoginController {
 
     NavigationUtil navigate = new NavigationUtil();
 
+    UserBO userBO = new UserBOImpl();
+
     @FXML
     void loginValidate(ActionEvent event) {
         String username = usernameText.getText();
@@ -39,28 +43,33 @@ public class LoginController {
         if (username.isEmpty() || password.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please Enter your username and Password.");
             alert.showAndWait();
-        } else {
-            boolean isAdmin = username.equals("admin");
-            checkAuthority(isAdmin);
-
+            return;
         }
 
+        String role = userBO.validateUser(username, password);
+        System.out.println("Debug: Retrieved Role = " + role);
+
+        checkAuthority(role);
     }
 
-    void checkAuthority(boolean isAdmin) {
-        navigate.loginNavigation("/view/home-page.fxml", baseAnchorPane, isAdmin);
-//        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/home-page.fxml"));
-//            AnchorPane homePane = loader.load();
-//
-//            HomeController homeController = loader.getController();
-//
-//            homeController.setUserRole(isAdmin);
-//
-//            baseAnchorPane.getChildren().setAll(homePane);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+
+    void checkAuthority(String role) {
+        if (role == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid username or password.");
+            alert.showAndWait();
+            return;
+        }
+
+        if (role.equals("admin")) {
+            navigate.loginNavigation("/view/home-page.fxml", baseAnchorPane, true);
+        } else if (role.equals("receptionist")) {
+            navigate.loginNavigation("/view/home-page.fxml", baseAnchorPane, false);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid username or password.");
+            alert.showAndWait();
+        }
     }
+
+
 
 }

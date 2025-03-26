@@ -1,13 +1,15 @@
 package com.assignment.ijse.serenitymentalhealth.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 @Table(name = "therapist")
-public class Therapist {
+public class Therapist implements SuperEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int therapistId;
+    private String therapistId;
 
     @Column(nullable = false)
     private String name;

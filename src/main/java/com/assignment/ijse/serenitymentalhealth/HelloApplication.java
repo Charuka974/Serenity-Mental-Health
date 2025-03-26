@@ -24,17 +24,17 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-//        Session session = FactoryConfiguration.getInstance().getSession();
-//        Transaction transaction = session.beginTransaction();
-//
-//        User user = new User("U001","admin","1234","admin","c44073838@gmail.com");
-//
-//        session.persist(user);
-//        transaction.commit();
-//        session.close();
-
-
+        initializeDatabase();
 
         launch();
     }
+
+    public static void initializeDatabase(){
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        transaction.commit();
+        session.close();
+    }
+
+
 }
