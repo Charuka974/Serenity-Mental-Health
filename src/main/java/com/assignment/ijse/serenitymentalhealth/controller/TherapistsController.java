@@ -1,5 +1,6 @@
 package com.assignment.ijse.serenitymentalhealth.controller;
 
+import com.assignment.ijse.serenitymentalhealth.util.NavigationUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +12,9 @@ public class TherapistsController {
 
     @FXML
     private Button deleteButton;
+
+    @FXML
+    private Button therapistAvailabilityBtn;
 
     @FXML
     private Button saveButton;
@@ -56,6 +60,13 @@ public class TherapistsController {
 
     @FXML
     private Button updateButton;
+
+    NavigationUtil navigate = new NavigationUtil();
+
+    @FXML
+    void loadTherapistAvailabilityPage(ActionEvent event) {
+        navigate.navigatePopup("/view/therapist-availability-page.fxml", "Manage Therapist Availability");
+    }
 
     @FXML
     void delete(ActionEvent event) {

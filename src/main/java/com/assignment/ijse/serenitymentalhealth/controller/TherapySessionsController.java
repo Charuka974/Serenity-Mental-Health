@@ -19,12 +19,6 @@ public class TherapySessionsController implements Initializable {
     private Button deleteButton;
 
     @FXML
-    private ChoiceBox<String> hourChoiceBox;
-
-    @FXML
-    private ChoiceBox<String> minuteChoiceBox;
-
-    @FXML
     private TableColumn<?, ?> patientIdCol;
 
     @FXML
@@ -71,6 +65,9 @@ public class TherapySessionsController implements Initializable {
 
     @FXML
     private TableColumn<?, ?> sessionTimeCol;
+
+    @FXML
+    private ChoiceBox<String> sessionTimeTxt;
 
     @FXML
     private TableColumn<?, ?> statusCol;
@@ -136,20 +133,11 @@ public class TherapySessionsController implements Initializable {
     }
 
     public void setTimeToTimePicker() {
-        hourChoiceBox.getItems().addAll(
-                "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11",
-                "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"
+        sessionTimeTxt.getItems().addAll(
+                "09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM",
+                "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"
         );
-        hourChoiceBox.setValue("00");
-
-        minuteChoiceBox.getItems().addAll(
-                "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11",
-                "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23",
-                "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35",
-                "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47",
-                "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59"
-        );
-        minuteChoiceBox.setValue("00");
+        sessionTimeTxt.setValue("00:00 AM");
     }
 
 }

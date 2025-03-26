@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -54,6 +55,28 @@ public class NavigationUtil {
         } catch (IOException e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Fail to load page!").show();
+        }
+    }
+
+
+    public void navigatePopup(String fxmlPath, String title) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            AnchorPane popupPane = loader.load();
+
+            Stage popupStage = new Stage();
+            popupStage.setTitle(title);
+            popupStage.initModality(Modality.APPLICATION_MODAL);
+            popupStage.setResizable(false);
+
+            Scene scene = new Scene(popupPane);
+            popupStage.setScene(scene);
+
+            popupStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Failed to load popup!").show();
         }
     }
 
