@@ -1,19 +1,19 @@
 package com.assignment.ijse.serenitymentalhealth.dao.custom.impl;
 
 import com.assignment.ijse.serenitymentalhealth.config.FactoryConfiguration;
-import com.assignment.ijse.serenitymentalhealth.dao.custom.UserDAO;
-import com.assignment.ijse.serenitymentalhealth.entity.User;
+import com.assignment.ijse.serenitymentalhealth.dao.custom.TherapistDAO;
+import com.assignment.ijse.serenitymentalhealth.entity.Therapist;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 import java.util.Optional;
 
-public class UserDAOImpl implements UserDAO {
+public class TherapistDAOImpl implements TherapistDAO {
     private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
 
     @Override
-    public boolean save(User entity) {
+    public boolean save(Therapist entity) {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
         try {
@@ -31,32 +31,34 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean update(User entity) {
+    public boolean update(Therapist entity) {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.persist(entity);
+            session.merge(entity);
             transaction.commit();
             return true;
-        }catch (Exception e) {
+        } catch (Exception e) {
             transaction.rollback();
+            e.printStackTrace();
             return false;
-        }finally {
+        } finally {
             if (session != null) {
                 session.close();
             }
         }
     }
+
 
     @Override
     public boolean delete(String pk) {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            User user = session.find(User.class, pk);
-            // User user = session.get(User.class, pk);
-            if (user!= null) {
-                session.remove(user);
+            Therapist therapist = session.find(Therapist.class, pk);
+            // Therapist therapist = session.get(Therapist.class, pk);
+            if (therapist!= null) {
+                session.remove(therapist);
                 transaction.commit();
                 return true;
             }
@@ -72,73 +74,35 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<User> getAll() {
+    public List<Therapist> getAll() {
         Session session = factoryConfiguration.getSession();
-        List<User> users = session.createQuery("FROM users", User.class).list();
+        List<Therapist> therapists = session.createQuery("FROM Therapist", Therapist.class).list();
         session.close();
-        return users;
-
+        return therapists;
     }
 
     @Override
-    public Optional<User> findByName(String pk) {
+    public List<Therapist> findByName(String name) {
         Session session = factoryConfiguration.getSession();
-        User user = session.get(User.class, pk);
+        List<Therapist> therapists = session.createQuery("FROM Therapist th WHERE th.name LIKE :name", Therapist.class)
+                .setParameter("name", "%" + name + "%")
+                .list();
         session.close();
-//        if (user == null){
-//            return Optional.empty();
-//        }
-//        return Optional.of(user);
-        return Optional.ofNullable(user);
 
+        return therapists;
     }
+
 
     @Override
     public Optional<String> getLastPK() {
         Session session = factoryConfiguration.getSession();
-        String lastPk = session.createQuery("SELECT u.userId FROM users u ORDER BY u.userId DESC", String.class)
+        String lastPk = session.createQuery("SELECT th.therapistId FROM Therapist th ORDER BY th.therapistId DESC", String.class)
                 .setMaxResults(1)
                 .uniqueResult();
         session.close();
 
         return Optional.ofNullable(lastPk);
     }
-
-    @Override
-    public String validateUser(String username, String password) {
-        Session session = factoryConfiguration.getSession();
-        Object[] result = null;
-
-        try {
-            result = session.createQuery(
-                            "SELECT u.password, u.role FROM User u WHERE u.username = :username", Object[].class)
-                    .setParameter("username", username)
-                    .uniqueResult();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-
-        if (result == null) {
-            System.out.println("Debug: No user found with username: " + username);
-            return null;
-        }
-
-        String databasePassword = (String) result[0];
-        String role = (String) result[1];
-
-        if (databasePassword != null && databasePassword.equals(password)) {
-            System.out.println("Debug: Authentication successful for role: " + role);
-            return role;
-        } else {
-            System.out.println("Debug: Password does not match for user: " + username);
-            return null;
-        }
-    }
-
-
-
 
 
 }

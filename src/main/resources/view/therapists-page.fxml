@@ -95,7 +95,7 @@
             </Button>
          </children>
       </HBox>
-      <TableView fx:id="therapistsTable" layoutX="188.0" layoutY="445.0" prefHeight="262.0" prefWidth="971.0">
+      <TableView fx:id="therapistsTable" layoutX="188.0" layoutY="445.0" onMouseClicked="#tableClick" prefHeight="262.0" prefWidth="971.0">
          <columns>
             <TableColumn fx:id="therapistIdCol" prefWidth="75.0" text="Therapist ID" />
             <TableColumn fx:id="therapistNameCol" prefWidth="207.2000732421875" text="Therapist Name" />

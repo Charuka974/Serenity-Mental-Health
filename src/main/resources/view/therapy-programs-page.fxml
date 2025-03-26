@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -18,7 +19,7 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <VBox layoutX="125.0" layoutY="117.0" prefHeight="212.0" prefWidth="379.0" spacing="20.0">
+      <VBox layoutX="93.0" layoutY="117.0" prefHeight="212.0" prefWidth="441.0" spacing="20.0">
          <children>
             <HBox prefHeight="34.0" prefWidth="314.0">
                <children>
@@ -35,7 +36,7 @@
                      <font>
                         <Font size="18.0" />
                      </font></Label>
-                  <TextField fx:id="programNameTxt" prefHeight="26.0" prefWidth="204.0" />
+                  <TextField fx:id="programNameTxt" prefHeight="26.0" prefWidth="286.0" />
                </children>
             </HBox>
             <HBox prefHeight="34.0" prefWidth="314.0">
@@ -58,12 +59,13 @@
             </HBox>
          </children>
       </VBox>
-      <TableView fx:id="therapyProgramsTable" layoutX="189.0" layoutY="450.0" prefHeight="261.0" prefWidth="978.0">
+      <TableView fx:id="therapyProgramsTable" layoutX="50.0" layoutY="450.0" onMouseClicked="#tableClick" prefHeight="262.0" prefWidth="1217.0">
          <columns>
             <TableColumn fx:id="programIdCol" prefWidth="128.80001258850098" text="Program ID" />
-            <TableColumn fx:id="durationCol" prefWidth="295.9999694824219" text="Name" />
-            <TableColumn fx:id="patientEmailCol" prefWidth="343.199951171875" text="Duration" />
-            <TableColumn fx:id="programFeeCol" prefWidth="209.60009765625" text="Fee" />
+            <TableColumn fx:id="programNameCol" prefWidth="295.9999694824219" text="Name" />
+            <TableColumn fx:id="programDurationCol" prefWidth="216.79995727539062" text="Duration" />
+            <TableColumn fx:id="programFeeCol" prefWidth="220.800048828125" text="Fee" />
+            <TableColumn fx:id="programDescriptionCol" prefWidth="351.2000732421875" text="Description" />
          </columns>
       </TableView>
       <HBox alignment="CENTER" layoutX="880.0" layoutY="376.0" prefHeight="34.0" prefWidth="358.0" spacing="10.0">
@@ -94,7 +96,7 @@
             </Button>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="866.0" layoutY="105.0" prefHeight="64.0" prefWidth="338.0" spacing="20.0">
+      <HBox alignment="CENTER" layoutX="885.0" layoutY="282.0" prefHeight="64.0" prefWidth="338.0" spacing="20.0">
          <children>
             <TextField fx:id="searchTxt" prefHeight="26.0" prefWidth="186.0" />
             <Button fx:id="searchButton" focusTraversable="false" mnemonicParsing="false" onAction="#search" prefHeight="26.0" prefWidth="97.0" styleClass="process-button" stylesheets="@../cssStyles/process-button.css" text="Search">
@@ -105,6 +107,16 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
+         </children>
+      </HBox>
+      <HBox layoutX="768.0" layoutY="109.0" prefHeight="78.0" prefWidth="404.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="100.0" text="Description">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="descriptionTxt" prefHeight="78.0" prefWidth="307.0" />
          </children>
       </HBox>
    </children>
