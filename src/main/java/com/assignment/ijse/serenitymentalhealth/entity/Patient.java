@@ -9,7 +9,7 @@ import lombok.*;
 @Table(name = "patient")
 public class Patient implements SuperEntity{
     @Id
-    private String patientId;
+    private String patient_id;
 
     @Column(nullable = false)
     private String name;
@@ -24,5 +24,5 @@ public class Patient implements SuperEntity{
     private String address;
 
     @Lob
-    private String medicalHistory;
+    private String medical_history;
 }

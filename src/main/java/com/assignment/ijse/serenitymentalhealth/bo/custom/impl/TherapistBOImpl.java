@@ -16,7 +16,7 @@ public class TherapistBOImpl implements TherapistBO {
     @Override
     public boolean saveTherapist(TherapistDto dto) {
         Therapist therapist = new Therapist();
-        therapist.setTherapistId(dto.getTherapistId());
+        therapist.setTherapist_id(dto.getTherapistId());
         therapist.setName(dto.getName());
         therapist.setEmail(dto.getEmail());
         therapist.setPhone(dto.getPhone());
@@ -28,7 +28,7 @@ public class TherapistBOImpl implements TherapistBO {
     @Override
     public boolean updateTherapist(TherapistDto dto) {
         Therapist therapist = new Therapist();
-        therapist.setTherapistId(dto.getTherapistId());
+        therapist.setTherapist_id(dto.getTherapistId());
         therapist.setName(dto.getName());
         therapist.setEmail(dto.getEmail());
         therapist.setPhone(dto.getPhone());
@@ -49,7 +49,7 @@ public class TherapistBOImpl implements TherapistBO {
         ArrayList<TherapistDto> therapistDtos = new ArrayList<>();
         for (Therapist therapist : therapists) {
             TherapistDto therapistDto = new TherapistDto();
-            therapistDto.setTherapistId(therapist.getTherapistId());
+            therapistDto.setTherapistId(therapist.getTherapist_id());
             therapistDto.setName(therapist.getName());
             therapistDto.setEmail(therapist.getEmail());
             therapistDto.setPhone(therapist.getPhone());
@@ -66,7 +66,7 @@ public class TherapistBOImpl implements TherapistBO {
 
         for (Therapist therapist : therapists) {
             TherapistDto therapistDto = new TherapistDto();
-            therapistDto.setTherapistId(therapist.getTherapistId());
+            therapistDto.setTherapistId(therapist.getTherapist_id());
             therapistDto.setName(therapist.getName());
             therapistDto.setEmail(therapist.getEmail());
             therapistDto.setPhone(therapist.getPhone());

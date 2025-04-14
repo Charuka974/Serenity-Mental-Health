@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -91,7 +92,7 @@
             </HBox>
          </children>
       </VBox>
-      <HBox alignment="CENTER" layoutX="919.0" layoutY="330.0" prefHeight="64.0" prefWidth="338.0" spacing="20.0">
+      <HBox alignment="CENTER" layoutX="919.0" layoutY="349.0" prefHeight="45.0" prefWidth="338.0" spacing="20.0">
          <children>
             <TextField fx:id="searchTxt" prefHeight="26.0" prefWidth="186.0" />
             <Button fx:id="searchButton" focusTraversable="false" mnemonicParsing="false" onAction="#search" prefHeight="26.0" prefWidth="97.0" styleClass="process-button" stylesheets="@../cssStyles/process-button.css" text="Search">
@@ -132,13 +133,23 @@
             </Button>
          </children>
       </HBox>
-      <TableView fx:id="patientProgramTable" layoutX="311.0" layoutY="496.0" prefHeight="200.0" prefWidth="615.0">
+      <TableView fx:id="patientProgramTable" layoutX="109.0" layoutY="496.0" onMouseClicked="#tableClick" prefHeight="200.0" prefWidth="1073.0">
         <columns>
           <TableColumn fx:id="patientIdCol" prefWidth="149.86660766601562" text="Patient ID" />
+            <TableColumn fx:id="patientNameCol" prefWidth="225.5999755859375" text="Patient Name" />
           <TableColumn fx:id="programIdCol" prefWidth="145.60003662109375" text="Program ID" />
+            <TableColumn fx:id="programNameCol" prefWidth="232.0" text="Program Name" />
             <TableColumn fx:id="paymentIdCol" prefWidth="150.39996337890625" text="Payment ID" />
             <TableColumn fx:id="registerDateCol" prefWidth="167.46673583984375" text="Register Date" />
         </columns>
       </TableView>
+      <ToggleButton fx:id="searchToggleButton" layoutX="960.0" layoutY="313.0" mnemonicParsing="false" onAction="#searchToggle" prefHeight="26.0" prefWidth="132.0" text="Search by Patient">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ToggleButton>
    </children>
 </AnchorPane>

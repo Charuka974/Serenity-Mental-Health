@@ -78,9 +78,9 @@ public class PatientsController implements Initializable {
 
         patientIdCol.setCellValueFactory(new PropertyValueFactory<>("patientId"));
         patientNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        patientAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
-        patientPhoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         patientEmailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+        patientPhoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        patientAddressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         patientHistoryCol.setCellValueFactory(new PropertyValueFactory<>("medicalHistory"));
         try {
             refreshPage();
@@ -113,9 +113,9 @@ public class PatientsController implements Initializable {
                 PatientTM patient = new PatientTM(
                         patientDto.getPatientId(),
                         patientDto.getName(),
-                        patientDto.getAddress(),
-                        patientDto.getPhone(),
                         patientDto.getEmail(),
+                        patientDto.getPhone(),
+                        patientDto.getAddress(),
                         patientDto.getMedicalHistory()
                 );
                 patientTMS.add(patient);
@@ -190,9 +190,9 @@ public class PatientsController implements Initializable {
                 PatientTM patientTM = new PatientTM(
                         patientDto.getPatientId(),
                         patientDto.getName(),
-                        patientDto.getAddress(),
-                        patientDto.getPhone(),
                         patientDto.getEmail(),
+                        patientDto.getPhone(),
+                        patientDto.getAddress(),
                         patientDto.getMedicalHistory()
                 );
                 patientTMS.add(patientTM);

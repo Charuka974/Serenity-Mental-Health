@@ -85,8 +85,8 @@ public class TherapistsController implements Initializable {
 
         therapistIdCol.setCellValueFactory(new PropertyValueFactory<>("therapistId"));
         therapistNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        therapistPhoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         therapistEmailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+        therapistPhoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         therapistSpecsCol.setCellValueFactory(new PropertyValueFactory<>("specialization"));
 
         try {
@@ -118,8 +118,8 @@ public class TherapistsController implements Initializable {
                 TherapistTM therapist = new TherapistTM(
                         therapistDto.getTherapistId(),
                         therapistDto.getName(),
-                        therapistDto.getPhone(),
                         therapistDto.getEmail(),
+                        therapistDto.getPhone(),
                         therapistDto.getSpecialization()
                 );
                 therapistTMS.add(therapist);
@@ -190,8 +190,8 @@ public class TherapistsController implements Initializable {
                 TherapistTM therapistTM = new TherapistTM(
                         therapistDto.getTherapistId(),
                         therapistDto.getName(),
-                        therapistDto.getPhone(),
                         therapistDto.getEmail(),
+                        therapistDto.getPhone(),
                         therapistDto.getSpecialization()
                 );
                 therapistTMS.add(therapistTM);

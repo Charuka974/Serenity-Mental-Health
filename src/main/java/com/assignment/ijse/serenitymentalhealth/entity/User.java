@@ -10,7 +10,7 @@ import lombok.*;
 @Table(name = "users")
 public class User implements SuperEntity {
     @Id
-    private String userId;
+    private String user_id;
 
     @Column(unique = true, nullable = false)
     private String username;

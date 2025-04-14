@@ -2,6 +2,7 @@ package com.assignment.ijse.serenitymentalhealth.dao.custom.impl;
 
 import com.assignment.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.TherapyProgramDAO;
+import com.assignment.ijse.serenitymentalhealth.entity.Patient;
 import com.assignment.ijse.serenitymentalhealth.entity.TherapyProgram;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -92,11 +93,18 @@ public class TherapyProgramDAOImpl implements TherapyProgramDAO {
         return programs;
     }
 
+    @Override
+    public Optional<TherapyProgram> findById(String pk) {
+        Session session = factoryConfiguration.getSession();
+        TherapyProgram program = session.get(TherapyProgram.class, pk);
+        session.close();
+        return Optional.ofNullable(program);
+    }
 
     @Override
     public Optional<String> getLastPK() {
         Session session = factoryConfiguration.getSession();
-        String lastPk = session.createQuery("SELECT tp.programId FROM TherapyProgram tp ORDER BY tp.programId DESC", String.class)
+        String lastPk = session.createQuery("SELECT tp.program_id FROM TherapyProgram tp ORDER BY tp.program_id DESC", String.class)
                 .setMaxResults(1)
                 .uniqueResult();
         session.close();

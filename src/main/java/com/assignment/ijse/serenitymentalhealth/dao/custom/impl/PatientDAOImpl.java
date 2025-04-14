@@ -57,7 +57,6 @@ public class PatientDAOImpl implements PatientDAO {
         Transaction transaction = session.beginTransaction();
         try {
             Patient patient = session.find(Patient.class, pk);
-            // Patient patient = session.get(Patient.class, pk);
             if (patient!= null) {
                 session.remove(patient);
                 transaction.commit();
@@ -93,11 +92,19 @@ public class PatientDAOImpl implements PatientDAO {
         return patients;
     }
 
+    @Override
+    public Optional<Patient> findById(String pk) {
+        Session session = factoryConfiguration.getSession();
+        Patient patient = session.get(Patient.class, pk);
+        session.close();
+        return Optional.ofNullable(patient);
+    }
+
 
     @Override
     public Optional<String> getLastPK() {
         Session session = factoryConfiguration.getSession();
-        String lastPk = session.createQuery("SELECT p.patientId FROM Patient p ORDER BY p.patientId DESC", String.class)
+        String lastPk = session.createQuery("SELECT p.patient_id FROM Patient p ORDER BY p.patient_id DESC", String.class)
                 .setMaxResults(1)
                 .uniqueResult();
         session.close();

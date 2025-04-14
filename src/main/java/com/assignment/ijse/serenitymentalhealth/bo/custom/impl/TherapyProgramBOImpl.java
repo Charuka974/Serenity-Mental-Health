@@ -16,7 +16,7 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
     @Override
     public boolean saveTherapyProgram(TherapyProgramDto dto) {
         TherapyProgram therapyProgram = new TherapyProgram();
-        therapyProgram.setProgramId(dto.getProgramId());
+        therapyProgram.setProgram_id(dto.getProgramId());
         therapyProgram.setName(dto.getName());
         therapyProgram.setDuration(dto.getDuration());
         therapyProgram.setFee(dto.getFee());
@@ -28,7 +28,7 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
     @Override
     public boolean updateTherapyProgram(TherapyProgramDto dto) {
         TherapyProgram therapyProgram = new TherapyProgram();
-        therapyProgram.setProgramId(dto.getProgramId());
+        therapyProgram.setProgram_id(dto.getProgramId());
         therapyProgram.setName(dto.getName());
         therapyProgram.setDuration(dto.getDuration());
         therapyProgram.setFee(dto.getFee());
@@ -49,7 +49,7 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
 
         for (TherapyProgram program : programs) {
             TherapyProgramDto dto = new TherapyProgramDto();
-            dto.setProgramId(program.getProgramId());
+            dto.setProgramId(program.getProgram_id());
             dto.setName(program.getName());
             dto.setDuration(program.getDuration());
             dto.setFee(program.getFee());
@@ -66,7 +66,7 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
 
         for (TherapyProgram program : programs) {
             dtos.add(new TherapyProgramDto(
-                    program.getProgramId(),
+                    program.getProgram_id(),
                     program.getName(),
                     program.getDuration(),
                     program.getFee(),

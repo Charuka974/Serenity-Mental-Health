@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Table(name = "payment")
 public class Payment implements SuperEntity{
     @Id
-    private String paymentId;
+    private String payment_id;
 
     @ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)
@@ -19,15 +19,15 @@ public class Payment implements SuperEntity{
 
     @ManyToOne
     @JoinColumn(name = "program_id", nullable = false)
-    private TherapyProgram therapyProgram;
+    private TherapyProgram therapy_program;
 
     @ManyToOne
     @JoinColumn(name = "session_id")
-    private TherapySession therapySession;  // Nullable for upfront payments
+    private TherapySession therapy_session;  // Nullable for upfront payments
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
 
     @Column(nullable = false)
-    private LocalDate paymentDate;
+    private LocalDate payment_date;
 }

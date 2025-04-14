@@ -17,12 +17,12 @@ public class PatientBOImpl implements PatientBO {
     @Override
     public boolean savePatient(PatientDto dto) {
         Patient patient = new Patient();
-        patient.setPatientId(dto.getPatientId());
+        patient.setPatient_id(dto.getPatientId());
         patient.setName(dto.getName());
         patient.setEmail(dto.getEmail());
         patient.setPhone(dto.getPhone());
         patient.setAddress(dto.getAddress());
-        patient.setMedicalHistory(dto.getMedicalHistory());
+        patient.setMedical_history(dto.getMedicalHistory());
 
         return patientDAO.save(patient);
     }
@@ -30,12 +30,12 @@ public class PatientBOImpl implements PatientBO {
     @Override
     public boolean updatePatient(PatientDto dto) {
         Patient patient = new Patient();
-        patient.setPatientId(dto.getPatientId());
+        patient.setPatient_id(dto.getPatientId());
         patient.setName(dto.getName());
         patient.setEmail(dto.getEmail());
         patient.setPhone(dto.getPhone());
         patient.setAddress(dto.getAddress());
-        patient.setMedicalHistory(dto.getMedicalHistory());
+        patient.setMedical_history(dto.getMedicalHistory());
 
         return patientDAO.update(patient);
     }
@@ -53,12 +53,12 @@ public class PatientBOImpl implements PatientBO {
         ArrayList<PatientDto> patientDtos = new ArrayList<>();
         for (Patient patient : patients) {
             PatientDto patientDto = new PatientDto();
-            patientDto.setPatientId(patient.getPatientId());
+            patientDto.setPatientId(patient.getPatient_id());
             patientDto.setName(patient.getName());
             patientDto.setEmail(patient.getEmail());
             patientDto.setPhone(patient.getPhone());
             patientDto.setAddress(patient.getAddress());
-            patientDto.setMedicalHistory(patient.getMedicalHistory());
+            patientDto.setMedicalHistory(patient.getMedical_history());
             patientDtos.add(patientDto);
         }
         return patientDtos;
@@ -73,12 +73,12 @@ public class PatientBOImpl implements PatientBO {
 
         for (Patient patient : patients) {
             PatientDto patientDto = new PatientDto();
-            patientDto.setPatientId(patient.getPatientId());
+            patientDto.setPatientId(patient.getPatient_id());
             patientDto.setName(patient.getName());
             patientDto.setEmail(patient.getEmail());
             patientDto.setPhone(patient.getPhone());
             patientDto.setAddress(patient.getAddress());
-            patientDto.setMedicalHistory(patient.getMedicalHistory());
+            patientDto.setMedicalHistory(patient.getMedical_history());
             patientDtos.add(patientDto);
         }
 

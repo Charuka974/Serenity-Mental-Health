@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Table(name = "therapy_program")
 public class TherapyProgram implements SuperEntity {
     @Id
-    private String programId;
+    private String program_id;
 
     @Column(nullable = false)
     private String name;

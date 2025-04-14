@@ -19,12 +19,12 @@ public class PatientProgram implements SuperEntity{
 
     @ManyToOne
     @JoinColumn(name = "program_id", nullable = false)
-    private TherapyProgram therapyProgram;
+    private TherapyProgram therapy_program;
 
     @Column(nullable = false)
-    private LocalDate registrationDate;
+    private LocalDate registration_date;
 
     @ManyToOne
-    @JoinColumn(name = "payment_id", nullable = false)
+    @JoinColumn(name = "payment_id") // Nullable for future developments
     private Payment payment;
 }

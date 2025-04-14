@@ -1,5 +1,6 @@
 package com.assignment.ijse.serenitymentalhealth.controller;
 
+import com.assignment.ijse.serenitymentalhealth.dto.tm.TherapistAvailabilityTM;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +12,8 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class TherapistAvailabilityController implements Initializable {
@@ -19,19 +22,19 @@ public class TherapistAvailabilityController implements Initializable {
     private TextField availabilityIdTxt;
 
     @FXML
-    private TreeTableColumn<?, ?> availableDateCol;
+    private TreeTableColumn<TherapistAvailabilityTM, LocalDate> availableDateCol;
 
     @FXML
     private DatePicker availableDateTxt;
 
     @FXML
-    private TreeTableColumn<?, ?> availableIdCol;
+    private TreeTableColumn<TherapistAvailabilityTM, String> availableIdCol;
 
     @FXML
-    private TreeTableColumn<?, ?> availableStatusCol;
+    private TreeTableColumn<TherapistAvailabilityTM, String> availableStatusCol;
 
     @FXML
-    private TreeTableColumn<?, ?> availableTimeCol;
+    private TreeTableColumn<TherapistAvailabilityTM, LocalTime> availableTimeCol;
 
     @FXML
     private ChoiceBox<String> availableTimeTxt;
@@ -49,13 +52,13 @@ public class TherapistAvailabilityController implements Initializable {
     private TextField searchTxt;
 
     @FXML
-    private ChoiceBox<?> statusTxt;
+    private ChoiceBox<String> statusTxt;
 
     @FXML
-    private TreeTableView<?> therapistAvailabilityTable;
+    private TreeTableView<TherapistAvailabilityTM> therapistAvailabilityTable;
 
     @FXML
-    private TreeTableColumn<?, ?> therapistIdCol;
+    private TreeTableColumn<TherapistAvailabilityTM, String> therapistIdCol;
 
     @FXML
     private TextField therapistIdTxt;
@@ -70,6 +73,10 @@ public class TherapistAvailabilityController implements Initializable {
     private Button updateButton;
 
     public void initialize(URL location, ResourceBundle resources){
+        statusTxt.getItems().addAll(
+                "Available", "Not Available"
+        );
+        statusTxt.setValue("Available");
         setTimeToTimePicker();
     }
 

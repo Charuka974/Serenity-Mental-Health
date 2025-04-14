@@ -18,5 +18,5 @@ public class TherapistProgram implements SuperEntity {
 
     @ManyToOne
     @JoinColumn(name = "program_id", nullable = false)
-    private TherapyProgram therapyProgram;
+    private TherapyProgram therapy_program;
 }

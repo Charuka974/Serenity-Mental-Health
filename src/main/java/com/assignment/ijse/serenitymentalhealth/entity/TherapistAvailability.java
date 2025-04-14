@@ -11,15 +11,18 @@ import java.time.LocalTime;
 @Table(name = "therapist_availability")
 public class TherapistAvailability implements SuperEntity {
     @Id
-    private String availabilityId;
+    private String availability_id;
 
     @ManyToOne
     @JoinColumn(name = "therapist_id", nullable = false)
     private Therapist therapist;
 
     @Column(nullable = false)
-    private LocalDate availableDate;
+    private LocalDate available_date;
 
     @Column(nullable = false)
-    private LocalTime availableTime;
+    private LocalTime available_time;
+
+    @Column
+    private boolean is_available;
 }

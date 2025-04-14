@@ -96,7 +96,7 @@ public class TherapistDAOImpl implements TherapistDAO {
     @Override
     public Optional<String> getLastPK() {
         Session session = factoryConfiguration.getSession();
-        String lastPk = session.createQuery("SELECT th.therapistId FROM Therapist th ORDER BY th.therapistId DESC", String.class)
+        String lastPk = session.createQuery("SELECT th.therapist_id FROM Therapist th ORDER BY th.therapist_id DESC", String.class)
                 .setMaxResults(1)
                 .uniqueResult();
         session.close();

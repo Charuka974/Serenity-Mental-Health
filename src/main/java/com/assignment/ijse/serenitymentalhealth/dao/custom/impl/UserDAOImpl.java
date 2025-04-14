@@ -74,7 +74,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public List<User> getAll() {
         Session session = factoryConfiguration.getSession();
-        List<User> users = session.createQuery("FROM users", User.class).list();
+        List<User> users = session.createQuery("FROM User", User.class).list();
         session.close();
         return users;
 
@@ -96,7 +96,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public Optional<String> getLastPK() {
         Session session = factoryConfiguration.getSession();
-        String lastPk = session.createQuery("SELECT u.userId FROM users u ORDER BY u.userId DESC", String.class)
+        String lastPk = session.createQuery("SELECT u.user_id FROM User u ORDER BY u.user_id DESC", String.class)
                 .setMaxResults(1)
                 .uniqueResult();
         session.close();

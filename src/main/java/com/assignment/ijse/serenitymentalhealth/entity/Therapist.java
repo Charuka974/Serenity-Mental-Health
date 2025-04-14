@@ -9,7 +9,7 @@ import lombok.*;
 @Table(name = "therapist")
 public class Therapist implements SuperEntity {
     @Id
-    private String therapistId;
+    private String therapist_id;
 
     @Column(nullable = false)
     private String name;
