@@ -7,9 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -58,7 +57,25 @@ public class HomeController implements Initializable{
     NavigationUtil navigate = new NavigationUtil();
 
     public void initialize(URL location, ResourceBundle resources){
+        setBackgroundImage();
         navigate.navigateTo(bodyPane, "/view/welcome-page.fxml");
+    }
+
+    public void setBackgroundImage(){
+        Image backgroundImage = new Image(
+                getClass().getResource("/images/rm222batch2-mind-03.jpg").toExternalForm()
+        );
+        BackgroundSize backgroundSize = new BackgroundSize(
+                1535, 795, true, true, false, true
+        );
+        BackgroundImage bgImage = new BackgroundImage(
+                backgroundImage,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                backgroundSize
+        );
+        homeAnchorPane.setBackground(new Background(bgImage));
     }
 
     @FXML
@@ -109,7 +126,7 @@ public class HomeController implements Initializable{
 
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.YES) {
-                navigate.navigateBack(homeAnchorPane, "/view/login-page.fxml");
+                navigate.navigateBack(homeAnchorPane, "/view/login-signup-page.fxml");
             }
         });
     }

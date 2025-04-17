@@ -5,23 +5,19 @@ import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.UserBOImpl;
 import com.assignment.ijse.serenitymentalhealth.dto.UserDto;
 import com.assignment.ijse.serenitymentalhealth.util.NavigationUtil;
 import com.jfoenix.controls.JFXPasswordField;
-import javafx.animation.ParallelTransition;
-import javafx.animation.TranslateTransition;
-import javafx.scene.control.Button;
 import com.jfoenix.controls.JFXTextField;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
-import java.io.IOException;
-
-public class LoginController {
+public class LoginSignUpController {
 
     @FXML
     private AnchorPane baseAnchorPane;
@@ -39,16 +35,10 @@ public class LoginController {
     private JFXPasswordField loginPasswordText;
 
     @FXML
-    private Pane loginTogglePane;
-
-    @FXML
     private JFXTextField loginUsernameText;
 
     @FXML
     private ImageView logoImage;
-
-    @FXML
-    private Pane mainContainer;
 
     @FXML
     private VBox signInBox;
@@ -67,9 +57,6 @@ public class LoginController {
 
     @FXML
     private JFXPasswordField signInPasswordText;
-
-    @FXML
-    private Pane signInTogglePane;
 
     @FXML
     private JFXTextField signInUserIDText;
@@ -110,27 +97,36 @@ public class LoginController {
 
     @FXML
     void signIn(ActionEvent event) {
-        String userID = signInUserIDText.getText();
-        String username = signInUsernameText.getText();
-        String email = signInEmailText.getText();
-        String password = signInPasswordText.getText();
-        String jobRole = signInJobRoleText.getText();
-        String passwordConfirm = signInPasswordConfirmText.getText();
+        String userID = signInUserIDText.getText().trim();
+        String username = signInUsernameText.getText().trim();
+        String email = signInEmailText.getText().trim();
+        String password = signInPasswordText.getText().trim();
+        String jobRole = signInJobRoleText.getText().trim();
+        String passwordConfirm = signInPasswordConfirmText.getText().trim();
+
+        if (userID.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty() || jobRole.isEmpty() || passwordConfirm.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Please fill in all the fields.");
+            alert.showAndWait();
+            return;
+        }
         if (!password.equals(passwordConfirm)) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Passwords do not match.");
             alert.showAndWait();
             return;
         }
-        if (userBO.registerUser(new UserDto(userID, username, password, jobRole, email))){
+        if (userBO.registerUser(new UserDto(userID, username, password, jobRole, email))) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Sign Up Complete.");
+            alert.showAndWait();
+
+            // Clear fields after successful sign up
             signInUserIDText.clear();
             signInUsernameText.clear();
             signInEmailText.clear();
             signInPasswordText.clear();
             signInJobRoleText.clear();
             signInPasswordConfirmText.clear();
-            alert.showAndWait();
         }
+
 
     }
 
@@ -184,7 +180,6 @@ public class LoginController {
             alert.showAndWait();
         }
     }
-
 
 
 }

@@ -26,7 +26,7 @@
       <Pane fx:id="mainContainer" layoutX="260.0" layoutY="147.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-radius: 20; -fx-border-radius: 20;">
          <children>
             <!-- Login Pane (default visible) -->
-            <Pane fx:id="loginTogglePane" layoutX="500.0" layoutY="1.0" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #ffffff;">
+            <Pane fx:id="loginTogglePane" layoutX="500.0" layoutY="1.0" prefHeight="600.0" prefWidth="500.0">
                <children>
                   <VBox fx:id="loginBox" alignment="CENTER" layoutX="96.0" layoutY="120.0" prefHeight="288.0" prefWidth="320.0" spacing="20.0">
                      <children>
@@ -58,7 +58,7 @@
             </Pane>
 
             <!-- Sign In Pane (hidden initially) -->
-            <Pane fx:id="signInTogglePane" layoutY="1.0" prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #ffffff;">
+            <Pane fx:id="signInTogglePane" layoutY="1.0" prefHeight="600.0" prefWidth="500.0">
                <children>
                   <VBox fx:id="signInBox" alignment="CENTER" layoutX="90.0" layoutY="60.0" prefHeight="476.0" prefWidth="320.0" spacing="20.0">
                      <children>

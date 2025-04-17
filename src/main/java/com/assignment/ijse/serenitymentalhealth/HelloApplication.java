@@ -15,7 +15,7 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/view/login-page.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/view/login-signup-page.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.getIcons().add(new Image(HelloApplication.class.getResourceAsStream("/images/Leonardo_Phoenix_09_A_modern_and_elegant_logo_for_Serenity_Men_0.jpg")));
         stage.setTitle("SMHTC");
