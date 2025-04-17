@@ -78,6 +78,24 @@ public class TherapistBOImpl implements TherapistBO {
     }
 
     @Override
+    public TherapistDto findByTherapistId(String id) {
+        Optional<Therapist> therapistOpt = therapistDAO.findById(id);
+        if (therapistOpt.isEmpty()) {
+            return null;
+        }
+        Therapist therapist = therapistOpt.get();
+
+        TherapistDto therapistDto = new TherapistDto();
+        therapistDto.setTherapistId(therapist.getTherapist_id());
+        therapistDto.setName(therapist.getName());
+        therapistDto.setEmail(therapist.getEmail());
+        therapistDto.setPhone(therapist.getPhone());
+        therapistDto.setSpecialization(therapist.getSpecialization());
+
+        return therapistDto;
+    }
+
+    @Override
     public String getNextTherapistPK() {
         Optional<String> lastPkOpt = therapistDAO.getLastPK();
 

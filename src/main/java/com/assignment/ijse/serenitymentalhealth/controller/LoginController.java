@@ -88,7 +88,7 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-
+        signInUserIDText.setText( userBO.generateNextUserId());
     }
 
     @FXML

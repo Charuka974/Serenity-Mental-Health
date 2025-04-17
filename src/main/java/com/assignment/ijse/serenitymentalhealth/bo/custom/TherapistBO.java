@@ -14,5 +14,6 @@ public interface TherapistBO  extends SuperBO {
     public boolean deleteTherapist(String pk);
     public ArrayList<TherapistDto> getAllTherapists();
     public ArrayList<TherapistDto> findByTherapistName(String name);
+    public TherapistDto findByTherapistId(String id);
     public String getNextTherapistPK();
 }

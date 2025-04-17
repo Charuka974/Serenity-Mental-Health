@@ -4,6 +4,7 @@ package com.assignment.ijse.serenitymentalhealth.dao.custom;
 import com.assignment.ijse.serenitymentalhealth.dao.CrudDAO;
 import com.assignment.ijse.serenitymentalhealth.dao.SuperDAO;
 import com.assignment.ijse.serenitymentalhealth.entity.Therapist;
+import org.hibernate.Session;
 
 
 import java.util.List;
@@ -17,5 +18,6 @@ public interface TherapistDAO{
     public List<Therapist> getAll();
     public List<Therapist> findByName(String name);
     public Optional<String> getLastPK();
+    public Optional<Therapist> findById(String id);
 
 }

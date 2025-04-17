@@ -19,10 +19,10 @@ public class User implements SuperEntity {
     private String password;
 
     @Column(nullable = false)
-    private String role; // "Admin" or "Receptionist"
+    private String email;
 
     @Column(nullable = false)
-    private String email;
+    private String role; // "Admin" or "Receptionist"
 
 //    public void setPassword(String password) {
 //        this.password = new BCryptPasswordEncoder().encode(password);

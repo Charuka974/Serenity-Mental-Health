@@ -92,6 +92,19 @@ public class TherapistDAOImpl implements TherapistDAO {
         return therapists;
     }
 
+    @Override
+    public Optional<Therapist> findById(String id) {
+        Session session = factoryConfiguration.getSession();
+        Therapist therapist = null;
+        try {
+            therapist = session.get(Therapist.class, id);
+        } finally {
+            session.close();
+        }
+        return Optional.ofNullable(therapist);
+    }
+
+
 
     @Override
     public Optional<String> getLastPK() {

@@ -23,6 +23,16 @@
          <children>
             <HBox prefHeight="34.0" prefWidth="314.0">
                <children>
+                  <Label prefHeight="18.0" prefWidth="100.0" text="User ID">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="userIdTxt" prefHeight="26.0" prefWidth="204.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="34.0" prefWidth="314.0">
+               <children>
                   <Label prefHeight="18.0" prefWidth="100.0" text="Username">
                      <font>
                         <Font size="18.0" />
@@ -60,12 +70,13 @@
             </HBox>
          </children>
       </VBox>
-      <TableView fx:id="usersTable" layoutX="254.0" layoutY="452.0" prefHeight="235.0" prefWidth="827.0">
+      <TableView fx:id="usersTable" layoutX="206.0" layoutY="462.0" onMouseClicked="#tableClick" prefHeight="235.0" prefWidth="876.0">
          <columns>
+            <TableColumn fx:id="userIdCol" prefWidth="124.800048828125" text="User ID" />
             <TableColumn fx:id="usernameCol" prefWidth="162.40005493164062" text="Username" />
             <TableColumn fx:id="passwordCol" prefWidth="224.0" text="Password" />
             <TableColumn fx:id="userEmailCol" prefWidth="180.0" text="Email" />
-            <TableColumn fx:id="userRoleCol" prefWidth="255.2000732421875" text="User" />
+            <TableColumn fx:id="userRoleCol" prefWidth="181.60003662109375" text="Job Role" />
          </columns>
       </TableView>
       <HBox alignment="CENTER" layoutX="829.0" layoutY="378.0" prefHeight="34.0" prefWidth="358.0" spacing="10.0">

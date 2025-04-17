@@ -1,8 +1,15 @@
 package com.assignment.ijse.serenitymentalhealth.controller;
 
 import com.assignment.ijse.serenitymentalhealth.bo.custom.TherapistBO;
+import com.assignment.ijse.serenitymentalhealth.bo.custom.TherapistProgramBO;
+import com.assignment.ijse.serenitymentalhealth.bo.custom.TherapyProgramBO;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.TherapistBOImpl;
+import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.TherapistProgramBOImpl;
+import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.TherapyProgramBOImpl;
 import com.assignment.ijse.serenitymentalhealth.dto.TherapistDto;
+import com.assignment.ijse.serenitymentalhealth.dto.TherapistProgramDto;
+import com.assignment.ijse.serenitymentalhealth.dto.TherapyProgramDto;
+import com.assignment.ijse.serenitymentalhealth.dto.tm.TherapistProgramTM;
 import com.assignment.ijse.serenitymentalhealth.dto.tm.TherapistTM;
 import com.assignment.ijse.serenitymentalhealth.util.NavigationUtil;
 import javafx.collections.FXCollections;
@@ -12,10 +19,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class TherapistsController implements Initializable {
@@ -89,12 +98,15 @@ public class TherapistsController implements Initializable {
         therapistPhoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         therapistSpecsCol.setCellValueFactory(new PropertyValueFactory<>("specialization"));
 
+        loadTPTable();
+
         try {
             refreshPage();
         } catch (Exception e) {
             throw e;
         }
     }
+
 
     public void refreshPage() {
         therapistIdTxt.clear();
@@ -139,6 +151,7 @@ public class TherapistsController implements Initializable {
             therapistEmailTxt.setText(selectedTherapist.getEmail());
             therapistPhoneTxt.setText(selectedTherapist.getPhone());
             therapistSpecsTxt.setText(selectedTherapist.getSpecialization());
+            loadTPTableData();
         }
     }
 
@@ -230,5 +243,169 @@ public class TherapistsController implements Initializable {
         alert.showAndWait();
     }
 
+
+    // ---------------------------------------------------------------------------------
+
+    @FXML
+    private Button deleteButtonTP;
+
+    @FXML
+    private Button getProgramIDButton;
+
+    @FXML
+    private TableColumn<TherapistProgramTM, String> programIdCol;
+
+    @FXML
+    private TextField programIdTxt;
+
+    @FXML
+    private TableColumn<TherapistProgramTM, String> programNameCol;
+
+    @FXML
+    private TextField programNameTxt;
+
+
+    @FXML
+    private Button saveButtonTP;
+
+    @FXML
+    private Button searchButtonTP;
+
+    @FXML
+    private TextField searchTxtTP;
+
+    @FXML
+    private TableView<TherapistProgramTM> therapistProgramTable;
+
+    @FXML
+    private Button updateButtonTP;
+
+    TherapistProgramBO therapistProgramBO = new TherapistProgramBOImpl();
+    TherapyProgramBO therapyProgramBO = new TherapyProgramBOImpl();
+
+    private void loadTPTable() {
+        programIdCol.setCellValueFactory(new PropertyValueFactory<>("therapyProgramId"));
+        programNameCol.setCellValueFactory(new PropertyValueFactory<>("therapyProgramName"));
+    }
+
+
+    @FXML
+    void deleteTP(ActionEvent event) {
+        String therapistId = therapistIdTxt.getText();
+        String programId = programIdTxt.getText();
+
+        boolean isDeleted = therapistProgramBO.deleteTherapistProgram(therapistId, programId);
+
+        if (isDeleted) {
+            showAlert("Success", "Therapist Program deleted successfully.");
+            loadTPTableData();
+        } else {
+            showAlert("Error", "Failed to delete Therapist Program.");
+        }
+    }
+
+    @FXML
+    void getIdTP(ActionEvent event) {
+        List<TherapyProgramDto> selected = therapyProgramBO.findTherapyProgramByName(programNameTxt.getText());
+
+        if (selected != null && !selected.isEmpty()) {
+            TherapyProgramDto firstMatch = selected.get(0);
+            programIdTxt.setText(firstMatch.getProgramId());
+            programNameTxt.setText(firstMatch.getName());
+        } else {
+            showAlert("Not Found", "No therapy program found with that name.");
+        }
+    }
+
+
+    @FXML
+    void saveTP(ActionEvent event) {
+        String therapistId = therapistIdTxt.getText();
+        String programId = programIdTxt.getText();
+
+        boolean isSaved = therapistProgramBO.saveTherapistProgram(therapistId, programId);
+
+        if (isSaved) {
+            showAlert("Success", "Therapist Program saved successfully.");
+            loadTPTableData();
+        } else {
+            showAlert("Error", "Failed to save Therapist Program.");
+        }
+    }
+
+    @FXML
+    void searchTP(ActionEvent event) {
+        String name = searchTxtTP.getText();
+
+        List<TherapistProgramDto> results = therapistProgramBO.findByProgramName(name);
+        updateTPTableView(results);
+    }
+
+    @FXML
+    void tableClickTP(MouseEvent event) {
+        TherapistProgramTM selected = therapistProgramTable.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            programIdTxt.setText(selected.getTherapyProgramId());
+            programNameTxt.setText(selected.getTherapyProgramName());
+        }
+    }
+
+    @FXML
+    void updateTP(ActionEvent event) {
+        String therapistId = programIdTxt.getText();
+        String programId = programNameTxt.getText();
+
+        boolean isUpdated = therapistProgramBO.updateTherapistProgram(therapistId, programId);
+
+        if (isUpdated) {
+            showAlert("Success", "Therapist Program updated successfully.");
+            loadTPTableData();
+        } else {
+            showAlert("Error", "Failed to update Therapist Program.");
+        }
+    }
+
+    private void loadTPTableData() {
+        List<TherapistProgramDto> programs = therapistProgramBO.getTherapistProgramsByTherapist(therapistIdTxt.getText());
+        updateTPTableView(programs);
+        programIdTxt.setText("");
+        programNameTxt.setText("");
+    }
+
+    private void updateTPTableView(List<TherapistProgramDto> programs) {
+        ObservableList<TherapistProgramTM> tableData = FXCollections.observableArrayList();
+
+        for (TherapistProgramDto program : programs) {
+            tableData.add(new TherapistProgramTM(program.getTherapyProgramId(), program.getTherapyProgramName()));
+        }
+
+        therapistProgramTable.setItems(tableData);
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    @FXML
+    void switchSearchButtonFunction(KeyEvent event) {
+        if (searchTxt.getText().isEmpty()) {
+            searchButton.setText("Clear");
+        } else {
+            searchButton.setText("Search");
+        }
+    }
+
+    @FXML
+    void switchSearchButtonFunctionTP(KeyEvent event) {
+        if (searchTxtTP.getText().isEmpty()) {
+            searchButtonTP.setText("Clear");
+        } else {
+            searchButtonTP.setText("Search");
+        }
+    }
 
 }

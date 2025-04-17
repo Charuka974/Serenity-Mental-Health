@@ -2,7 +2,6 @@ package com.assignment.ijse.serenitymentalhealth.dao.custom.impl;
 
 import com.assignment.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.TherapyProgramDAO;
-import com.assignment.ijse.serenitymentalhealth.entity.Patient;
 import com.assignment.ijse.serenitymentalhealth.entity.TherapyProgram;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

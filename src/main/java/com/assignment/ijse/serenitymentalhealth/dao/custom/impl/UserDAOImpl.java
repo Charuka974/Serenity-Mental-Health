@@ -35,13 +35,13 @@ public class UserDAOImpl implements UserDAO {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.persist(entity);
+            session.merge(entity);
             transaction.commit();
             return true;
-        }catch (Exception e) {
+        } catch (Exception e) {
             transaction.rollback();
             return false;
-        }finally {
+        } finally {
             if (session != null) {
                 session.close();
             }
@@ -54,7 +54,6 @@ public class UserDAOImpl implements UserDAO {
         Transaction transaction = session.beginTransaction();
         try {
             User user = session.find(User.class, pk);
-            // User user = session.get(User.class, pk);
             if (user!= null) {
                 session.remove(user);
                 transaction.commit();
@@ -81,17 +80,34 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public Optional<User> findByName(String pk) {
+    public User findByID(String pk) {
         Session session = factoryConfiguration.getSession();
-        User user = session.get(User.class, pk);
-        session.close();
-//        if (user == null){
-//            return Optional.empty();
-//        }
-//        return Optional.of(user);
-        return Optional.ofNullable(user);
-
+        try {
+            return session.get(User.class, pk);
+        } finally {
+            session.close();
+        }
     }
+
+
+    @Override
+    public Optional<User> findByName(String username) {
+        Session session = factoryConfiguration.getSession();
+        List<User> users = null;
+
+        try {
+            users = session.createQuery("FROM User WHERE username = :username", User.class)
+                    .setParameter("username", username)
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return users.isEmpty() ? Optional.empty() : Optional.of(users.get(0));
+    }
+
 
     @Override
     public Optional<String> getLastPK() {
@@ -138,6 +154,44 @@ public class UserDAOImpl implements UserDAO {
     }
 
 
+    /*
+    * private static final Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
+
+@Override
+public String validateUser(String username, String password) {
+    Session session = factoryConfiguration.getSession();
+    Object[] result = null;
+
+    try {
+        result = session.createQuery(
+                        "SELECT u.password, u.role FROM User u WHERE u.username = :username", Object[].class)
+                .setParameter("username", username)
+                .uniqueResult();
+    } catch (Exception e) {
+        logger.error("Error validating user", e); // Use logger instead of e.printStackTrace()
+    } finally {
+        session.close();
+    }
+
+    if (result == null) {
+        logger.debug("No user found with username: {}", username);
+        return null;
+    }
+
+    String databasePassword = (String) result[0];
+    String role = (String) result[1];
+
+    if (databasePassword != null && databasePassword.equals(password)) {
+        logger.debug("Authentication successful for role: {}", role);
+        return role;
+    } else {
+        logger.debug("Password does not match for user: {}", username);
+        return null;
+    }
+}
+
+    *
+    * */
 
 
 
