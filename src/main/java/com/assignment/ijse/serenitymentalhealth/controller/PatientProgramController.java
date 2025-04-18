@@ -6,6 +6,7 @@ import com.assignment.ijse.serenitymentalhealth.dto.PatientDto;
 import com.assignment.ijse.serenitymentalhealth.dto.PatientProgramDto;
 import com.assignment.ijse.serenitymentalhealth.dto.TherapyProgramDto;
 import com.assignment.ijse.serenitymentalhealth.dto.tm.PatientProgramTM;
+import com.assignment.ijse.serenitymentalhealth.util.SetBackgroundUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -85,10 +87,18 @@ public class PatientProgramController implements Initializable {
     @FXML
     private Button updateButton;
 
+    @FXML
+    private AnchorPane bodyPane;
+
     private final PatientProgramBO programBO = new PatientProgramBOImpl();
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        SetBackgroundUtil setBackground = new SetBackgroundUtil();
+        setBackground.setBackgroundImage(bodyPane, 1300, 760);
+
         patientIdCol.setCellValueFactory(new PropertyValueFactory<>("patientId"));
         patientNameCol.setCellValueFactory(new PropertyValueFactory<>("patientName"));
         programIdCol.setCellValueFactory(new PropertyValueFactory<>("programId"));

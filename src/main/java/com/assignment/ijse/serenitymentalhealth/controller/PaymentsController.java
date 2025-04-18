@@ -1,15 +1,23 @@
 package com.assignment.ijse.serenitymentalhealth.controller;
 
+import com.assignment.ijse.serenitymentalhealth.util.SetBackgroundUtil;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
-public class PaymentsController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class PaymentsController implements Initializable {
 
     @FXML
     private TextField amountTxt;
@@ -64,6 +72,15 @@ public class PaymentsController {
 
     @FXML
     private Button updateButton;
+
+    @FXML
+    private AnchorPane bodyPane;
+
+    public void initialize(URL location, ResourceBundle resources) {
+        SetBackgroundUtil setBackground = new SetBackgroundUtil();
+        setBackground.setBackgroundImage(bodyPane, 1300, 760);
+
+    }
 
     @FXML
     void delete(ActionEvent event) {

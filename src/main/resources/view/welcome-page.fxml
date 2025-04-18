@@ -1,30 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="760.0" prefWidth="1300.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.ijse.serenitymentalhealth.controller.WelcomeController">
+<AnchorPane fx:id="bodyPane" prefHeight="760.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.ijse.serenitymentalhealth.controller.WelcomeController">
    <children>
-      <ImageView fitHeight="372.0" fitWidth="363.0" layoutX="506.0" layoutY="181.0">
+      <ImageView fitHeight="372.0" fitWidth="363.0" layoutX="495.0" layoutY="181.0">
          <image>
             <Image url="@../images/3508x3508-px-anatomy-brain-d-wallpaper-preview.jpg" />
-         </image>
-         <effect>
-            <Reflection />
-         </effect>
-      </ImageView>
-      <ImageView fitHeight="373.0" fitWidth="365.0" layoutX="934.0" layoutY="386.0">
-         <image>
-            <Image url="@../images/pxfuel.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="373.0" fitWidth="365.0" layoutX="-1.0" rotate="180.0">
-         <image>
-            <Image url="@../images/pxfuel.jpg" />
          </image>
       </ImageView>
       <Label alignment="CENTER" layoutX="210.0" layoutY="14.0" prefHeight="58.0" prefWidth="922.0" text="Welcome to Serenity Mental Health Center">

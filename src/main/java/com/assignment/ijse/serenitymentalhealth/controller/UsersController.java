@@ -4,6 +4,7 @@ import com.assignment.ijse.serenitymentalhealth.bo.custom.UserBO;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.UserBOImpl;
 import com.assignment.ijse.serenitymentalhealth.dto.UserDto;
 import com.assignment.ijse.serenitymentalhealth.dto.tm.UserTM;
+import com.assignment.ijse.serenitymentalhealth.util.SetBackgroundUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,11 +13,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class UsersController implements Initializable{
+
+
+    @FXML
+    private AnchorPane bodyPane;
 
     @FXML
     private Button deleteButton;
@@ -70,8 +76,11 @@ public class UsersController implements Initializable{
 
     private ObservableList<UserTM> userTMList = FXCollections.observableArrayList();
 
-    @FXML
+
     public void initialize(URL location, ResourceBundle resources) {
+        SetBackgroundUtil setBackground = new SetBackgroundUtil();
+        setBackground.setBackgroundImage(bodyPane, 1300, 760);
+
         userRoleTxt.setItems(FXCollections.observableArrayList("Admin", "Receptionist"));
 
         userIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));

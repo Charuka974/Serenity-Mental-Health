@@ -12,6 +12,7 @@ import com.assignment.ijse.serenitymentalhealth.dto.TherapyProgramDto;
 import com.assignment.ijse.serenitymentalhealth.dto.tm.TherapistProgramTM;
 import com.assignment.ijse.serenitymentalhealth.dto.tm.TherapistTM;
 import com.assignment.ijse.serenitymentalhealth.util.NavigationUtil;
+import com.assignment.ijse.serenitymentalhealth.util.SetBackgroundUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +22,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -81,6 +83,9 @@ public class TherapistsController implements Initializable {
     @FXML
     private Button updateButton;
 
+    @FXML
+    private AnchorPane bodyPane;
+
     NavigationUtil navigate = new NavigationUtil();
 
     private final TherapistBO therapistBO = new TherapistBOImpl();
@@ -91,6 +96,8 @@ public class TherapistsController implements Initializable {
     }
 
     public void initialize(URL location, ResourceBundle resources) {
+        SetBackgroundUtil setBackground = new SetBackgroundUtil();
+        setBackground.setBackgroundImage(bodyPane, 1300, 760);
 
         therapistIdCol.setCellValueFactory(new PropertyValueFactory<>("therapistId"));
         therapistNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));

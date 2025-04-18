@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="760.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.ijse.serenitymentalhealth.controller.UsersController">
+<AnchorPane fx:id="bodyPane" prefHeight="760.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.ijse.serenitymentalhealth.controller.UsersController">
    <children>
       <Label alignment="CENTER" layoutX="597.0" layoutY="27.0" prefHeight="33.0" prefWidth="138.0" text="Users">
          <font>

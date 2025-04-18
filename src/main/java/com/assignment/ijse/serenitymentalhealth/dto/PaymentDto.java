@@ -19,7 +19,7 @@ public class PaymentDto {
     private String paymentId;
     private Patient patient;
     private TherapyProgram therapyProgram;
-    private TherapySession therapySession;  // Nullable for upfront payments
+    private TherapySession therapySession;
     private BigDecimal amount;
     private LocalDate paymentDate;
 }

@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="760.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.ijse.serenitymentalhealth.controller.TherapistsController">
+<AnchorPane fx:id="bodyPane" prefHeight="760.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.ijse.serenitymentalhealth.controller.TherapistsController">
    <children>
       <Label alignment="CENTER" layoutX="198.0" layoutY="22.0" prefHeight="35.0" prefWidth="543.0" text="Therapists">
          <font>

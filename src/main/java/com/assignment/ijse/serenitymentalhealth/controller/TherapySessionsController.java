@@ -1,5 +1,6 @@
 package com.assignment.ijse.serenitymentalhealth.controller;
 
+import com.assignment.ijse.serenitymentalhealth.util.SetBackgroundUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,6 +10,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -93,7 +95,13 @@ public class TherapySessionsController implements Initializable {
     @FXML
     private Button updateButton;
 
+    @FXML
+    private AnchorPane bodyPane;
+
     public void initialize(URL location, ResourceBundle resources){
+        SetBackgroundUtil setBackground = new SetBackgroundUtil();
+        setBackground.setBackgroundImage(bodyPane, 1300, 760);
+
         setTimeToTimePicker();
     }
 

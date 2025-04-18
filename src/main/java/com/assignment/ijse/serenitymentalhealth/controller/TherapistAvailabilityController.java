@@ -9,6 +9,7 @@ import com.assignment.ijse.serenitymentalhealth.dto.TherapistAvailabilityDto;
 import com.assignment.ijse.serenitymentalhealth.dto.TherapistDto;
 import com.assignment.ijse.serenitymentalhealth.dto.tm.TherapistAvailabilityTM;
 import com.assignment.ijse.serenitymentalhealth.entity.Therapist;
+import com.assignment.ijse.serenitymentalhealth.util.SetBackgroundUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -81,11 +83,17 @@ public class TherapistAvailabilityController implements Initializable {
     @FXML
     private Button updateButton;
 
+    @FXML
+    private AnchorPane bodyPane;
+
     private final TherapistAvailabiltyBO availabilityBO = new TherapistAvailabiltyBOImpl();
     private final TherapistBO therapistBO = new TherapistBOImpl();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        SetBackgroundUtil setBackground = new SetBackgroundUtil();
+        setBackground.setBackgroundImage(bodyPane, 1300, 760);
+
         statusTxt.getItems().addAll("Available", "Not Available");
         statusTxt.setValue("Available");
         setTimeToTimePicker();
