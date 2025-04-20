@@ -12,5 +12,6 @@ public interface TherapyProgramBO {
     public ArrayList<TherapyProgramDto> getAllTherapyPrograms();
     public ArrayList<TherapyProgramDto> findTherapyProgramByName(String name);
     public String getNextTherapyProgramPK();
+    public TherapyProgramDto findTherapyProgramByID(String id);
 
 }

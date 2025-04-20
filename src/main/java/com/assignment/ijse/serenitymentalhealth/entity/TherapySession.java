@@ -10,6 +10,7 @@ import java.time.LocalTime;
 @NoArgsConstructor @AllArgsConstructor
 @Table(name = "therapy_session")
 public class TherapySession implements SuperEntity {
+
     @Id
     private String session_id;
 
@@ -25,12 +26,26 @@ public class TherapySession implements SuperEntity {
     @JoinColumn(name = "program_id", nullable = false)
     private TherapyProgram therapy_program;
 
-    @Column(nullable = false)
-    private LocalDate session_date;
+    @OneToOne
+    @JoinColumn(name = "availability_id", nullable = false, unique = true)
+    private TherapistAvailability therapistAvailability;
 
     @Column(nullable = false)
-    private LocalTime session_time;
+    private int duration; // "30 minutes", "1 hour", etc.
 
     @Column(nullable = false)
     private String status;  // "Scheduled", "Completed", "Cancelled"
+
+    // Helper method to manage bidirectional relationship
+    public void setTherapistAvailability(TherapistAvailability availability) {
+        if (this.therapistAvailability != null) {
+            this.therapistAvailability.setSession(null);
+        }
+        this.therapistAvailability = availability;
+        if (availability != null) {
+            availability.setSession(this);
+        }
+    }
+
+
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -58,12 +59,21 @@
             </HBox>
             <HBox prefHeight="34.0" prefWidth="314.0">
                <children>
-                  <Label prefHeight="18.0" prefWidth="134.0" text="Available Time">
+                  <Label prefHeight="18.0" prefWidth="134.0" text="Starting Time">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ChoiceBox fx:id="availableTimeTxt" prefWidth="150.0" />
+                  <TextField fx:id="startTimeTxt" prefHeight="26.0" prefWidth="176.0" promptText="09.00 AM" />
+                  <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="139.0" text="Ending Time">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="endTimeTxt" prefHeight="26.0" prefWidth="176.0" promptText="05:00 PM" />
                </children>
             </HBox>
             <HBox prefHeight="34.0" prefWidth="314.0">
@@ -124,13 +134,14 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <TableView fx:id="therapistAvailabilityTable" layoutX="125.0" layoutY="354.0" onMouseClicked="#tableClick" prefHeight="201.0" prefWidth="782.0">
+      <TableView fx:id="therapistAvailabilityTable" layoutX="78.0" layoutY="354.0" onMouseClicked="#tableClick" prefHeight="202.0" prefWidth="899.0">
         <columns>
           <TableColumn fx:id="availableIdCol" prefWidth="135.1999969482422" text="Availability ID" />
           <TableColumn fx:id="therapistIdCol" prefWidth="180.0" text="Therapist ID" />
             <TableColumn fx:id="availableDateCol" prefWidth="168.0" text="Date" />
-            <TableColumn fx:id="availableTimeCol" prefWidth="144.79998779296875" text="Time" />
-            <TableColumn fx:id="availableStatusCol" prefWidth="155.9998779296875" text="Available" />
+            <TableColumn fx:id="startTimeCol" prefWidth="144.79998779296875" text="Start Time" />
+            <TableColumn fx:id="endTimeCol" prefWidth="141.5999755859375" text="End Time" />
+            <TableColumn fx:id="availableStatusCol" prefWidth="126.4000244140625" text="Available" />
         </columns>
       </TableView>
    </children>

@@ -3,6 +3,7 @@ package com.assignment.ijse.serenitymentalhealth.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -23,4 +24,16 @@ public class TherapyProgram implements SuperEntity {
 
     @Lob
     private String description;
+
+    @OneToMany(mappedBy = "therapy_program", cascade = CascadeType.ALL)
+    private List<TherapySession> therapySessions;
+
+    @OneToMany(mappedBy = "therapy_program", cascade = CascadeType.ALL)
+    private List<Payment> payments;
+
+    @OneToMany(mappedBy = "therapy_program", cascade = CascadeType.ALL)
+    private List<PatientProgram> patientPrograms;
+
+    @OneToMany(mappedBy = "therapy_program", cascade = CascadeType.ALL)
+    private List<TherapistProgram> therapistPrograms;
 }

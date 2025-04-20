@@ -78,6 +78,25 @@ public class TherapyProgramBOImpl implements TherapyProgramBO {
     }
 
     @Override
+    public TherapyProgramDto findTherapyProgramByID(String id) {
+        Optional<TherapyProgram> programOpt = therapyProgramDAO.findById(id);
+
+        if (programOpt.isPresent()) {
+            TherapyProgram program = programOpt.get();
+            return new TherapyProgramDto(
+                    program.getProgram_id(),
+                    program.getName(),
+                    program.getDuration(),
+                    program.getFee(),
+                    program.getDescription()
+            );
+        }
+
+        return null;
+    }
+
+
+    @Override
     public String getNextTherapyProgramPK() {
         Optional<String> lastPkOpt = therapyProgramDAO.getLastPK();
 

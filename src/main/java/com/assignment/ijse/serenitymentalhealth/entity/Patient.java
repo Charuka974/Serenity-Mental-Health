@@ -3,6 +3,8 @@ package com.assignment.ijse.serenitymentalhealth.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
@@ -25,4 +27,13 @@ public class Patient implements SuperEntity{
 
     @Lob
     private String medical_history;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<TherapySession> therapySessions;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<Payment> payments;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<PatientProgram> patientPrograms;
 }

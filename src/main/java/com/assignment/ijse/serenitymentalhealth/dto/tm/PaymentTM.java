@@ -16,9 +16,19 @@ import java.time.LocalDate;
 @ToString
 public class PaymentTM {
     private String paymentId;
-    private Patient patient;
-    private TherapyProgram therapyProgram;
-    private TherapySession therapySession;  // Nullable for upfront payments
+    private String patientId;
+    private String therapyProgramId;
+    private String therapySessionId;  // Nullable for upfront payments
     private BigDecimal amount;
     private LocalDate paymentDate;
+
+    public PaymentTM(boolean isSearch, String paymentId, String patient, String program, String session, BigDecimal amount, LocalDate paymentDate) {
+        this.paymentId = paymentId;
+        this.patientId = patient;
+        this.therapyProgramId = program;
+        this.therapySessionId = session != null ? session : "N/A";
+        this.amount = BigDecimal.valueOf(amount.doubleValue());
+        this.paymentDate = paymentDate;
+    }
+
 }

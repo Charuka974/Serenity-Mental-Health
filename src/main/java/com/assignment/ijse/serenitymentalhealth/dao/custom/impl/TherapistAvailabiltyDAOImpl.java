@@ -7,6 +7,8 @@ import com.assignment.ijse.serenitymentalhealth.entity.TherapistAvailability;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,6 +90,18 @@ public class TherapistAvailabiltyDAOImpl implements TherapistAvailabiltyDAO {
     }
 
     @Override
+    public Optional<TherapistAvailability> findById(String pk) {
+        Session session = factoryConfiguration.getSession();
+        try {
+            TherapistAvailability availability = session.get(TherapistAvailability.class, pk);
+            return Optional.ofNullable(availability);
+        } finally {
+            session.close();
+        }
+    }
+
+
+    @Override
     public List<TherapistAvailability> findByTherapist(String therapistName) {
         Session session = factoryConfiguration.getSession();
         try {
@@ -114,5 +128,21 @@ public class TherapistAvailabiltyDAOImpl implements TherapistAvailabiltyDAO {
             session.close();
         }
     }
+
+    public List<TherapistAvailability> findAvailableSlotsByTherapist(String therapistId) {
+        Session session = factoryConfiguration.getSession();
+        try {
+            return session.createQuery(
+                            "FROM TherapistAvailability ta WHERE ta.therapist.therapist_id = :id AND ta.is_available = true",
+                            TherapistAvailability.class)
+                    .setParameter("id", therapistId)
+                    .list();
+        } finally {
+            session.close();
+        }
+    }
+
+
+
 
 }

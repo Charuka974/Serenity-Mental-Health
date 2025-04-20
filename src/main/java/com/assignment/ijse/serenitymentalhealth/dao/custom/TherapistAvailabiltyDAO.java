@@ -3,6 +3,8 @@ package com.assignment.ijse.serenitymentalhealth.dao.custom;
 import com.assignment.ijse.serenitymentalhealth.entity.Therapist;
 import com.assignment.ijse.serenitymentalhealth.entity.TherapistAvailability;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +14,10 @@ public interface TherapistAvailabiltyDAO {
     public boolean delete(String pk);
     public List<TherapistAvailability> getAll();
     public List<TherapistAvailability> findByName(String name);
+    public Optional<TherapistAvailability> findById(String pk);
     public Optional<String> getLastPK();
     public List<TherapistAvailability> findByTherapist(String therapistName);
+    public List<TherapistAvailability> findAvailableSlotsByTherapist(String therapistId);
+
 
 }

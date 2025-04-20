@@ -1,46 +1,128 @@
 package com.assignment.ijse.serenitymentalhealth.dao.custom.impl;
 
+import com.assignment.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.PaymentDAO;
 import com.assignment.ijse.serenitymentalhealth.entity.Patient;
 import com.assignment.ijse.serenitymentalhealth.entity.Payment;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 public class PaymentDAOImpl implements PaymentDAO {
+    private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
+
+
     @Override
     public boolean save(Payment entity) {
-        return false;
+        Session session = factoryConfiguration.getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.persist(entity);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
 
     @Override
     public boolean update(Payment entity) {
-        return false;
+        Session session = factoryConfiguration.getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.merge(entity);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
 
     @Override
     public boolean delete(String pk) {
-        return false;
+        Session session = factoryConfiguration.getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            Payment payment = session.find(Payment.class, pk);
+            if (payment != null) {
+                session.remove(payment);
+                transaction.commit();
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
 
     @Override
     public List<Payment> getAll() {
-        return List.of();
+        Session session = factoryConfiguration.getSession();
+        List<Payment> payments = session.createQuery("FROM Payment", Payment.class).list();
+        session.close();
+        return payments;
     }
 
     @Override
     public List<Payment> findByName(String name) {
-        return List.of();
+        Session session = factoryConfiguration.getSession();
+        List<Payment> payments = session.createQuery(
+                        "FROM Payment p WHERE p.patient.name LIKE :name", Payment.class)
+                .setParameter("name", "%" + name + "%")
+                .list();
+        session.close();
+        return payments;
     }
 
     @Override
     public Optional<Payment> findById(String pk) {
-        return Optional.empty();
+        Session session = factoryConfiguration.getSession();
+        Payment payment = session.find(Payment.class, pk);
+        session.close();
+        return Optional.ofNullable(payment);
     }
 
     @Override
     public Optional<String> getLastPK() {
-        return Optional.empty();
+        Session session = factoryConfiguration.getSession();
+        String lastPk = session.createQuery("SELECT p.id FROM Payment p ORDER BY p.id DESC", String.class)
+                .setMaxResults(1)
+                .uniqueResult();
+        session.close();
+        return Optional.ofNullable(lastPk);
     }
+
+    @Override
+    public List<Payment> findByDate(LocalDate date) {
+        Session session = factoryConfiguration.getSession();
+        List<Payment> payments = session.createQuery(
+                        "FROM Payment p WHERE DATE(p.paymentDate) = :date", Payment.class)
+                .setParameter("date", date)
+                .list();
+        session.close();
+        return payments;
+    }
+
 
 }

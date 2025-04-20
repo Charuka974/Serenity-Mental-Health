@@ -4,7 +4,9 @@ import com.assignment.ijse.serenitymentalhealth.bo.custom.PatientBO;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.PatientDAO;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.impl.PatientDAOImpl;
 import com.assignment.ijse.serenitymentalhealth.dto.PatientDto;
+import com.assignment.ijse.serenitymentalhealth.dto.TherapyProgramDto;
 import com.assignment.ijse.serenitymentalhealth.entity.Patient;
+import com.assignment.ijse.serenitymentalhealth.entity.TherapyProgram;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +86,26 @@ public class PatientBOImpl implements PatientBO {
 
         return patientDtos;
     }
+
+    @Override
+    public PatientDto findPatientByID(String id) {
+        Optional<Patient> patientOpt = patientDAO.findById(id);
+
+        if (patientOpt.isPresent()) {
+            Patient patient = patientOpt.get();
+            return new PatientDto(
+                    patient.getPatient_id(),
+                    patient.getName(),
+                    patient.getEmail(),
+                    patient.getPhone(),
+                    patient.getAddress(),
+                    patient.getMedical_history()
+            );
+        }
+
+        return null;
+    }
+
 
 
 

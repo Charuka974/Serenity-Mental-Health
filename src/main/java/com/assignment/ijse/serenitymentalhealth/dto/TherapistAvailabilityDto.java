@@ -14,6 +14,7 @@ public class TherapistAvailabilityDto {
     private String availabilityId;
     private String therapistId;
     private LocalDate availableDate;
-    private LocalTime availableTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private boolean isAvailable;
 }

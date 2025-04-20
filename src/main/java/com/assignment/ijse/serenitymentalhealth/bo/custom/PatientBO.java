@@ -15,6 +15,7 @@ public interface PatientBO extends SuperBO {
     public ArrayList<PatientDto> getAllPatients();
     public ArrayList<PatientDto> findByPatientName(String name);
     public String getNextPatientPK();
+    public PatientDto findPatientByID(String id);
 
 
 }

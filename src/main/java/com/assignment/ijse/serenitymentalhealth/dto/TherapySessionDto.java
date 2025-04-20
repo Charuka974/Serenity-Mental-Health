@@ -17,7 +17,9 @@ public class TherapySessionDto {
     private String therapistId;
     private String patientId;
     private String therapyProgramId;
+    private String availabilityId;
     private LocalDate sessionDate;
     private LocalTime sessionTime;
+    private int duration;
     private String status;
 }

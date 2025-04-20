@@ -15,6 +15,7 @@ public class TherapistAvailabilityTM {
     private String availabilityId;
     private String therapistId;
     private LocalDate availableDate;
-    private LocalTime availableTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private String isAvailable;
 }
