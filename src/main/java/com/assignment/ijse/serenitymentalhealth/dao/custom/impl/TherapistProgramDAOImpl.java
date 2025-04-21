@@ -122,4 +122,43 @@ public class TherapistProgramDAOImpl implements TherapistProgramDAO {
         return Optional.empty();
     }
 
+    @Override
+    public List<TherapistProgram> findByTherapistId(String therapistId) {
+        Session session = factoryConfiguration.getSession();
+        List<TherapistProgram> results = null;
+
+        try {
+            results = session.createQuery(
+                            "FROM TherapistProgram tp WHERE tp.therapist.therapist_id = :therapistId", TherapistProgram.class)
+                    .setParameter("therapistId", therapistId)
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return results;
+    }
+
+    @Override
+    public List<TherapistProgram> findByProgramId(String programId) {
+        Session session = factoryConfiguration.getSession();
+        List<TherapistProgram> results = null;
+
+        try {
+            results = session.createQuery(
+                            "FROM TherapistProgram tp WHERE tp.therapy_program.program_id = :programId", TherapistProgram.class)
+                    .setParameter("programId", programId)
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return results;
+    }
+
+
 }

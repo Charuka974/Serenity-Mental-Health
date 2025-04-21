@@ -1,7 +1,9 @@
 package com.assignment.ijse.serenitymentalhealth.controller;
 
 import com.assignment.ijse.serenitymentalhealth.bo.custom.PatientProgramBO;
+import com.assignment.ijse.serenitymentalhealth.bo.custom.TherapyProgramBO;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.PatientProgramBOImpl;
+import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.TherapyProgramBOImpl;
 import com.assignment.ijse.serenitymentalhealth.dto.PatientDto;
 import com.assignment.ijse.serenitymentalhealth.dto.PatientProgramDto;
 import com.assignment.ijse.serenitymentalhealth.dto.TherapyProgramDto;
@@ -25,16 +27,19 @@ import java.util.ResourceBundle;
 public class PatientProgramController implements Initializable {
 
     @FXML
+    private AnchorPane bodyPane;
+
+    @FXML
     private Button deleteButton;
 
     @FXML
+    private TableColumn<PatientProgramTM, Double> leftToPayCol;
+
+    @FXML
+    private Label  leftToPayTxt;
+
+    @FXML
     private TableColumn<PatientProgramTM, String> patientIdCol;
-
-    @FXML
-    private TableColumn<PatientProgramTM, String> patientNameCol;
-
-    @FXML
-    private TableColumn<PatientProgramTM, String> programNameCol;
 
     @FXML
     private TextField patientIdTxt;
@@ -55,6 +60,12 @@ public class PatientProgramController implements Initializable {
     private TextField paymentIdTxt;
 
     @FXML
+    private TableColumn<PatientProgramTM, Double> programFeeCol;
+
+    @FXML
+    private Label programFeeTxt;
+
+    @FXML
     private TableColumn<PatientProgramTM, String> programIdCol;
 
     @FXML
@@ -73,13 +84,13 @@ public class PatientProgramController implements Initializable {
     private DatePicker registerDateTxt;
 
     @FXML
-    private ToggleButton searchToggleButton;
-
-    @FXML
     private Button saveButton;
 
     @FXML
     private Button searchButton;
+
+    @FXML
+    private ToggleButton searchToggleButton;
 
     @FXML
     private TextField searchTxt;
@@ -87,10 +98,8 @@ public class PatientProgramController implements Initializable {
     @FXML
     private Button updateButton;
 
-    @FXML
-    private AnchorPane bodyPane;
-
     private final PatientProgramBO programBO = new PatientProgramBOImpl();
+    private final TherapyProgramBO therapyProgramBO = new TherapyProgramBOImpl();
 
 
 
@@ -100,11 +109,11 @@ public class PatientProgramController implements Initializable {
         setBackground.setBackgroundImage(bodyPane, 1300, 760);
 
         patientIdCol.setCellValueFactory(new PropertyValueFactory<>("patientId"));
-        patientNameCol.setCellValueFactory(new PropertyValueFactory<>("patientName"));
         programIdCol.setCellValueFactory(new PropertyValueFactory<>("programId"));
-        programNameCol.setCellValueFactory(new PropertyValueFactory<>("programName"));
         registerDateCol.setCellValueFactory(new PropertyValueFactory<>("registrationDate"));
         paymentIdCol.setCellValueFactory(new PropertyValueFactory<>("paymentId"));
+        programFeeCol.setCellValueFactory(new PropertyValueFactory<>("programFee"));
+        leftToPayCol.setCellValueFactory(new PropertyValueFactory<>("leftToPay"));
 
         refreshTable();
     }
@@ -114,13 +123,16 @@ public class PatientProgramController implements Initializable {
         ObservableList<PatientProgramTM> programTMS = FXCollections.observableArrayList();
 
         for (PatientProgramDto dto : programList) {
+            TherapyProgramDto program = therapyProgramBO.findTherapyProgramByID(dto.getProgramId());
             programTMS.add(new PatientProgramTM(
                     dto.getPatientId(),
                     dto.getPatientName(),
                     dto.getProgramId(),
                     dto.getProgramName(),
                     dto.getRegistrationDate(),
-                    dto.getPaymentId()
+                    dto.getPaymentId(),
+                    program.getFee(),
+                    dto.getLeftToPay()
             ));
         }
 
@@ -134,6 +146,8 @@ public class PatientProgramController implements Initializable {
         programNameTxt.clear();
         paymentIdTxt.clear();
         registerDateTxt.setValue(null);
+        programFeeTxt.setText("");
+        leftToPayTxt.setText("");
     }
 
     @FXML
@@ -146,6 +160,8 @@ public class PatientProgramController implements Initializable {
             programNameTxt.setText(selected.getProgramName());
             registerDateTxt.setValue(selected.getRegistrationDate());
             paymentIdTxt.setText(selected.getPaymentId());
+            programFeeTxt.setText(String.valueOf(selected.getProgramFee()));
+            leftToPayTxt.setText(String.valueOf(selected.getLeftToPay()));
         }
     }
 
@@ -171,7 +187,8 @@ public class PatientProgramController implements Initializable {
                 programIdTxt.getText(),
                 programNameTxt.getText(),
                 registerDateTxt.getValue(),
-                paymentIdTxt.getText()
+                paymentIdTxt.getText(),
+                null
         );
 
         if (programBO.savePatientProgram(dto)) {
@@ -211,25 +228,31 @@ public class PatientProgramController implements Initializable {
         if (searchToggleButton.isSelected()) {
             ArrayList<PatientProgramDto> programList = programBO.search(query , false);
             for (PatientProgramDto dto : programList) {
+                TherapyProgramDto program = therapyProgramBO.findTherapyProgramByID(dto.getProgramId());
                 programTMS.add(new PatientProgramTM(
                         dto.getPatientId(),
                         dto.getPatientName(),
                         dto.getProgramId(),
                         dto.getProgramName(),
                         dto.getRegistrationDate(),
-                        dto.getPaymentId()
+                        dto.getPaymentId(),
+                        program.getFee(),
+                        dto.getLeftToPay()
                 ));
             }
         } else {
             ArrayList<PatientProgramDto> programList = programBO.search(query, true);
             for (PatientProgramDto dto : programList) {
+                TherapyProgramDto program = therapyProgramBO.findTherapyProgramByID(dto.getProgramId());
                 programTMS.add(new PatientProgramTM(
                         dto.getPatientId(),
                         dto.getPatientName(),
                         dto.getProgramId(),
                         dto.getProgramName(),
                         dto.getRegistrationDate(),
-                        dto.getPaymentId()
+                        dto.getPaymentId(),
+                        program.getFee(),
+                        dto.getLeftToPay()
                 ));
             }
         }
@@ -274,7 +297,8 @@ public class PatientProgramController implements Initializable {
                 programIdTxt.getText(),
                 programNameTxt.getText(),
                 registerDateTxt.getValue(),
-                paymentIdTxt.getText()
+                paymentIdTxt.getText(),
+                null
         );
 
         if (programBO.updatePatientProgram(dto)) {
@@ -292,6 +316,5 @@ public class PatientProgramController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 
 }

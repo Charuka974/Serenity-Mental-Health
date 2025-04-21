@@ -1,6 +1,7 @@
 package com.assignment.ijse.serenitymentalhealth.dao.custom;
 
 import com.assignment.ijse.serenitymentalhealth.entity.TherapistProgram;
+import org.hibernate.Session;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,5 +15,8 @@ public interface TherapistProgramDAO {
     List<TherapistProgram> findByTherapist(String name);
     Optional<TherapistProgram> findById(String therapistId, String programId);
     Optional<String> getLastPK();
+
+    public List<TherapistProgram> findByTherapistId(String therapistId);
+    public List<TherapistProgram> findByProgramId(String programId);
 
 }

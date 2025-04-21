@@ -4,9 +4,11 @@ import com.assignment.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.PatientProgramDAO;
 import com.assignment.ijse.serenitymentalhealth.entity.PatientProgram;
 import com.assignment.ijse.serenitymentalhealth.entity.PatientProgramId;
+import com.assignment.ijse.serenitymentalhealth.entity.TherapyProgram;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -121,5 +123,51 @@ public class PatientProgramDAOImpl implements PatientProgramDAO {
     public List<PatientProgram> findByName(String name) {
         return null;
     }
+
+    public Optional<PatientProgram> findById(String patientId, String programId) {
+        Session session = factoryConfiguration.getSession();
+        try {
+            PatientProgramId id = new PatientProgramId(patientId, programId);
+            PatientProgram patientProgram = session.find(PatientProgram.class, id);
+            return Optional.ofNullable(patientProgram);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Optional.empty();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+
+    @Override
+    public boolean updateTherapyProgramFee(String patientId, String programId, BigDecimal newFee) {
+        Session session = factoryConfiguration.getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            PatientProgramId id = new PatientProgramId(patientId, programId);
+            PatientProgram patientProgram = session.find(PatientProgram.class, id);
+
+            if (patientProgram != null) {
+                // Set the new fee in the patient_program table (not in therapy_program)
+                patientProgram.setProgram_fee(newFee);
+                session.merge(patientProgram);
+                transaction.commit();
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+
 
 }

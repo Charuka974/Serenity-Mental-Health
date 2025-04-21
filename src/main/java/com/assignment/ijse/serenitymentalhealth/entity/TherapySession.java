@@ -36,16 +36,6 @@ public class TherapySession implements SuperEntity {
     @Column(nullable = false)
     private String status;  // "Scheduled", "Completed", "Cancelled"
 
-    // Helper method to manage bidirectional relationship
-    public void setTherapistAvailability(TherapistAvailability availability) {
-        if (this.therapistAvailability != null) {
-            this.therapistAvailability.setSession(null);
-        }
-        this.therapistAvailability = availability;
-        if (availability != null) {
-            availability.setSession(this);
-        }
-    }
 
 
 }

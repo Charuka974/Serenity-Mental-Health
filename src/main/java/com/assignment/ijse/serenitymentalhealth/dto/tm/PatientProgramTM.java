@@ -2,6 +2,7 @@ package com.assignment.ijse.serenitymentalhealth.dto.tm;
 
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
@@ -16,4 +17,6 @@ public class PatientProgramTM {
     private String programName;
     private LocalDate registrationDate;
     private String paymentId;
+    private BigDecimal programFee;
+    private BigDecimal leftToPay;
 }

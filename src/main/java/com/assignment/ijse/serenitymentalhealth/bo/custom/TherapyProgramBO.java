@@ -1,10 +1,11 @@
 package com.assignment.ijse.serenitymentalhealth.bo.custom;
 
+import com.assignment.ijse.serenitymentalhealth.bo.SuperBO;
 import com.assignment.ijse.serenitymentalhealth.dto.TherapyProgramDto;
 
 import java.util.ArrayList;
 
-public interface TherapyProgramBO {
+public interface TherapyProgramBO extends SuperBO {
 
     public boolean saveTherapyProgram(TherapyProgramDto dto);
     public boolean updateTherapyProgram(TherapyProgramDto dto);

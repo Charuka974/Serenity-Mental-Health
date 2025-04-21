@@ -1,12 +1,15 @@
 package com.assignment.ijse.serenitymentalhealth.controller;
 
 import com.assignment.ijse.serenitymentalhealth.bo.custom.PatientBO;
+import com.assignment.ijse.serenitymentalhealth.bo.custom.PatientProgramBO;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.PaymentBO;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.TherapyProgramBO;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.PatientBOImpl;
+import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.PatientProgramBOImpl;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.PaymentBOImpl;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.TherapyProgramBOImpl;
 import com.assignment.ijse.serenitymentalhealth.dto.PatientDto;
+import com.assignment.ijse.serenitymentalhealth.dto.PatientProgramDto;
 import com.assignment.ijse.serenitymentalhealth.dto.PaymentDto;
 import com.assignment.ijse.serenitymentalhealth.dto.TherapyProgramDto;
 import com.assignment.ijse.serenitymentalhealth.dto.tm.PaymentTM;
@@ -27,7 +30,9 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class PaymentsController implements Initializable {
 
@@ -80,10 +85,7 @@ public class PaymentsController implements Initializable {
     private TextField programIdTxt;
 
     @FXML
-    private TextField programNameTxt;
-
-    @FXML
-    private Button programSearchButton;
+    private ChoiceBox<String> programNameTxt;
 
     @FXML
     private Button saveButton;
@@ -101,6 +103,12 @@ public class PaymentsController implements Initializable {
     private HBox sessionIdPart;
 
     @FXML
+    private Label paymentHeaderLabel;
+
+    @FXML
+    private Label paymentTypeLabel;
+
+    @FXML
     private TextField sessionIdTxt;
 
     @FXML
@@ -109,6 +117,14 @@ public class PaymentsController implements Initializable {
     private final PatientBO patientBO = new PatientBOImpl();
     private final TherapyProgramBO programBO = new TherapyProgramBOImpl();
     PaymentBO paymentBO = new PaymentBOImpl();
+    PatientProgramBO patientProgramBO = new PatientProgramBOImpl();
+
+
+    private boolean isSessionPayment = false;
+
+    public void setFromMainPage(boolean paymentType) {
+        this.isSessionPayment = paymentType;
+    }
 
     public void initialize(URL location, ResourceBundle resources) {
         SetBackgroundUtil setBackground = new SetBackgroundUtil();
@@ -124,16 +140,33 @@ public class PaymentsController implements Initializable {
 
         refreshPage();
 
-        paymentTypeChoice.setItems(FXCollections.observableArrayList("Program Register", "Session Payment"));
-        paymentTypeChoice.setValue("Program Register");
-        sessionIdPart.setVisible(false);
-        paymentTypeChoice.setOnAction(e -> toggleSessionField());
+//        paymentTypeChoice.setItems(FXCollections.observableArrayList("Program Register", "Session Payment"));
+//        paymentTypeChoice.setValue("Program Register");
+//        sessionIdPart.setVisible(false);
+//        paymentTypeChoice.setOnAction(e -> toggleSessionField());
+
+//        paymentTypeChoice.setVisible(false);
+//        if (isSessionPayment) {
+//            sessionIdPart.setVisible(true);
+//        } else {
+//            sessionIdPart.setVisible(false);
+//        }
+
+        paymentTypeChoice.setVisible(false);
+        paymentTypeLabel.setVisible(false);
+        sessionIdPart.setVisible(isSessionPayment);
+        paymentHeaderLabel.setText(isSessionPayment ? "Session Payment" : "Register Payment");
 
     }
 
-    private void toggleSessionField() {
-        sessionIdPart.setVisible(!"Program Register".equals(paymentTypeChoice.getValue()));
+    public void configurePage() {
+        sessionIdPart.setVisible(isSessionPayment);
+        paymentHeaderLabel.setText(isSessionPayment ? "Session Payment" : "Register Payment");
     }
+
+//    private void toggleSessionField() {
+////        sessionIdPart.setVisible(!"Program Register".equals(paymentTypeChoice.getValue()));
+//    }
 
     private void refreshTable() {
         ArrayList<PaymentDto> paymentList = paymentBO.getAllPayments();
@@ -162,7 +195,7 @@ public class PaymentsController implements Initializable {
         patientIdTxt.clear();
         patientNameTxt.clear();
         programIdTxt.clear();
-        programNameTxt.clear();
+        programNameTxt.setValue("");
         sessionIdTxt.clear();
         amountTxt.clear();
         dateTxt.setValue(null);
@@ -248,14 +281,29 @@ public class PaymentsController implements Initializable {
         }
 
         PatientDto patient = patients.getFirst();
-
         patientIdTxt.setText(patient.getPatientId());
         patientNameTxt.setText(patient.getName());
+
+        List<PatientProgramDto> programs = patientProgramBO.getProgramsByPatientId(patient.getPatientId());
+
+        List<String> programNames = programs.stream()
+                .map(PatientProgramDto::getProgramName)
+                .collect(Collectors.toList());
+
+        programNameTxt.getItems().clear(); // optional: clears old data if needed
+        programNameTxt.getItems().addAll(programNames);
+
+        programNameTxt.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                searchProgram();
+            }
+        });
+
+
     }
 
-    @FXML
-    void searchProgram(ActionEvent event) {
-        String name = programNameTxt.getText().trim();
+    void searchProgram() {
+        String name = programNameTxt.getValue().trim();
         ArrayList<TherapyProgramDto> programs = programBO.findTherapyProgramByName(name);
 
         if (programs.isEmpty()) {
@@ -264,9 +312,8 @@ public class PaymentsController implements Initializable {
         }
 
         TherapyProgramDto program = programs.getFirst();
-
         programIdTxt.setText(program.getProgramId());
-        programNameTxt.setText(program.getName());
+
     }
 
     @FXML
@@ -296,7 +343,7 @@ public class PaymentsController implements Initializable {
             patientIdTxt.setText(selected.getPatientId());
             patientNameTxt.setText(patientBO.findPatientByID(selected.getPatientId()).getName());
             programIdTxt.setText(selected.getTherapyProgramId());
-            programNameTxt.setText(programBO.findTherapyProgramByID(selected.getTherapyProgramId()).getName());
+            programNameTxt.setValue(programBO.findTherapyProgramByID(selected.getTherapyProgramId()).getName());
             sessionIdTxt.setText(selected.getTherapySessionId());
             amountTxt.setText(String.valueOf(selected.getAmount()));
             dateTxt.setValue(selected.getPaymentDate());

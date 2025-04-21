@@ -15,7 +15,7 @@
 
 <AnchorPane fx:id="bodyPane" prefHeight="760.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.ijse.serenitymentalhealth.controller.PaymentsController">
    <children>
-      <Label alignment="CENTER" layoutX="615.0" layoutY="21.0" prefHeight="33.0" prefWidth="138.0" text="Payments">
+      <Label fx:id="paymentHeaderLabel" alignment="CENTER" layoutX="474.0" layoutY="20.0" prefHeight="35.0" prefWidth="384.0" text="Payments">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -76,15 +76,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="programNameTxt" prefHeight="26.0" prefWidth="283.0" />
-                  <Button fx:id="programSearchButton" focusTraversable="false" mnemonicParsing="false" onAction="#searchProgram" prefHeight="26.0" prefWidth="97.0" styleClass="process-button" stylesheets="@../cssStyles/process-button.css" text="Search">
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
+                  <ChoiceBox fx:id="programNameTxt" prefHeight="26.0" prefWidth="283.0" />
                   <Label prefHeight="18.0" prefWidth="144.0" text="Program ID">
                      <font>
                         <Font size="18.0" />
@@ -95,7 +87,7 @@
             </HBox>
             <HBox prefHeight="34.0" prefWidth="314.0">
                <children>
-                  <Label prefHeight="18.0" prefWidth="144.0" text="Payment Type">
+                  <Label fx:id="paymentTypeLabel" prefHeight="18.0" prefWidth="144.0" text="Payment Type">
                      <font>
                         <Font size="18.0" />
                      </font>

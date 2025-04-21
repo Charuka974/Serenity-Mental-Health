@@ -7,7 +7,7 @@ module com.assignment.ijse.serenitymentalhealth {
     requires org.hibernate.orm.core;
     requires static lombok;
     requires java.naming;
-
+    requires mysql.connector.j;
 
 
     opens com.assignment.ijse.serenitymentalhealth.dto.tm to javafx.base;

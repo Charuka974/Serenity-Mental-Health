@@ -20,7 +20,7 @@
                 <Font name="System Bold" size="24.0" />
             </font>
         </Label>
-        <VBox layoutX="14.0" layoutY="81.0" prefHeight="386.0" prefWidth="774.0" spacing="20.0">
+        <VBox layoutX="14.0" layoutY="81.0" prefHeight="365.0" prefWidth="774.0" spacing="20.0">
             <children>
                 <HBox prefHeight="34.0" prefWidth="314.0">
                     <children>
@@ -63,15 +63,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="programNameTxt" prefHeight="26.0" prefWidth="283.0" />
-                        <Button fx:id="programSearchButton" focusTraversable="false" mnemonicParsing="false" onAction="#searchProgram" prefHeight="26.0" prefWidth="97.0" styleClass="process-button" stylesheets="@../cssStyles/process-button.css" text="Search">
-                            <effect>
-                                <DropShadow />
-                            </effect>
-                            <font>
-                                <Font name="System Bold" size="12.0" />
-                            </font>
-                        </Button>
+                  <ChoiceBox fx:id="programNameTxt" prefHeight="26.0" prefWidth="283.0" />
                         <Label prefHeight="18.0" prefWidth="106.0" text="Program ID">
                             <font>
                                 <Font size="18.0" />
@@ -87,15 +79,7 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="therapistNameTxt" prefHeight="26.0" prefWidth="283.0" />
-                        <Button fx:id="therapistSearchButton" focusTraversable="false" mnemonicParsing="false" onAction="#searchTherapist" prefHeight="26.0" prefWidth="97.0" styleClass="process-button" stylesheets="@../cssStyles/process-button.css" text="Search">
-                            <effect>
-                                <DropShadow />
-                            </effect>
-                            <font>
-                                <Font name="System Bold" size="12.0" />
-                            </font>
-                        </Button>
+                  <ChoiceBox fx:id="therapistNameTxt" prefHeight="26.0" prefWidth="283.0" />
                         <Label prefHeight="27.0" prefWidth="106.0" text="Therapist ID">
                             <font>
                                 <Font size="18.0" />
@@ -127,7 +111,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="sessionDurationTxt" prefHeight="26.0" prefWidth="132.0" />
+                  <ChoiceBox fx:id="sessionDurationTxt" prefHeight="26.0" prefWidth="133.0" />
                     </children>
                 </HBox>
                 <HBox prefHeight="34.0" prefWidth="314.0">
@@ -195,7 +179,7 @@
                 <TableColumn fx:id="statusCol" prefWidth="111.1998291015625" text="Status" />
             </columns>
         </TableView>
-      <TableView fx:id="timeSlotTable" layoutX="793.0" layoutY="82.0" onMouseClicked="#onclickTSTable" prefHeight="258.0" prefWidth="501.0">
+      <TableView fx:id="timeSlotTable" layoutX="805.0" layoutY="82.0" onMouseClicked="#onclickTSTable" prefHeight="258.0" prefWidth="482.0">
         <columns>
           <TableColumn fx:id="timeTSCol" text="Time" />
           <TableColumn fx:id="date1TSCol" text="Date 1" />
@@ -203,8 +187,6 @@
             <TableColumn fx:id="date3TSCol" text="Date 3" />
             <TableColumn fx:id="date4TSCol" text="Date 4" />
             <TableColumn fx:id="date5TSCol" text="Date 5" />
-            <TableColumn fx:id="date6TSCol" minWidth="9.5999755859375" prefWidth="9.5999755859375" text="Date 6" />
-            <TableColumn fx:id="date7TSCol" prefWidth="10.4000244140625" text="Date 7" />
         </columns>
       </TableView>
       <Label alignment="CENTER" layoutX="949.0" layoutY="45.0" prefHeight="27.0" prefWidth="193.0" text="Available Time Table">
@@ -212,5 +194,13 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Button fx:id="paymentLoadButton" focusTraversable="false" layoutX="576.0" layoutY="451.0" mnemonicParsing="false" onAction="#loadPaymentPage" prefHeight="40.0" prefWidth="204.0" styleClass="process-button" stylesheets="@../cssStyles/process-button.css" text="Payment">
+         <effect>
+            <DropShadow />
+         </effect>
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

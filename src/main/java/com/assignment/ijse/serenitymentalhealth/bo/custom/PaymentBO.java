@@ -1,5 +1,6 @@
 package com.assignment.ijse.serenitymentalhealth.bo.custom;
 
+import com.assignment.ijse.serenitymentalhealth.bo.SuperBO;
 import com.assignment.ijse.serenitymentalhealth.dto.PaymentDto;
 
 
@@ -8,7 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 
-public interface PaymentBO {
+public interface PaymentBO extends SuperBO {
 
     public boolean savePayment(PaymentDto dto);
     public boolean updatePayment(PaymentDto dto);

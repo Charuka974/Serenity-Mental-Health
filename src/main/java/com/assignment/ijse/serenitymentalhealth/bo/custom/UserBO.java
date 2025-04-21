@@ -1,11 +1,12 @@
 package com.assignment.ijse.serenitymentalhealth.bo.custom;
 
+import com.assignment.ijse.serenitymentalhealth.bo.SuperBO;
 import com.assignment.ijse.serenitymentalhealth.dto.PatientDto;
 import com.assignment.ijse.serenitymentalhealth.dto.UserDto;
 
 import java.util.ArrayList;
 
-public interface UserBO {
+public interface UserBO extends SuperBO {
 
     public String validateUser(String username, String password);
     public boolean registerUser(UserDto dto);

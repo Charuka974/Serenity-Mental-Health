@@ -148,5 +148,40 @@ public class TherapistProgramBOImpl implements TherapistProgramBO {
         return dtos;
     }
 
+    @Override
+    public List<TherapistProgramDto> getTherapistProgramsByTherapistId(String therapistId) {
+        List<TherapistProgram> programs = therapistProgramDAO.findByTherapistId(therapistId);
+        List<TherapistProgramDto> dtos = new ArrayList<>();
+
+        for (TherapistProgram entity : programs) {
+            TherapistProgramDto dto = new TherapistProgramDto(
+                    entity.getId().getTherapistId(),
+                    entity.getId().getProgramId(),
+                    entity.getTherapy_program().getName()
+            );
+            dtos.add(dto);
+        }
+
+        return dtos;
+    }
+
+    @Override
+    public List<TherapistProgramDto> getTherapistProgramsByProgramId(String programId) {
+        List<TherapistProgram> programs = therapistProgramDAO.findByProgramId(programId);
+        List<TherapistProgramDto> dtos = new ArrayList<>();
+
+        for (TherapistProgram entity : programs) {
+            TherapistProgramDto dto = new TherapistProgramDto(
+                    entity.getId().getTherapistId(),
+                    entity.getId().getProgramId(),
+                    entity.getTherapy_program().getName()
+            );
+            dtos.add(dto);
+        }
+
+        return dtos;
+    }
+
+
 
 }
