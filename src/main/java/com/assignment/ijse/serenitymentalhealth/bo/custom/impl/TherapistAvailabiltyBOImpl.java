@@ -47,7 +47,7 @@ public class TherapistAvailabiltyBOImpl implements TherapistAvailabiltyBO {
         return therapistAvailabilityDAO.save(availability);
     }
 
-    // === Update ===
+
     public boolean updateTherapistAvailability(TherapistAvailabilityDto dto) {
         Optional<Therapist> therapistOtp = therapistDAO.findById(dto.getTherapistId());
 
@@ -68,7 +68,7 @@ public class TherapistAvailabiltyBOImpl implements TherapistAvailabiltyBO {
         return therapistAvailabilityDAO.update(availability);
     }
 
-    // === Delete ===
+
     public boolean deleteAvailability(String availabilityId) {
         return therapistAvailabilityDAO.delete(availabilityId);
     }
@@ -91,7 +91,7 @@ public class TherapistAvailabiltyBOImpl implements TherapistAvailabiltyBO {
     }
 
 
-    // === Find by therapist ID ===
+
     public List<TherapistAvailabilityDto> findByTherapistId(String therapistId) {
         List<TherapistAvailability> entities = therapistAvailabilityDAO.findByTherapistId(therapistId);
         List<TherapistAvailabilityDto> dtos = new ArrayList<>();
@@ -155,7 +155,7 @@ public class TherapistAvailabiltyBOImpl implements TherapistAvailabiltyBO {
 
 
     // === Book time slot ===
-    public boolean bookTimeSlot(String therapistId, LocalDate date, Duration sessionDuration) {
+    public boolean bookTimeSlot(String therapistId, LocalDate date, LocalTime startTime, Duration sessionDuration) {
         List<TherapistAvailability> availabilityList = therapistAvailabilityDAO.findByTherapistAndDate(therapistId, date);
 
         if (availabilityList.isEmpty()) return false;
@@ -166,8 +166,18 @@ public class TherapistAvailabiltyBOImpl implements TherapistAvailabiltyBO {
         for (TherapistAvailability availability : availabilityList) {
             List<String> availableSlots = availability.getAvailable_slots();
 
-            for (int i = 0; i <= availableSlots.size() - requiredSlotCount; i++) {
-                List<String> subList = availableSlots.subList(i, i + requiredSlotCount);
+            // Find the index of the slot starting at the given startTime
+            int startIndex = -1;
+            for (int i = 0; i < availableSlots.size(); i++) {
+                String slotStart = availableSlots.get(i).split("-")[0];
+                if (LocalTime.parse(slotStart).equals(startTime)) {
+                    startIndex = i;
+                    break;
+                }
+            }
+
+            if (startIndex != -1 && startIndex + requiredSlotCount <= availableSlots.size()) {
+                List<String> subList = availableSlots.subList(startIndex, startIndex + requiredSlotCount);
 
                 if (areConsecutive(subList, slotDuration)) {
                     // Book these slots
@@ -182,9 +192,9 @@ public class TherapistAvailabiltyBOImpl implements TherapistAvailabiltyBO {
                 }
             }
         }
-
         return false;
     }
+
 
 
     private boolean areConsecutive(List<String> slots, Duration slotDuration) {

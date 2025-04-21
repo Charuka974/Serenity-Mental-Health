@@ -42,7 +42,7 @@ public class PaymentBOImpl implements PaymentBO {
             Optional<TherapySession> sessionOpt = Optional.empty();
 
             if (dto.getTherapySession() != null) {
-                sessionOpt = sessionDAO.findById(dto.getTherapySession().getSession_id());
+                sessionOpt = sessionDAO.findBySessionId(dto.getTherapySession().getSession_id());
             }
 
             // If patient or program is not found, return false
@@ -104,7 +104,7 @@ public class PaymentBOImpl implements PaymentBO {
             Optional<TherapySession> sessionOpt = Optional.empty();
 
             if (dto.getTherapySession() != null) {
-                sessionOpt = sessionDAO.findById(dto.getTherapySession().getSession_id());
+                sessionOpt = sessionDAO.findBySessionId(dto.getTherapySession().getSession_id());
             }
 
             // If patient or program is not found, return false
@@ -292,7 +292,7 @@ public class PaymentBOImpl implements PaymentBO {
         Optional<Patient> patientOpt = patientDAO.findById(patientId);
         Optional<TherapyProgram> programOpt = programDAO.findById(programId);
         Optional<TherapySession> sessionOpt = (sessionId != null && !sessionId.isEmpty())
-                ? sessionDAO.findById(sessionId)
+                ? sessionDAO.findBySessionId(sessionId)
                 : Optional.empty();
 
         if (patientOpt.isEmpty() || programOpt.isEmpty()) {

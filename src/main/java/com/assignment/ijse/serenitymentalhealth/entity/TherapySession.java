@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -27,8 +28,14 @@ public class TherapySession implements SuperEntity {
     private TherapyProgram therapy_program;
 
     @OneToOne
-    @JoinColumn(name = "availability_id", nullable = false, unique = true)
+    @JoinColumn(name = "availability_id")
     private TherapistAvailability therapistAvailability;
+
+    @Column(nullable = false)
+    private LocalDate session_date;
+
+    @Column(nullable = false)
+    private LocalTime start_time;
 
     @Column(nullable = false)
     private int duration; // "30 minutes", "1 hour", etc.

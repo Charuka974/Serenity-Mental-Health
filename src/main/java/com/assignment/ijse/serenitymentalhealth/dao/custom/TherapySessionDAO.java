@@ -11,7 +11,9 @@ public interface TherapySessionDAO {
     public boolean update(TherapySession entity);
     public boolean delete(String pk);
     public List<TherapySession> getAll();
-    public Optional<TherapySession> findById(String pk);
     public Optional<String> getLastPK();
+    Optional<TherapySession> findBySessionId(String sessionId);
+    List<TherapySession> findByPatientId(String patientId);
+
 
 }

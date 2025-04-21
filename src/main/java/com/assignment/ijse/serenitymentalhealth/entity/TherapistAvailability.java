@@ -28,7 +28,6 @@ public class TherapistAvailability implements SuperEntity {
     @Column(nullable = false)
     private LocalTime end_time;
 
-
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "availability_slots", joinColumns = @JoinColumn(name = "availability_id"))
     @Column(name = "slot")
