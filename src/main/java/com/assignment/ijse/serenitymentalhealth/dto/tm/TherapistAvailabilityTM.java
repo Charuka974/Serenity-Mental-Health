@@ -17,5 +17,6 @@ public class TherapistAvailabilityTM {
     private LocalDate availableDate;
     private LocalTime startTime;
     private LocalTime endTime;
-    private String isAvailable;
+    private boolean available;
+
 }

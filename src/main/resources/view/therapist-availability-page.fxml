@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -16,16 +17,16 @@
 
 <AnchorPane fx:id="bodyPane" onMouseClicked="#tableClick" prefHeight="577.0" prefWidth="1040.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.ijse.serenitymentalhealth.controller.TherapistAvailabilityController">
    <children>
-      <VBox layoutX="15.0" layoutY="72.0" prefHeight="266.0" prefWidth="666.0" spacing="20.0">
+      <VBox layoutX="15.0" layoutY="55.0" prefHeight="252.0" prefWidth="666.0" spacing="20.0">
          <children>
             <HBox prefHeight="34.0" prefWidth="314.0">
                <children>
-                  <Label prefHeight="18.0" prefWidth="134.0" text="Availability ID">
+                  <Label prefHeight="27.0" prefWidth="146.0" text="Availability ID">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="availabilityIdTxt" prefHeight="26.0" prefWidth="204.0" />
+                  <TextField fx:id="availabilityIdTxt" prefHeight="26.0" prefWidth="139.0" />
                </children>
             </HBox>
             <HBox prefHeight="34.0" prefWidth="314.0" spacing="10.0">
@@ -134,9 +135,9 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <TableView fx:id="therapistAvailabilityTable" layoutX="78.0" layoutY="354.0" onMouseClicked="#tableClick" prefHeight="202.0" prefWidth="899.0">
+      <TableView fx:id="therapistAvailabilityTable" layoutX="102.0" layoutY="354.0" onMouseClicked="#tableClick" prefHeight="202.0" prefWidth="844.0">
         <columns>
-          <TableColumn fx:id="availableIdCol" prefWidth="135.1999969482422" text="Availability ID" />
+            <TableColumn fx:id="availableIdCol" prefWidth="78.4000244140625" text="Available ID" />
           <TableColumn fx:id="therapistIdCol" prefWidth="180.0" text="Therapist ID" />
             <TableColumn fx:id="availableDateCol" prefWidth="168.0" text="Date" />
             <TableColumn fx:id="startTimeCol" prefWidth="144.79998779296875" text="Start Time" />
@@ -144,5 +145,6 @@
             <TableColumn fx:id="availableStatusCol" prefWidth="126.4000244140625" text="Available" />
         </columns>
       </TableView>
+      <ToggleButton fx:id="tableSortToggleButton" layoutX="21.0" layoutY="319.0" mnemonicParsing="false" onAction="#sortTable" prefHeight="26.0" prefWidth="161.0" text="Order" />
    </children>
 </AnchorPane>

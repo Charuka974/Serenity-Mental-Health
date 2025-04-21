@@ -2,6 +2,7 @@ package com.assignment.ijse.serenitymentalhealth.dto.tm;
 
 import lombok.*;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -18,6 +19,6 @@ public class TherapySessionTM {
     private String availabilityId;
     private LocalDate sessionDate;
     private LocalTime sessionTime;
-    private int duration;
+    private Duration duration;
     private String status;
 }
