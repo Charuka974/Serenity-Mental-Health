@@ -203,11 +203,30 @@ public class TherapySessionBOImpl implements TherapySessionBO {
     }
 
 
+//
+//    @Override
+//    public boolean delete(String sessionId) {
+//        return therapySessionDAO.delete(sessionId);
+//    }
 
     @Override
     public boolean delete(String sessionId) {
+        Optional<TherapySession> optionalSession = therapySessionDAO.findBySessionId(sessionId);
+
+        if (optionalSession.isEmpty()) return false;
+        TherapySession session = optionalSession.get();
+
+        boolean restored = therapistAvailabiltyBO.restoreTimeSlot(
+                session.getTherapist().getTherapist_id(),
+                session.getSession_date(),
+                session.getStart_time(),
+                Duration.ofMinutes(session.getDuration())
+        );
+
+        if (!restored) return false;
         return therapySessionDAO.delete(sessionId);
     }
+
 
     @Override
     public ArrayList<TherapySessionDto> getAll() {

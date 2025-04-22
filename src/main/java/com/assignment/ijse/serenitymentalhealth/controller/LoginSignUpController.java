@@ -130,17 +130,19 @@ public class LoginSignUpController {
             alert.showAndWait();
             return;
         }
-        if (userBO.registerUser(new UserDto(userID, username, password, jobRole, email))) {
+        if (userBO.registerUser(new UserDto(userID, username, password, email, jobRole))) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Sign Up Complete.");
             alert.showAndWait();
 
-            // Clear fields after successful sign up
             signInUserIDText.clear();
             signInUsernameText.clear();
             signInEmailText.clear();
             signInPasswordText.clear();
             signInJobRoleText.clear();
             signInPasswordConfirmText.clear();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Username already exists.");
+            alert.showAndWait();
         }
 
 

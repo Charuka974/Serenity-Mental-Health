@@ -1,5 +1,6 @@
 package com.assignment.ijse.serenitymentalhealth.controller;
 
+import com.assignment.ijse.serenitymentalhealth.util.KeepUserIDUtil;
 import com.assignment.ijse.serenitymentalhealth.util.NavigationUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,6 +51,9 @@ public class HomeController implements Initializable{
 
     @FXML
     private Button usersPageBtn;
+
+    @FXML
+    private Button settingButton;
 
     @FXML
     private Button welcomePageBtn;
@@ -118,6 +122,13 @@ public class HomeController implements Initializable{
         navigate.navigateTo(bodyPane, "/view/users-page.fxml");
     }
 
+
+    @FXML
+    void loadSettings(ActionEvent event) {
+        navigate.navigatePopup("/view/settings-page.fxml", "Settings");
+    }
+
+
     @FXML
     void logOut(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to log out?",
@@ -126,6 +137,7 @@ public class HomeController implements Initializable{
 
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.YES) {
+                KeepUserIDUtil.getInstance().clear();
                 navigate.navigateBack(homeAnchorPane, "/view/login-signup-page.fxml");
             }
         });

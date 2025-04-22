@@ -1,13 +1,13 @@
 package com.assignment.ijse.serenitymentalhealth.bo.custom.impl;
 
 import com.assignment.ijse.serenitymentalhealth.bo.custom.UserBO;
-import com.assignment.ijse.serenitymentalhealth.dao.SuperDAO;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.UserDAO;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.impl.UserDAOImpl;
-import com.assignment.ijse.serenitymentalhealth.dto.PatientDto;
 import com.assignment.ijse.serenitymentalhealth.dto.UserDto;
-import com.assignment.ijse.serenitymentalhealth.entity.Patient;
 import com.assignment.ijse.serenitymentalhealth.entity.User;
+import com.assignment.ijse.serenitymentalhealth.util.KeepUserIDUtil;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,33 +16,82 @@ import java.util.Optional;
 public class UserBOImpl implements UserBO {
     UserDAO userDAO = new UserDAOImpl();
 
-    public String validateUser(String username, String password){
-        return userDAO.validateUser(username, password);
+
+    @Override
+    public String validateUser(String username, String password) {
+        Optional<User> optionalUser = userDAO.findByName(username);
+
+        if (optionalUser.isEmpty()) {
+            return null;
+        }
+        User user = optionalUser.get();
+
+        if (verifyPassword(password, user.getPassword())) {
+            KeepUserIDUtil.getInstance().setCurrentUserId(user.getUser_id());
+            return user.getRole();
+        } else {
+            return null;
+        }
     }
+
+
+    public String hashPassword(String password){
+            String salt = BCrypt.gensalt();
+            String hashedPassword = BCrypt.hashpw(password,salt);
+            return hashedPassword;
+    }
+
+    public boolean verifyPassword(String plainPassword, String hashedPassword) {
+            if (hashedPassword == null || hashedPassword.isEmpty()) {
+                throw new IllegalArgumentException("Hashed password cannot be null or empty");
+            }
+
+            try {
+                return BCrypt.checkpw(plainPassword, hashedPassword);
+            } catch (IllegalArgumentException e) {
+                System.err.println("Invalid password hash format: " + hashedPassword);
+                return false;
+            }
+    }
+
     public boolean registerUser(UserDto dto){
+        Optional<User> optionalUser = userDAO.findByName(dto.getUsername());
+        if (optionalUser.isPresent()) {
+            return false;
+        }
+
         User user = new User();
         user.setUser_id(dto.getUserId());
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
         user.setRole(dto.getRole());
-        user.setPassword(dto.getPassword());
+        user.setPassword(hashPassword(dto.getPassword()));
 
         return userDAO.save(user);
     }
 
     // --------------------------------------------
 
+
     @Override
     public boolean updateUser(UserDto dto) {
+        Optional<User> optionalUser = userDAO.findByName(dto.getUsername());
+        if (optionalUser.isEmpty()) {
+            return false;
+        }
+
+        User existingUser = optionalUser.get();
+
         User user = new User();
         user.setUser_id(dto.getUserId());
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
-        user.setRole(dto.getRole());
-        user.setPassword(dto.getPassword());
+        user.setRole(existingUser.getRole());
+        user.setPassword(hashPassword(dto.getPassword()));
 
         return userDAO.update(user);
     }
+
 
     @Override
     public boolean deleteUser(String userId) {
@@ -98,6 +147,33 @@ public class UserBOImpl implements UserBO {
         }
         return userDtos;
     }
+
+    @Override
+    public UserDto findUserByUserId(String userId) {
+        Optional<User> optionalUser = userDAO.findByUserId(userId);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            UserDto userDto = new UserDto();
+            userDto.setUserId(user.getUser_id());
+            userDto.setUsername(user.getUsername());
+            userDto.setEmail(user.getEmail());
+            userDto.setPassword(user.getPassword());
+            userDto.setRole(user.getRole());
+            return userDto;
+        }
+
+        return null; // Return null if the user isn't found
+    }
+
+
+    @Override
+    public boolean updateUsernameAndPassword(String userId, String newUsername, String newPassword) {
+        String hashedPassword = hashPassword(newPassword);
+        return userDAO.updateUsernameAndPassword(userId, newUsername, hashedPassword);
+    }
+
+
 
 
 }

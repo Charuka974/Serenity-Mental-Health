@@ -15,6 +15,8 @@ public interface UserBO extends SuperBO {
     public ArrayList<UserDto> searchUser(String userId);
     public String generateNextUserId();
     public ArrayList<UserDto> getAllUsers();
+    public UserDto findUserByUserId(String userId);
+    public boolean updateUsernameAndPassword(String userId, String newUsername, String newPassword);
 
 
 }

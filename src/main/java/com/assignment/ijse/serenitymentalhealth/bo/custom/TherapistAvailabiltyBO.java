@@ -25,5 +25,7 @@ public interface TherapistAvailabiltyBO extends SuperBO {
     public boolean bookTimeSlot(String therapistId, LocalDate date, LocalTime startTime, Duration sessionDuration);
     public String generateNextId();
 
+    public boolean restoreTimeSlot(String therapistId, LocalDate date, LocalTime startTime, Duration sessionDuration);
+
 }
 

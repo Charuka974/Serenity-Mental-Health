@@ -17,6 +17,7 @@ public interface UserDAO extends CrudDAO<User> {
     public User findByID(String pk);
 //    public Optional<String> getLastPK();
     public String validateUser(String username, String password);
-
+    public Optional<User> findByUserId(String userId);
+    public boolean updateUsernameAndPassword(String userId, String newUsername, String newPassword);
 
 }

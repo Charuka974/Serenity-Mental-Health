@@ -8,6 +8,7 @@ module com.assignment.ijse.serenitymentalhealth {
     requires static lombok;
     requires java.naming;
     requires mysql.connector.j;
+    requires spring.security.crypto;
 
 
     opens com.assignment.ijse.serenitymentalhealth.dto.tm to javafx.base;

@@ -4,6 +4,7 @@ import com.assignment.ijse.serenitymentalhealth.bo.custom.UserBO;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.UserBOImpl;
 import com.assignment.ijse.serenitymentalhealth.dto.UserDto;
 import com.assignment.ijse.serenitymentalhealth.dto.tm.UserTM;
+import com.assignment.ijse.serenitymentalhealth.util.KeepUserIDUtil;
 import com.assignment.ijse.serenitymentalhealth.util.SetBackgroundUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -76,6 +77,7 @@ public class UsersController implements Initializable{
 
     private ObservableList<UserTM> userTMList = FXCollections.observableArrayList();
 
+    String loggedInUserId = null;
 
     public void initialize(URL location, ResourceBundle resources) {
         SetBackgroundUtil setBackground = new SetBackgroundUtil();
@@ -96,6 +98,12 @@ public class UsersController implements Initializable{
         }
 
         loadAllUsers();
+
+        loggedInUserId = KeepUserIDUtil.getInstance().getCurrentUserId();
+        updateButton.setVisible(false);
+        saveButton.setVisible(false);
+
+
     }
 
     private void loadAllUsers() {

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="settingsPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.ijse.serenitymentalhealth.controller.SettingsController">
+   <children>
+      <Button fx:id="saveButton" focusTraversable="false" layoutX="251.0" layoutY="281.0" mnemonicParsing="false" onAction="#save" prefHeight="26.0" prefWidth="97.0" styleClass="process-button" stylesheets="@../cssStyles/process-button.css" text="Save">
+         <effect>
+            <DropShadow />
+         </effect>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Label alignment="CENTER" layoutX="154.0" layoutY="14.0" prefHeight="27.0" prefWidth="292.0" text="Change Username &amp; Password">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <VBox layoutX="124.0" layoutY="82.0" prefHeight="151.0" prefWidth="319.0">
+         <children>
+            <HBox prefHeight="37.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="18.0" prefWidth="157.0" text="Username">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="usernameTxt" prefWidth="147.0" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="37.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="18.0" prefWidth="157.0" text="New password">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="passwordTxtVisible" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="37.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="27.0" prefWidth="157.0" text="confirm password">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="confirmTxtVisible" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+      <PasswordField fx:id="confirmTxtInvisible" layoutX="281.0" layoutY="188.0" />
+      <PasswordField fx:id="passwordTxtInvisible" layoutX="282.0" layoutY="140.0" />
+      <Button fx:id="visibleButton" focusTraversable="false" layoutX="447.0" layoutY="161.0" mnemonicParsing="false" onMousePressed="#setVisible" onMouseReleased="#setInvisible" prefHeight="21.0" prefWidth="98.0" styleClass="process-button" stylesheets="@../cssStyles/process-button.css" text="Show Password">
+         <effect>
+            <DropShadow />
+         </effect>
+         <font>
+            <Font name="System Bold" size="11.0" />
+         </font>
+      </Button>
+      <Label fx:id="oldUsernameLabel" layoutX="9.0" layoutY="95.0" prefHeight="23.0" prefWidth="104.0" text="Username">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="oldPasswordLabel" layoutX="11.0" layoutY="143.0" prefHeight="23.0" prefWidth="104.0" text="Password">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
