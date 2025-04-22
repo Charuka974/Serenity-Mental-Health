@@ -70,7 +70,7 @@ public class PatientBOImpl implements PatientBO {
 
     @Override
     public ArrayList<PatientDto> findByPatientName(String name) {
-        List<Patient> patients = patientDAO.findByName(name);
+        List<Patient> patients = patientDAO.findByPatientName(name);
         ArrayList<PatientDto> patientDtos = new ArrayList<>();
 
         for (Patient patient : patients) {

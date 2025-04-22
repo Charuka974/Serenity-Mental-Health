@@ -1,5 +1,6 @@
 package com.assignment.ijse.serenitymentalhealth.bo.custom.impl;
 
+import com.assignment.ijse.serenitymentalhealth.bo.custom.TherapistAvailabiltyBO;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.TherapySessionBO;
 import com.assignment.ijse.serenitymentalhealth.config.FactoryConfiguration;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.*;
@@ -24,8 +25,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
     PatientDAO patientDAO = new PatientDAOImpl();
     TherapyProgramDAO therapyProgramDAO = new TherapyProgramDAOImpl();
 
-    TherapistAvailabiltyBOImpl therapistAvailabiltyBO = new TherapistAvailabiltyBOImpl();
-    TherapistAvailabiltyDAOImpl availabilityDAO = new TherapistAvailabiltyDAOImpl();
+    TherapistAvailabiltyBO therapistAvailabiltyBO = new TherapistAvailabiltyBOImpl();
 
     @Override
     public boolean save(TherapySessionDto dto) {
@@ -286,8 +286,8 @@ public class TherapySessionBOImpl implements TherapySessionBO {
         Optional<String> lastPkOpt = therapySessionDAO.getLastPK();
 
         if (lastPkOpt.isPresent()) {
-            String lastPk = lastPkOpt.get(); // e.g. "S012"
-            String numericPart = lastPk.substring(1); // "012"
+            String lastPk = lastPkOpt.get();
+            String numericPart = lastPk.substring(2);
             int currentId = Integer.parseInt(numericPart);
             int nextId = currentId + 1;
             return String.format("TS%03d", nextId);
@@ -295,6 +295,7 @@ public class TherapySessionBOImpl implements TherapySessionBO {
 
         return "TS001";
     }
+
 
 
 }

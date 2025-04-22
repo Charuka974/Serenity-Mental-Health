@@ -237,7 +237,7 @@ public class PaymentBOImpl implements PaymentBO {
 
     @Override
     public ArrayList<PaymentDto> searchByPatientName(String name) {
-        List<Payment> payments = paymentDAO.findByName(name);
+        List<Payment> payments = paymentDAO.findByPatientName(name);
         ArrayList<PaymentDto> dtos = new ArrayList<>();
 
         for (Payment p : payments) {

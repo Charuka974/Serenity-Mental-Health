@@ -25,6 +25,8 @@ import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -123,7 +125,10 @@ public class TherapySessionsController implements Initializable {
 
     private final TherapySessionBO therapySessionBO = new TherapySessionBOImpl();
 
-    private final TherapistAvailabiltyBOImpl therapistAvailabiltyBO = new TherapistAvailabiltyBOImpl();
+    private final TherapistAvailabiltyBO therapistAvailabiltyBO = new TherapistAvailabiltyBOImpl();
+
+    DateTimeFormatter timeFormatter = new DateTimeFormatterBuilder().appendPattern("hh:mm a").toFormatter().withLocale(Locale.ENGLISH);
+
 
     public void initialize(URL location, ResourceBundle resources) {
         SetBackgroundUtil setBackground = new SetBackgroundUtil();
@@ -164,33 +169,28 @@ public class TherapySessionsController implements Initializable {
         ).collect(Collectors.toList());
 
         therapySessionTable.getItems().setAll(tmList);
+        sessionIdTxt.setText(therapySessionBO.getNextSessionPK());
     }
 
 
     @FXML
     void save(ActionEvent event) {
+
         String sessionId = sessionIdTxt.getText().trim();
         String patientId = patientIdTxt.getText().trim();
         String programId = programIdTxt.getText().trim();
         String therapistId = therapistIdTxt.getText().trim();
         LocalDate sessionDate = sessionDateTxt.getValue();
-        String timeText = sessionTimeTxt.getText().trim();
+        LocalTime sessionTime = LocalTime.parse(sessionTimeTxt.getText().trim(), timeFormatter);
         String status = statusTxtChoice.getValue();
         String sessionDurationChoice = sessionDurationTxt.getValue();
 
         if (sessionId.isEmpty() || patientId.isEmpty() || programId.isEmpty() || therapistId.isEmpty() ||
-                sessionDate == null || timeText.isEmpty() || sessionDurationChoice == null || status == null) {
+                sessionDate == null || sessionTimeTxt.getText().trim().isEmpty() || sessionDurationChoice == null || status == null) {
             showAlert("Input Error", "Please fill in all fields.", Alert.AlertType.ERROR);
             return;
         }
 
-        LocalTime sessionTime;
-        try {
-            sessionTime = LocalTime.parse(timeText);
-        } catch (Exception e) {
-            showAlert("Input Error", "Invalid time format. Use HH:mm", Alert.AlertType.ERROR);
-            return;
-        }
 
         int sessionDuration = switch (sessionDurationChoice) {
             case "30 minutes" -> 30;
@@ -209,6 +209,7 @@ public class TherapySessionsController implements Initializable {
         if (saved) {
             showAlert("Success", "Therapy session saved successfully!", Alert.AlertType.INFORMATION);
             loadAllSessions();
+            clearTimeTable();
             clearForm();
         } else {
             showAlert("Error", "Failed to save therapy session.", Alert.AlertType.ERROR);
@@ -246,8 +247,7 @@ public class TherapySessionsController implements Initializable {
         String programId = programIdTxt.getText().trim();
         String therapistId = therapistIdTxt.getText().trim();
         LocalDate sessionDate = sessionDateTxt.getValue();
-        LocalTime sessionTime = LocalTime.parse(sessionTimeTxt.getText().trim());
-        String status = statusTxtChoice.getValue();
+        LocalTime sessionTime = LocalTime.parse(sessionTimeTxt.getText().trim(), timeFormatter);        String status = statusTxtChoice.getValue();
         String sessionDurationChoice = sessionDurationTxt.getValue();
 
         int sessionDuration = switch (sessionDurationChoice) {
@@ -295,6 +295,7 @@ public class TherapySessionsController implements Initializable {
         if (keyword.isEmpty()) {
             showAlert("Input Error", "Enter a patient ID to search.", Alert.AlertType.WARNING);
             loadAllSessions();
+            clearForm();
             return;
         }
 
@@ -502,6 +503,13 @@ public class TherapySessionsController implements Initializable {
         for (int i = 0; i < 5; i++) {
             nextFiveDates.add(today.plusDays(i));
         }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, MMM dd");
+        date1TSCol.setText(nextFiveDates.get(0).format(formatter));
+        date2TSCol.setText(nextFiveDates.get(1).format(formatter));
+        date3TSCol.setText(nextFiveDates.get(2).format(formatter));
+        date4TSCol.setText(nextFiveDates.get(3).format(formatter));
+        date5TSCol.setText(nextFiveDates.get(4).format(formatter));
+
 
         // Collect all time slots across 5 days
         Set<String> uniqueSlots = new TreeSet<>();
@@ -524,16 +532,22 @@ public class TherapySessionsController implements Initializable {
         for (String slot : uniqueSlots) {
             rows.add(new TimeSlotRowTM(
                     slot,
-                    slotMap.getOrDefault(nextFiveDates.get(0), List.of()).contains(slot) ? "✔" : "❌",
-                    slotMap.getOrDefault(nextFiveDates.get(1), List.of()).contains(slot) ? "✔" : "❌",
-                    slotMap.getOrDefault(nextFiveDates.get(2), List.of()).contains(slot) ? "✔" : "❌",
-                    slotMap.getOrDefault(nextFiveDates.get(3), List.of()).contains(slot) ? "✔" : "❌",
-                    slotMap.getOrDefault(nextFiveDates.get(4), List.of()).contains(slot) ? "✔" : "❌"
+                    slotMap.getOrDefault(nextFiveDates.get(0), List.of()).contains(slot) ? "✔" : "",
+                    slotMap.getOrDefault(nextFiveDates.get(1), List.of()).contains(slot) ? "✔" : "",
+                    slotMap.getOrDefault(nextFiveDates.get(2), List.of()).contains(slot) ? "✔" : "",
+                    slotMap.getOrDefault(nextFiveDates.get(3), List.of()).contains(slot) ? "✔" : "",
+                    slotMap.getOrDefault(nextFiveDates.get(4), List.of()).contains(slot) ? "✔" : ""
             ));
         }
 
+
         timeSlotTable.getItems().setAll(rows);
     }
+
+    public void clearTimeTable() {
+        timeSlotTable.getItems().clear(); // Clears all the rows in the table
+    }
+
 
 
 //    private boolean isSlotAvailable(LocalDate date, String slot) {

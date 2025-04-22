@@ -116,8 +116,8 @@ public class PatientProgramBOImpl implements PatientProgramBO {
 
     @Override
     public boolean deletePatientProgram(String patientName, String programName) {
-        String patientId = patientDAO.findByName(patientName).getFirst().getPatient_id();
-        String programId = therapyProgramDAO.findByName(programName).getFirst().getProgram_id();
+        String patientId = patientDAO.findByPatientName(patientName).getFirst().getPatient_id();
+        String programId = therapyProgramDAO.findByTherapyProgramName(programName).getFirst().getProgram_id();
         return patientProgramDAO.delete(patientId, programId);
     }
 
@@ -151,7 +151,7 @@ public class PatientProgramBOImpl implements PatientProgramBO {
 
     @Override
     public PatientDto findByPatientName(String patientName) {
-        List<Patient> patients = patientDAO.findByName(patientName);
+        List<Patient> patients = patientDAO.findByPatientName(patientName);
         if (patients.isEmpty()) return null;
 
         Patient patient = patients.get(0);
@@ -168,7 +168,7 @@ public class PatientProgramBOImpl implements PatientProgramBO {
 
     @Override
     public TherapyProgramDto findByProgramName(String programName) {
-        List<TherapyProgram> programs = therapyProgramDAO.findByName(programName);
+        List<TherapyProgram> programs = therapyProgramDAO.findByTherapyProgramName(programName);
         if (programs.isEmpty()) return null;
 
         TherapyProgram program = programs.get(0);
@@ -187,13 +187,13 @@ public class PatientProgramBOImpl implements PatientProgramBO {
         List<PatientProgram> patientPrograms;
 
         if (isPatient) {
-            List<Patient> patients = patientDAO.findByName(name);
+            List<Patient> patients = patientDAO.findByPatientName(name);
             if (patients.isEmpty()) return patientProgramDtos;
 
             String patientId = patients.get(0).getPatient_id();
             patientPrograms = patientProgramDAO.findByPatientId(patientId);
         } else {
-            List<TherapyProgram> programs = therapyProgramDAO.findByName(name);
+            List<TherapyProgram> programs = therapyProgramDAO.findByTherapyProgramName(name);
             if (programs.isEmpty()) return patientProgramDtos;
 
             String programId = programs.get(0).getProgram_id();

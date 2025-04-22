@@ -61,7 +61,7 @@ public class TherapistBOImpl implements TherapistBO {
 
     @Override
     public ArrayList<TherapistDto> findByTherapistName(String name) {
-        List<Therapist> therapists = therapistDAO.findByName(name);
+        List<Therapist> therapists = therapistDAO.findByTherapistName(name);
         ArrayList<TherapistDto> therapistDtos = new ArrayList<>();
 
         for (Therapist therapist : therapists) {

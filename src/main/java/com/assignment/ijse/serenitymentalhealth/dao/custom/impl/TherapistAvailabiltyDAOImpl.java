@@ -14,6 +14,7 @@ import java.util.Optional;
 public class TherapistAvailabiltyDAOImpl implements TherapistAvailabiltyDAO {
     private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
 
+    @Override
     public List<TherapistAvailability> getAll() {
         Session session = factoryConfiguration.getSession();
         List<TherapistAvailability> list = session.createQuery(
@@ -23,7 +24,12 @@ public class TherapistAvailabiltyDAOImpl implements TherapistAvailabiltyDAO {
         return list;
     }
 
+    @Override
+    public Optional<TherapistAvailability> findByName(String pk) {
+        return Optional.empty();
+    }
 
+    @Override
     public boolean save(TherapistAvailability entity) {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
@@ -40,6 +46,7 @@ public class TherapistAvailabiltyDAOImpl implements TherapistAvailabiltyDAO {
         }
     }
 
+    @Override
     public boolean update(TherapistAvailability entity) {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
@@ -56,6 +63,7 @@ public class TherapistAvailabiltyDAOImpl implements TherapistAvailabiltyDAO {
         }
     }
 
+    @Override
     public boolean delete(String availabilityId) {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
@@ -76,6 +84,7 @@ public class TherapistAvailabiltyDAOImpl implements TherapistAvailabiltyDAO {
         }
     }
 
+    @Override
     public List<TherapistAvailability> findByTherapistAndDate(String therapistId, LocalDate date) {
         Session session = FactoryConfiguration.getInstance().getSession();
         List<TherapistAvailability> availabilities = session.createQuery(
@@ -88,7 +97,7 @@ public class TherapistAvailabiltyDAOImpl implements TherapistAvailabiltyDAO {
         return availabilities;
     }
 
-
+    @Override
     public List<TherapistAvailability> findByTherapistId(String therapistId) {
         Session session = factoryConfiguration.getSession();
         List<TherapistAvailability> list = session.createQuery(
@@ -100,6 +109,7 @@ public class TherapistAvailabiltyDAOImpl implements TherapistAvailabiltyDAO {
         return list;
     }
 
+    @Override
     public List<TherapistAvailability> findByDate(LocalDate date) {
         Session session = factoryConfiguration.getSession();
         List<TherapistAvailability> list = session.createQuery(
@@ -111,6 +121,7 @@ public class TherapistAvailabiltyDAOImpl implements TherapistAvailabiltyDAO {
         return list;
     }
 
+    @Override
     public Optional<String> getLastPK() {
         Session session = factoryConfiguration.getSession();
         String lastPk = session.createQuery(

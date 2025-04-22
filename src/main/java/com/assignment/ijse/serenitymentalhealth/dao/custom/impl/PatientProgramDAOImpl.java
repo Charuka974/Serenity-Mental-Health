@@ -53,6 +53,11 @@ public class PatientProgramDAOImpl implements PatientProgramDAO {
         }
     }
 
+    @Override
+    public boolean delete(String pk) {
+        return false;
+    }
+
 
     @Override
     public boolean delete(String patientId, String programId) {
@@ -91,6 +96,11 @@ public class PatientProgramDAOImpl implements PatientProgramDAO {
         return patientProgram;
     }
 
+    @Override
+    public Optional<PatientProgram> findByName(String pk) {
+        return Optional.empty();
+    }
+
 
     @Override
     public List<PatientProgram> findByPatientId(String patient_id) {
@@ -120,7 +130,7 @@ public class PatientProgramDAOImpl implements PatientProgramDAO {
        return Optional.empty();
     }
     @Override
-    public List<PatientProgram> findByName(String name) {
+    public List<PatientProgram> searchByName(String name) {
         return null;
     }
 

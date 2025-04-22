@@ -20,11 +20,8 @@ import java.util.UUID;
 
 public class TherapistAvailabiltyBOImpl implements TherapistAvailabiltyBO {
 
-
     private final TherapistDAO therapistDAO = new TherapistDAOImpl();
-
-
-    private final TherapistAvailabiltyDAOImpl therapistAvailabilityDAO = new TherapistAvailabiltyDAOImpl();
+    private final TherapistAvailabiltyDAO therapistAvailabilityDAO = new TherapistAvailabiltyDAOImpl();
 
 
     public boolean saveTherapistAvailability(TherapistAvailabilityDto dto) {

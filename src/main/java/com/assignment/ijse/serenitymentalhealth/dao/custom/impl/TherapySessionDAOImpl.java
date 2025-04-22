@@ -77,6 +77,11 @@ public class TherapySessionDAOImpl implements TherapySessionDAO {
     }
 
     @Override
+    public Optional<TherapySession> findByName(String pk) {
+        return Optional.empty();
+    }
+
+    @Override
     public Optional<TherapySession> findBySessionId(String sessionId) {
         Session session = factoryConfiguration.getSession();
         TherapySession sessionEntity = null;

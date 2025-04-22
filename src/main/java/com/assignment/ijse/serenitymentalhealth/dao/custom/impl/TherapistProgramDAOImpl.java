@@ -48,6 +48,11 @@ public class TherapistProgramDAOImpl implements TherapistProgramDAO {
     }
 
     @Override
+    public boolean delete(String pk) {
+        return false;
+    }
+
+    @Override
     public boolean delete(String therapistId, String programId) {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
@@ -75,6 +80,11 @@ public class TherapistProgramDAOImpl implements TherapistProgramDAO {
         List<TherapistProgram> programs = session.createQuery("FROM TherapistProgram", TherapistProgram.class).list();
         session.close();
         return programs;
+    }
+
+    @Override
+    public Optional<TherapistProgram> findByName(String pk) {
+        return Optional.empty();
     }
 
     @Override

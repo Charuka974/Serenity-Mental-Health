@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
@@ -67,6 +68,17 @@ public class LoginSignUpController {
     @FXML
     private ToggleButton toggleButton;
 
+    @FXML
+    private HBox loginVisiblePasswordBox;
+
+    @FXML
+    private JFXTextField loginVisiblePasswordText;
+
+    @FXML
+    private ImageView seeUnseeEyeImage;
+
+
+
     NavigationUtil navigate = new NavigationUtil();
     UserBO userBO = new UserBOImpl();
     private boolean showingLogin = true;
@@ -74,6 +86,10 @@ public class LoginSignUpController {
     @FXML
     public void initialize() {
         setBackgroundImage();
+        seeUnseeEyeImage.setImage(new Image(getClass().getResourceAsStream("/images/unseeEye.png")));
+        loginVisiblePasswordText.setVisible(false);
+        loginPasswordText.setVisible(true);
+
         signInUserIDText.setText( userBO.generateNextUserId());
     }
 
@@ -179,6 +195,22 @@ public class LoginSignUpController {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Invalid username or password.");
             alert.showAndWait();
         }
+    }
+
+    @FXML
+    void makePasswordInvisible(MouseEvent event) {
+        seeUnseeEyeImage.setImage(new Image(getClass().getResourceAsStream("/images/unseeEye.png")));
+        loginPasswordText.setVisible(true);
+        loginVisiblePasswordText.setVisible(false);
+        loginPasswordText.setText(loginVisiblePasswordText.getText());
+    }
+
+    @FXML
+    void makePasswordVisible(MouseEvent event) {
+        seeUnseeEyeImage.setImage(new Image(getClass().getResourceAsStream("/images/seeEye.png")));
+        loginVisiblePasswordText.setVisible(true);
+        loginPasswordText.setVisible(false);
+        loginVisiblePasswordText.setText(loginPasswordText.getText());
     }
 
 
