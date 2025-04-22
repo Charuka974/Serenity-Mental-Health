@@ -1,25 +1,22 @@
 package com.assignment.ijse.serenitymentalhealth.bo.custom.impl;
 
 import com.assignment.ijse.serenitymentalhealth.bo.custom.TherapistProgramBO;
+import com.assignment.ijse.serenitymentalhealth.dao.DAOFactory;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.TherapistDAO;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.TherapistProgramDAO;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.TherapyProgramDAO;
-import com.assignment.ijse.serenitymentalhealth.dao.custom.impl.TherapistDAOImpl;
-import com.assignment.ijse.serenitymentalhealth.dao.custom.impl.TherapistProgramDAOImpl;
-import com.assignment.ijse.serenitymentalhealth.dao.custom.impl.TherapyProgramDAOImpl;
 import com.assignment.ijse.serenitymentalhealth.dto.TherapistProgramDto;
 import com.assignment.ijse.serenitymentalhealth.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class TherapistProgramBOImpl implements TherapistProgramBO {
 
-    private TherapistProgramDAO therapistProgramDAO = new TherapistProgramDAOImpl();
-    private TherapistDAO therapistDAO = new TherapistDAOImpl();
-    private TherapyProgramDAO therapyProgramDAO = new TherapyProgramDAOImpl();
+    TherapistProgramDAO therapistProgramDAO = (TherapistProgramDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.THERAPIST_PROGRAM);
+    TherapistDAO therapistDAO = (TherapistDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.THERAPIST);
+    TherapyProgramDAO therapyProgramDAO = (TherapyProgramDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.THERAPY_PROGRAM);
 
     @Override
     public boolean saveTherapistProgram(String therapistId, String programId) {

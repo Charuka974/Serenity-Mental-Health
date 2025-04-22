@@ -1,5 +1,6 @@
 package com.assignment.ijse.serenitymentalhealth.controller;
 
+import com.assignment.ijse.serenitymentalhealth.bo.BOFactory;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.*;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.*;
 import com.assignment.ijse.serenitymentalhealth.dto.*;
@@ -117,15 +118,13 @@ public class TherapySessionsController implements Initializable {
     @FXML
     private Button updateButton;
 
-    private final PatientBO patientBO = new PatientBOImpl();
-    private final PatientProgramBO patientProgramBO = new PatientProgramBOImpl();
-    private TherapistBO therapistBO = new TherapistBOImpl();
-    private final TherapyProgramBO therapyProgramBO = new TherapyProgramBOImpl();
-    private final TherapistProgramBO therapistProgramBO = new TherapistProgramBOImpl();
-
-    private final TherapySessionBO therapySessionBO = new TherapySessionBOImpl();
-
-    private final TherapistAvailabiltyBO therapistAvailabiltyBO = new TherapistAvailabiltyBOImpl();
+    PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBO(BOFactory.BOType.PATIENT);
+    PatientProgramBO patientProgramBO = (PatientProgramBO) BOFactory.getInstance().getBO(BOFactory.BOType.PATIENT_PROGRAM);
+    TherapistBO therapistBO = (TherapistBO) BOFactory.getInstance().getBO(BOFactory.BOType.THERAPIST);
+    TherapistAvailabiltyBO therapistAvailabiltyBO = (TherapistAvailabiltyBO) BOFactory.getInstance().getBO(BOFactory.BOType.THERAPIST_AVAILABILITY);
+    TherapistProgramBO therapistProgramBO = (TherapistProgramBO) BOFactory.getInstance().getBO(BOFactory.BOType.THERAPIST_PROGRAM);
+    TherapyProgramBO therapyProgramBO = (TherapyProgramBO) BOFactory.getInstance().getBO(BOFactory.BOType.THERAPY_PROGRAM);
+    TherapySessionBO therapySessionBO = (TherapySessionBO) BOFactory.getInstance().getBO(BOFactory.BOType.THERAPY_SESSION);
 
     DateTimeFormatter timeFormatter = new DateTimeFormatterBuilder().appendPattern("hh:mm a").toFormatter().withLocale(Locale.ENGLISH);
 

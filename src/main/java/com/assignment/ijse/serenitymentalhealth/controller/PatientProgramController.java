@@ -1,5 +1,6 @@
 package com.assignment.ijse.serenitymentalhealth.controller;
 
+import com.assignment.ijse.serenitymentalhealth.bo.BOFactory;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.PatientProgramBO;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.TherapyProgramBO;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.PatientProgramBOImpl;
@@ -98,8 +99,8 @@ public class PatientProgramController implements Initializable {
     @FXML
     private Button updateButton;
 
-    private final PatientProgramBO programBO = new PatientProgramBOImpl();
-    private final TherapyProgramBO therapyProgramBO = new TherapyProgramBOImpl();
+    PatientProgramBO patientProgramBO = (PatientProgramBO) BOFactory.getInstance().getBO(BOFactory.BOType.PATIENT_PROGRAM);
+    TherapyProgramBO therapyProgramBO = (TherapyProgramBO) BOFactory.getInstance().getBO(BOFactory.BOType.THERAPY_PROGRAM);
 
 
 
@@ -119,7 +120,7 @@ public class PatientProgramController implements Initializable {
     }
 
     private void refreshTable() {
-        ArrayList<PatientProgramDto> programList = programBO.getAllPatientPrograms();
+        ArrayList<PatientProgramDto> programList = patientProgramBO.getAllPatientPrograms();
         ObservableList<PatientProgramTM> programTMS = FXCollections.observableArrayList();
 
         for (PatientProgramDto dto : programList) {
@@ -171,7 +172,7 @@ public class PatientProgramController implements Initializable {
         String patientName = patientNameTxt.getText();
         String programName = programNameTxt.getText();
 
-        if (programBO.deletePatientProgram(patientName, programName)) {
+        if (patientProgramBO.deletePatientProgram(patientName, programName)) {
             showAlert("Success", "Program deleted successfully", Alert.AlertType.INFORMATION);
             refreshPage();
         } else {
@@ -191,7 +192,7 @@ public class PatientProgramController implements Initializable {
                 null
         );
 
-        if (programBO.savePatientProgram(dto)) {
+        if (patientProgramBO.savePatientProgram(dto)) {
             showAlert("Success", "Program saved successfully", Alert.AlertType.INFORMATION);
             refreshPage();
         } else {
@@ -226,7 +227,7 @@ public class PatientProgramController implements Initializable {
         ObservableList<PatientProgramTM> programTMS = FXCollections.observableArrayList();
 
         if (searchToggleButton.isSelected()) {
-            ArrayList<PatientProgramDto> programList = programBO.search(query , false);
+            ArrayList<PatientProgramDto> programList = patientProgramBO.search(query , false);
             for (PatientProgramDto dto : programList) {
                 TherapyProgramDto program = therapyProgramBO.findTherapyProgramByID(dto.getProgramId());
                 programTMS.add(new PatientProgramTM(
@@ -241,7 +242,7 @@ public class PatientProgramController implements Initializable {
                 ));
             }
         } else {
-            ArrayList<PatientProgramDto> programList = programBO.search(query, true);
+            ArrayList<PatientProgramDto> programList = patientProgramBO.search(query, true);
             for (PatientProgramDto dto : programList) {
                 TherapyProgramDto program = therapyProgramBO.findTherapyProgramByID(dto.getProgramId());
                 programTMS.add(new PatientProgramTM(
@@ -268,7 +269,7 @@ public class PatientProgramController implements Initializable {
     @FXML
     void searchPatient(ActionEvent event) {
         String name = patientNameTxt.getText().trim();
-        PatientDto patient = programBO.findByPatientName(name);
+        PatientDto patient = patientProgramBO.findByPatientName(name);
         if (patient == null) {
             showAlert("Not Found", "Patient not found", Alert.AlertType.WARNING);
             return;
@@ -280,7 +281,7 @@ public class PatientProgramController implements Initializable {
     @FXML
     void searchProgram(ActionEvent event) {
         String name = programNameTxt.getText().trim();
-        TherapyProgramDto program = programBO.findByProgramName(name);
+        TherapyProgramDto program = patientProgramBO.findByProgramName(name);
         if (program == null) {
             showAlert("Not Found", "Program not found", Alert.AlertType.WARNING);
             return;
@@ -301,7 +302,7 @@ public class PatientProgramController implements Initializable {
                 null
         );
 
-        if (programBO.updatePatientProgram(dto)) {
+        if (patientProgramBO.updatePatientProgram(dto)) {
             showAlert("Success", "Program updated successfully", Alert.AlertType.INFORMATION);
             refreshPage();
         } else {

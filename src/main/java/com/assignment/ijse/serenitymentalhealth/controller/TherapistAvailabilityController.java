@@ -1,5 +1,7 @@
 package com.assignment.ijse.serenitymentalhealth.controller;
 
+import com.assignment.ijse.serenitymentalhealth.bo.BOFactory;
+import com.assignment.ijse.serenitymentalhealth.bo.custom.TherapistAvailabiltyBO;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.TherapistBO;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.TherapistAvailabiltyBOImpl;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.TherapistBOImpl;
@@ -93,9 +95,8 @@ public class TherapistAvailabilityController implements Initializable {
     private Button updateButton;
 
 
-    private final TherapistAvailabiltyBOImpl therapistAvailabiltyBO = new TherapistAvailabiltyBOImpl();
-
-    private final TherapistBO therapistBO = new TherapistBOImpl();
+    TherapistAvailabiltyBO therapistAvailabiltyBO = (TherapistAvailabiltyBO) BOFactory.getInstance().getBO(BOFactory.BOType.THERAPIST_AVAILABILITY);
+    TherapistBO therapistBO = (TherapistBO) BOFactory.getInstance().getBO(BOFactory.BOType.THERAPIST);
 
     DateTimeFormatter timeFormatter = new DateTimeFormatterBuilder().appendPattern("hh:mm a").toFormatter().withLocale(Locale.ENGLISH);
     @Override

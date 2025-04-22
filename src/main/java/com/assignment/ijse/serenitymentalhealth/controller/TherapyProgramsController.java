@@ -1,5 +1,6 @@
 package com.assignment.ijse.serenitymentalhealth.controller;
 
+import com.assignment.ijse.serenitymentalhealth.bo.BOFactory;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.TherapyProgramBO;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.TherapyProgramBOImpl;
 import com.assignment.ijse.serenitymentalhealth.dto.TherapyProgramDto;
@@ -77,7 +78,7 @@ public class TherapyProgramsController implements Initializable {
     @FXML
     private AnchorPane bodyPane;
 
-    private final TherapyProgramBO therapyProgramBO = new TherapyProgramBOImpl();
+    TherapyProgramBO therapyProgramBO = (TherapyProgramBO) BOFactory.getInstance().getBO(BOFactory.BOType.THERAPY_PROGRAM);
 
 
 

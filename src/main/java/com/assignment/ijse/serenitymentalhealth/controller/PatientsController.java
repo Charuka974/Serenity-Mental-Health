@@ -1,5 +1,7 @@
 package com.assignment.ijse.serenitymentalhealth.controller;
 
+import com.assignment.ijse.serenitymentalhealth.bo.BOFactory;
+import com.assignment.ijse.serenitymentalhealth.bo.custom.PatientBO;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.PatientBOImpl;
 import com.assignment.ijse.serenitymentalhealth.dto.PatientDto;
 import com.assignment.ijse.serenitymentalhealth.dto.tm.PatientTM;
@@ -78,7 +80,7 @@ public class PatientsController implements Initializable {
     @FXML
     private AnchorPane bodyPane;
 
-    private final PatientBOImpl patientBO = new PatientBOImpl();
+    PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBO(BOFactory.BOType.PATIENT);
 
     public void initialize(URL location, ResourceBundle resources){
         SetBackgroundUtil setBackground = new SetBackgroundUtil();

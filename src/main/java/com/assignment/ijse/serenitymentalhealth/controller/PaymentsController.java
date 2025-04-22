@@ -1,5 +1,6 @@
 package com.assignment.ijse.serenitymentalhealth.controller;
 
+import com.assignment.ijse.serenitymentalhealth.bo.BOFactory;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.PatientBO;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.PatientProgramBO;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.PaymentBO;
@@ -114,10 +115,10 @@ public class PaymentsController implements Initializable {
     @FXML
     private Button updateButton;
 
-    private final PatientBO patientBO = new PatientBOImpl();
-    private final TherapyProgramBO programBO = new TherapyProgramBOImpl();
-    PaymentBO paymentBO = new PaymentBOImpl();
-    PatientProgramBO patientProgramBO = new PatientProgramBOImpl();
+    PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBO(BOFactory.BOType.PATIENT);
+    TherapyProgramBO programBO = (TherapyProgramBO) BOFactory.getInstance().getBO(BOFactory.BOType.THERAPY_PROGRAM);
+    PaymentBO paymentBO = (PaymentBO) BOFactory.getInstance().getBO(BOFactory.BOType.PAYMENT);
+    PatientProgramBO patientProgramBO = (PatientProgramBO) BOFactory.getInstance().getBO(BOFactory.BOType.PATIENT_PROGRAM);
 
 
     private boolean isSessionPayment = false;

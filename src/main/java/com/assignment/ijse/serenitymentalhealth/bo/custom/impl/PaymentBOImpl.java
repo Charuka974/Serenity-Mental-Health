@@ -2,12 +2,9 @@ package com.assignment.ijse.serenitymentalhealth.bo.custom.impl;
 
 import com.assignment.ijse.serenitymentalhealth.bo.custom.PaymentBO;
 import com.assignment.ijse.serenitymentalhealth.config.FactoryConfiguration;
+import com.assignment.ijse.serenitymentalhealth.dao.DAOFactory;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.*;
-import com.assignment.ijse.serenitymentalhealth.dao.custom.impl.*;
-import com.assignment.ijse.serenitymentalhealth.dto.PatientDto;
-import com.assignment.ijse.serenitymentalhealth.dto.PatientProgramDto;
 import com.assignment.ijse.serenitymentalhealth.dto.PaymentDto;
-import com.assignment.ijse.serenitymentalhealth.dto.TherapyProgramDto;
 import com.assignment.ijse.serenitymentalhealth.entity.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -21,11 +18,12 @@ import java.util.Optional;
 
 public class PaymentBOImpl implements PaymentBO {
 
-    private final PaymentDAO paymentDAO = new PaymentDAOImpl();
-    private final PatientDAO patientDAO = new PatientDAOImpl();
-    private final TherapyProgramDAO programDAO = new TherapyProgramDAOImpl();
-    private final TherapySessionDAO sessionDAO = new TherapySessionDAOImpl();
-    private final PatientProgramDAO patientProgramDAO = new PatientProgramDAOImpl();
+    PatientDAO patientDAO = (PatientDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PATIENT);
+    PatientProgramDAO patientProgramDAO = (PatientProgramDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PATIENT_PROGRAM);
+    PaymentDAO paymentDAO = (PaymentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PAYMENT);
+    TherapyProgramDAO programDAO = (TherapyProgramDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.THERAPY_PROGRAM);
+    TherapySessionDAO sessionDAO = (TherapySessionDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.THERAPY_SESSION);
+
 
     @Override
     public boolean savePayment(PaymentDto dto) {

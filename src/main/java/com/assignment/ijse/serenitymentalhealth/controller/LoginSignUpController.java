@@ -1,7 +1,7 @@
 package com.assignment.ijse.serenitymentalhealth.controller;
 
+import com.assignment.ijse.serenitymentalhealth.bo.BOFactory;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.UserBO;
-import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.UserBOImpl;
 import com.assignment.ijse.serenitymentalhealth.dto.UserDto;
 import com.assignment.ijse.serenitymentalhealth.util.NavigationUtil;
 import com.jfoenix.controls.JFXPasswordField;
@@ -80,7 +80,7 @@ public class LoginSignUpController {
 
 
     NavigationUtil navigate = new NavigationUtil();
-    UserBO userBO = new UserBOImpl();
+    UserBO userBO = (UserBO) BOFactory.getInstance().getBO(BOFactory.BOType.USER);
     private boolean showingLogin = true;
 
     @FXML

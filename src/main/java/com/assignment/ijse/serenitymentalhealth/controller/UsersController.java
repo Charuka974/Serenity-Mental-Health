@@ -1,5 +1,6 @@
 package com.assignment.ijse.serenitymentalhealth.controller;
 
+import com.assignment.ijse.serenitymentalhealth.bo.BOFactory;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.UserBO;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.UserBOImpl;
 import com.assignment.ijse.serenitymentalhealth.dto.UserDto;
@@ -73,7 +74,7 @@ public class UsersController implements Initializable{
     @FXML
     private TableView<UserTM> usersTable;
 
-    UserBO userBO = new UserBOImpl();
+    UserBO userBO = (UserBO) BOFactory.getInstance().getBO(BOFactory.BOType.USER);
 
     private ObservableList<UserTM> userTMList = FXCollections.observableArrayList();
 

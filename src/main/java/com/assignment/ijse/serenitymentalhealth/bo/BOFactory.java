@@ -27,7 +27,7 @@ public class BOFactory {
     public SuperBO getBO(BOType type) {
         switch (type) {
             case PATIENT:
-                return new PaymentBOImpl();
+                return new PatientBOImpl();
             case PATIENT_PROGRAM:
                 return new PatientProgramBOImpl();
             case PAYMENT:

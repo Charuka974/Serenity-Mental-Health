@@ -1,5 +1,6 @@
 package com.assignment.ijse.serenitymentalhealth.controller;
 
+import com.assignment.ijse.serenitymentalhealth.bo.BOFactory;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.TherapistBO;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.TherapistProgramBO;
 import com.assignment.ijse.serenitymentalhealth.bo.custom.TherapyProgramBO;
@@ -89,7 +90,7 @@ public class TherapistsController implements Initializable {
 
     NavigationUtil navigate = new NavigationUtil();
 
-    private final TherapistBO therapistBO = new TherapistBOImpl();
+    TherapistBO therapistBO = (TherapistBO) BOFactory.getInstance().getBO(BOFactory.BOType.THERAPIST);
 
     @FXML
     void loadTherapistAvailabilityPage(ActionEvent event) {

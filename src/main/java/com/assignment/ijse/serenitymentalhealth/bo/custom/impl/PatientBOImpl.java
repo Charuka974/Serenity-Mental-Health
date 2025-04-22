@@ -1,12 +1,10 @@
 package com.assignment.ijse.serenitymentalhealth.bo.custom.impl;
 
 import com.assignment.ijse.serenitymentalhealth.bo.custom.PatientBO;
+import com.assignment.ijse.serenitymentalhealth.dao.DAOFactory;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.PatientDAO;
-import com.assignment.ijse.serenitymentalhealth.dao.custom.impl.PatientDAOImpl;
 import com.assignment.ijse.serenitymentalhealth.dto.PatientDto;
-import com.assignment.ijse.serenitymentalhealth.dto.TherapyProgramDto;
 import com.assignment.ijse.serenitymentalhealth.entity.Patient;
-import com.assignment.ijse.serenitymentalhealth.entity.TherapyProgram;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +12,7 @@ import java.util.Optional;
 
 
 public class PatientBOImpl implements PatientBO {
-    PatientDAO patientDAO = new PatientDAOImpl();
+    PatientDAO patientDAO = (PatientDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PATIENT);
 
     @Override
     public boolean savePatient(PatientDto dto) {

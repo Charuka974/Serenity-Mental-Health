@@ -1,10 +1,9 @@
 package com.assignment.ijse.serenitymentalhealth.bo.custom.impl;
 
 import com.assignment.ijse.serenitymentalhealth.bo.custom.TherapistAvailabiltyBO;
+import com.assignment.ijse.serenitymentalhealth.dao.DAOFactory;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.TherapistAvailabiltyDAO;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.TherapistDAO;
-import com.assignment.ijse.serenitymentalhealth.dao.custom.impl.TherapistAvailabiltyDAOImpl;
-import com.assignment.ijse.serenitymentalhealth.dao.custom.impl.TherapistDAOImpl;
 import com.assignment.ijse.serenitymentalhealth.dto.TherapistAvailabilityDto;
 import com.assignment.ijse.serenitymentalhealth.entity.Therapist;
 import com.assignment.ijse.serenitymentalhealth.entity.TherapistAvailability;
@@ -17,8 +16,9 @@ import java.util.*;
 
 public class TherapistAvailabiltyBOImpl implements TherapistAvailabiltyBO {
 
-    private final TherapistDAO therapistDAO = new TherapistDAOImpl();
-    private final TherapistAvailabiltyDAO therapistAvailabilityDAO = new TherapistAvailabiltyDAOImpl();
+
+    TherapistDAO therapistDAO = (TherapistDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.THERAPIST);
+    TherapistAvailabiltyDAO therapistAvailabilityDAO = (TherapistAvailabiltyDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.THERAPIST_AVAILABILITY);
 
 
     public boolean saveTherapistAvailability(TherapistAvailabilityDto dto) {

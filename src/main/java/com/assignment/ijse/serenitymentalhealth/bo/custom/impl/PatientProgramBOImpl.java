@@ -1,6 +1,7 @@
 package com.assignment.ijse.serenitymentalhealth.bo.custom.impl;
 
 import com.assignment.ijse.serenitymentalhealth.bo.custom.PatientProgramBO;
+import com.assignment.ijse.serenitymentalhealth.dao.DAOFactory;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.PatientDAO;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.PatientProgramDAO;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.PaymentDAO;
@@ -21,10 +22,11 @@ import java.util.Optional;
 
 public class PatientProgramBOImpl implements PatientProgramBO {
 
-    PatientProgramDAO patientProgramDAO = new PatientProgramDAOImpl();
-    PatientDAO patientDAO = new PatientDAOImpl();
-    TherapyProgramDAO therapyProgramDAO = new TherapyProgramDAOImpl();
-    PaymentDAO paymentDAO = new PaymentDAOImpl();
+    PatientDAO patientDAO = (PatientDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PATIENT);
+    PatientProgramDAO patientProgramDAO = (PatientProgramDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PATIENT_PROGRAM);
+    PaymentDAO paymentDAO = (PaymentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PAYMENT);
+    TherapyProgramDAO therapyProgramDAO = (TherapyProgramDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.THERAPY_PROGRAM);
+
 
 //    @Override
 //    public boolean savePatientProgram(PatientProgramDto dto) {

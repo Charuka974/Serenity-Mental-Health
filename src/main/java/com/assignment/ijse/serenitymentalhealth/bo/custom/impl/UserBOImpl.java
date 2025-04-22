@@ -1,6 +1,7 @@
 package com.assignment.ijse.serenitymentalhealth.bo.custom.impl;
 
 import com.assignment.ijse.serenitymentalhealth.bo.custom.UserBO;
+import com.assignment.ijse.serenitymentalhealth.dao.DAOFactory;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.UserDAO;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.impl.UserDAOImpl;
 import com.assignment.ijse.serenitymentalhealth.dto.UserDto;
@@ -14,7 +15,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserBOImpl implements UserBO {
-    UserDAO userDAO = new UserDAOImpl();
+
+    UserDAO userDAO = (UserDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.USER);
 
 
     @Override

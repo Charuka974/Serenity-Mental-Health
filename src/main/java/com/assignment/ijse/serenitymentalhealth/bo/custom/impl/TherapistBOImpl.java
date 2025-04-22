@@ -1,8 +1,8 @@
 package com.assignment.ijse.serenitymentalhealth.bo.custom.impl;
 
 import com.assignment.ijse.serenitymentalhealth.bo.custom.TherapistBO;
+import com.assignment.ijse.serenitymentalhealth.dao.DAOFactory;
 import com.assignment.ijse.serenitymentalhealth.dao.custom.TherapistDAO;
-import com.assignment.ijse.serenitymentalhealth.dao.custom.impl.TherapistDAOImpl;
 import com.assignment.ijse.serenitymentalhealth.dto.TherapistDto;
 import com.assignment.ijse.serenitymentalhealth.entity.Therapist;
 
@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class TherapistBOImpl implements TherapistBO {
-    TherapistDAO therapistDAO = new TherapistDAOImpl();
+
+    TherapistDAO therapistDAO = (TherapistDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.THERAPIST);
 
     @Override
     public boolean saveTherapist(TherapistDto dto) {
