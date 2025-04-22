@@ -5,6 +5,7 @@ import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.TherapyProgramBOI
 import com.assignment.ijse.serenitymentalhealth.dto.TherapyProgramDto;
 import com.assignment.ijse.serenitymentalhealth.dto.tm.TherapyProgramTM;
 import com.assignment.ijse.serenitymentalhealth.util.SetBackgroundUtil;
+import com.assignment.ijse.serenitymentalhealth.util.ValidateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -92,6 +93,64 @@ public class TherapyProgramsController implements Initializable {
         programDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
 
         refreshPage();
+
+
+
+        programIdTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
+        programNameTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
+        durationTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
+        feeTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
+        descriptionTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
+    }
+
+    private boolean validateInputs() {
+        boolean valid = true;
+        if (!ValidateUtil.isValidId(programIdTxt.getText(), "THERAPY_PROGRAM")) {
+            setFieldError(programIdTxt, true);
+            valid = false;
+        } else {
+            setFieldError(programIdTxt, false);
+        }
+        if (!ValidateUtil.isValidName(programNameTxt.getText())) {
+            setFieldError(programNameTxt, true);
+            valid = false;
+        } else {
+            setFieldError(programNameTxt, false);
+        }
+        if (!ValidateUtil.isValidDuration(durationTxt.getText())) {
+            setFieldError(durationTxt, true);
+            valid = false;
+        } else {
+            setFieldError(durationTxt, false);
+        }
+        if (!ValidateUtil.isValidFee(feeTxt.getText())) {
+            setFieldError(feeTxt, true);
+            valid = false;
+        } else {
+            setFieldError(feeTxt, false);
+        }
+        if (!ValidateUtil.isValidText(descriptionTxt.getText())) {
+            setAreaError(descriptionTxt, true);
+            valid = false;
+        } else {
+            setAreaError(descriptionTxt, false);
+        }
+
+        return valid;
+    }
+    private void setFieldError(TextField field, boolean isError) {
+        if (isError) {
+            field.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+        } else {
+            field.setStyle("-fx-border-color: green; -fx-border-width: 2px;");
+        }
+    }
+    private void setAreaError(TextArea field, boolean isError) {
+        if (isError) {
+            field.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+        } else {
+            field.setStyle("-fx-border-color: green; -fx-border-width: 2px;");
+        }
     }
 
     public void refreshPage() {

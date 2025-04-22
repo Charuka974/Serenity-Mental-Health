@@ -4,6 +4,7 @@ import com.assignment.ijse.serenitymentalhealth.bo.custom.impl.PatientBOImpl;
 import com.assignment.ijse.serenitymentalhealth.dto.PatientDto;
 import com.assignment.ijse.serenitymentalhealth.dto.tm.PatientTM;
 import com.assignment.ijse.serenitymentalhealth.util.SetBackgroundUtil;
+import com.assignment.ijse.serenitymentalhealth.util.ValidateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -95,7 +96,71 @@ public class PatientsController implements Initializable {
             throw e;
         }
 
+        patientIdTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
+        patientNameTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
+        patientEmailTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
+        patientPhoneTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
+        patientAddressTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
+        patientHistoryTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
+
     }
+
+    private boolean validateInputs() {
+        boolean valid = true;
+        if (!ValidateUtil.isValidId(patientIdTxt.getText(), "PATIENT")) {
+            setFieldError(patientIdTxt, true);
+            valid = false;
+        } else {
+            setFieldError(patientIdTxt, false);
+        }
+        if (!ValidateUtil.isValidName(patientNameTxt.getText())) {
+            setFieldError(patientNameTxt, true);
+            valid = false;
+        } else {
+            setFieldError(patientNameTxt, false);
+        }
+        if (!ValidateUtil.isValidEmail(patientEmailTxt.getText())) {
+            setFieldError(patientEmailTxt, true);
+            valid = false;
+        } else {
+            setFieldError(patientEmailTxt, false);
+        }
+        if (!ValidateUtil.isValidPhoneNumber(patientPhoneTxt.getText())) {
+            setFieldError(patientPhoneTxt, true);
+            valid = false;
+        } else {
+            setFieldError(patientPhoneTxt, false);
+        }
+        if (!ValidateUtil.isValidAddress(patientAddressTxt.getText())) {
+            setFieldError(patientAddressTxt, true);
+            valid = false;
+        } else {
+            setFieldError(patientAddressTxt, false);
+        }
+        if (!ValidateUtil.isValidText(patientHistoryTxt.getText())) {
+            setAreaError(patientHistoryTxt, true);
+            valid = false;
+        } else {
+            setAreaError(patientHistoryTxt, false);
+        }
+        return valid;
+    }
+    private void setFieldError(TextField field, boolean isError) {
+        if (isError) {
+            field.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+        } else {
+            field.setStyle("-fx-border-color: green; -fx-border-width: 2px;");
+        }
+    }
+    private void setAreaError(TextArea field, boolean isError) {
+        if (isError) {
+            field.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+        } else {
+            field.setStyle("-fx-border-color: green; -fx-border-width: 2px;");
+        }
+    }
+
+
 
     public void refreshPage(){
         patientIdTxt.clear();

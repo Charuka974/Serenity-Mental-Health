@@ -13,6 +13,7 @@ import com.assignment.ijse.serenitymentalhealth.dto.tm.TherapistProgramTM;
 import com.assignment.ijse.serenitymentalhealth.dto.tm.TherapistTM;
 import com.assignment.ijse.serenitymentalhealth.util.NavigationUtil;
 import com.assignment.ijse.serenitymentalhealth.util.SetBackgroundUtil;
+import com.assignment.ijse.serenitymentalhealth.util.ValidateUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -112,8 +113,56 @@ public class TherapistsController implements Initializable {
         } catch (Exception e) {
             throw e;
         }
+
+
+        therapistIdTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
+        therapistNameTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
+        therapistEmailTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
+        therapistPhoneTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
+        therapistSpecsTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
     }
 
+    private boolean validateInputs() {
+        boolean valid = true;
+        if (!ValidateUtil.isValidId(therapistIdTxt.getText(), "THERAPIST")) {
+            setFieldError(therapistIdTxt, true);
+            valid = false;
+        } else {
+            setFieldError(therapistIdTxt, false);
+        }
+        if (!ValidateUtil.isValidName(therapistNameTxt.getText())) {
+            setFieldError(therapistNameTxt, true);
+            valid = false;
+        } else {
+            setFieldError(therapistNameTxt, false);
+        }
+        if (!ValidateUtil.isValidEmail(therapistEmailTxt.getText())) {
+            setFieldError(therapistEmailTxt, true);
+            valid = false;
+        } else {
+            setFieldError(therapistEmailTxt, false);
+        }
+        if (!ValidateUtil.isValidPhoneNumber(therapistPhoneTxt.getText())) {
+            setFieldError(therapistPhoneTxt, true);
+            valid = false;
+        } else {
+            setFieldError(therapistPhoneTxt, false);
+        }
+        if (!ValidateUtil.isValidText(therapistSpecsTxt.getText())) {
+            setFieldError(therapistSpecsTxt, true);
+            valid = false;
+        } else {
+            setFieldError(therapistSpecsTxt, false);
+        }
+        return valid;
+    }
+    private void setFieldError(TextField field, boolean isError) {
+        if (isError) {
+            field.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+        } else {
+            field.setStyle("-fx-border-color: green; -fx-border-width: 2px;");
+        }
+    }
 
     public void refreshPage() {
         therapistIdTxt.clear();

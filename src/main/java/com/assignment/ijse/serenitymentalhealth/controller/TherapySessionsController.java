@@ -170,6 +170,8 @@ public class TherapySessionsController implements Initializable {
 
         therapySessionTable.getItems().setAll(tmList);
         sessionIdTxt.setText(therapySessionBO.getNextSessionPK());
+        saveButton.setDisable(false);
+        updateButton.setDisable(true);
     }
 
 
@@ -291,15 +293,16 @@ public class TherapySessionsController implements Initializable {
 
     @FXML
     void search(ActionEvent event) {
-        String keyword = searchTxt.getText().trim();
-        if (keyword.isEmpty()) {
-            showAlert("Input Error", "Enter a patient ID to search.", Alert.AlertType.WARNING);
+        String name = searchTxt.getText().trim();
+        if (name.isEmpty()) {
+            showAlert("Input Error", "Enter a patient Name to search.", Alert.AlertType.WARNING);
             loadAllSessions();
             clearForm();
             return;
         }
-
-        List<TherapySessionDto> sessions = therapySessionBO.findByPatientId(keyword);
+        List<PatientDto> patients = patientBO.findByPatientName(name);
+        searchTxt.setText(patients.get(0).getName());
+        List<TherapySessionDto> sessions = therapySessionBO.findByPatientId(patients.get(0).getPatientId());
         therapySessionTable.getItems().clear();
         therapySessionTable.getItems().addAll(
                 sessions.stream().map(dto ->
@@ -332,17 +335,20 @@ public class TherapySessionsController implements Initializable {
             programIdTxt.setText(selected.getTherapyProgramId());
             therapistIdTxt.setText(selected.getTherapistId());
             sessionDateTxt.setValue(selected.getSessionDate());
-            sessionTimeTxt.setText(selected.getSessionTime().toString());
+            sessionTimeTxt.setText(selected.getSessionTime().format(timeFormatter));
 
-            String sessionDurationStr = switch (selected.getDuration().toMinutesPart()) {
+            String sessionDurationStr = switch ((int) selected.getDuration().toMinutes()) {
                 case 30 -> "30 minutes";
                 case 60 -> "1 hour";
                 case 90 -> "1 and half hour";
                 case 120 -> "2 hours";
                 default -> "";
             };
+
             sessionDurationTxt.setValue(sessionDurationStr);
             statusTxtChoice.setValue(selected.getStatus());
+            saveButton.setDisable(true);
+            updateButton.setDisable(false);
         }
     }
 
@@ -549,10 +555,6 @@ public class TherapySessionsController implements Initializable {
     }
 
 
-
-//    private boolean isSlotAvailable(LocalDate date, String slot) {
-//        return Math.random() > 0.5; // Randomized for demo
-//    }
 
     @FXML
     void onclickTSTable(MouseEvent event) {
