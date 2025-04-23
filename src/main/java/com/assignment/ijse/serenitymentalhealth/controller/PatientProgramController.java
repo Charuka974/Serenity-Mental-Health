@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -292,21 +293,36 @@ public class PatientProgramController implements Initializable {
 
     @FXML
     void update(ActionEvent event) {
-        PatientProgramDto dto = new PatientProgramDto(
-                patientIdTxt.getText(),
-                patientNameTxt.getText(),
-                programIdTxt.getText(),
-                programNameTxt.getText(),
-                registerDateTxt.getValue(),
-                paymentIdTxt.getText(),
-                null
-        );
+        try {
+            String leftToPayStr = leftToPayTxt.getText().trim();
+            if (leftToPayStr.isEmpty()) {
+                showAlert("Validation Error", "Left to Pay field cannot be empty.", Alert.AlertType.WARNING);
+                return;
+            }
 
-        if (patientProgramBO.updatePatientProgram(dto)) {
-            showAlert("Success", "Program updated successfully", Alert.AlertType.INFORMATION);
-            refreshPage();
-        } else {
-            showAlert("Error", "Failed to update program", Alert.AlertType.ERROR);
+            BigDecimal leftToPay = new BigDecimal(leftToPayStr);
+
+            PatientProgramDto dto = new PatientProgramDto(
+                    patientIdTxt.getText(),
+                    patientNameTxt.getText(),
+                    programIdTxt.getText(),
+                    programNameTxt.getText(),
+                    registerDateTxt.getValue(),
+                    paymentIdTxt.getText(),
+                    leftToPay
+            );
+
+            if (patientProgramBO.updatePatientProgram(dto)) {
+                showAlert("Success", "Program updated successfully", Alert.AlertType.INFORMATION);
+                refreshPage();
+            } else {
+                showAlert("Error", "Failed to update program", Alert.AlertType.ERROR);
+            }
+        } catch (NumberFormatException e) {
+            showAlert("Input Error", "Please enter a valid number for 'Left to Pay'.", Alert.AlertType.ERROR);
+        } catch (Exception e) {
+            showAlert("Unexpected Error", "Something went wrong: " + e.getMessage(), Alert.AlertType.ERROR);
+            e.printStackTrace();
         }
     }
 

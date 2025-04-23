@@ -108,6 +108,7 @@ public class PatientProgramBOImpl implements PatientProgramBO {
         patientProgram.setTherapy_program(program);
         patientProgram.setRegistration_date(dto.getRegistrationDate());
         patientProgram.setPayment(payment);
+        patientProgram.setProgram_fee(dto.getLeftToPay());
 
         // can not update left to pay
 

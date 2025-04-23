@@ -70,7 +70,7 @@
                   <TextField fx:id="programIdTxt" prefHeight="26.0" prefWidth="132.0" />
                </children>
             </HBox>
-            <HBox prefHeight="34.0" prefWidth="314.0">
+            <HBox prefHeight="34.0" prefWidth="314.0" visible="false">
                <children>
                   <Label prefHeight="18.0" prefWidth="144.0" text="Payment ID">
                      <font>
@@ -163,12 +163,12 @@
       </HBox>
       <TableView fx:id="patientProgramTable" layoutX="155.0" layoutY="496.0" onMouseClicked="#tableClick" prefHeight="200.0" prefWidth="971.0">
         <columns>
-          <TableColumn fx:id="patientIdCol" prefWidth="149.86660766601562" text="Patient ID" />
-          <TableColumn fx:id="programIdCol" prefWidth="145.60003662109375" text="Program ID" />
-            <TableColumn fx:id="paymentIdCol" prefWidth="150.39996337890625" text="Payment ID" />
-            <TableColumn fx:id="registerDateCol" prefWidth="167.46673583984375" text="Register Date" />
-            <TableColumn fx:id="programFeeCol" prefWidth="176.533203125" text="Program Fee" />
-            <TableColumn fx:id="leftToPayCol" prefWidth="176.533203125" text="Left To Pay" />
+          <TableColumn fx:id="patientIdCol" prefWidth="176.800048828125" text="Patient ID" />
+          <TableColumn fx:id="programIdCol" prefWidth="167.199951171875" text="Program ID" />
+            <TableColumn fx:id="paymentIdCol" minWidth="0.0" prefWidth="5.60003662109375" text="Payment ID" />
+            <TableColumn fx:id="registerDateCol" prefWidth="199.20001220703125" text="Register Date" />
+            <TableColumn fx:id="programFeeCol" prefWidth="211.20001220703125" text="Program Fee" />
+            <TableColumn fx:id="leftToPayCol" prefWidth="212.7998046875" text="Left To Pay" />
         </columns>
       </TableView>
       <ToggleButton fx:id="searchToggleButton" layoutX="960.0" layoutY="313.0" mnemonicParsing="false" onAction="#searchToggle" prefHeight="26.0" prefWidth="132.0" text="Search by Patient">
