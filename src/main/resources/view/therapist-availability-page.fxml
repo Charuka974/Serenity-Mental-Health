@@ -21,12 +21,12 @@
          <children>
             <HBox prefHeight="34.0" prefWidth="314.0">
                <children>
-                  <Label prefHeight="27.0" prefWidth="146.0" text="Availability ID">
+                  <Label prefHeight="27.0" prefWidth="146.0" text="Availability ID" visible="false">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="availabilityIdTxt" prefHeight="26.0" prefWidth="139.0" />
+                  <TextField fx:id="availabilityIdTxt" prefHeight="26.0" prefWidth="139.0" visible="false" />
                </children>
             </HBox>
             <HBox prefHeight="34.0" prefWidth="314.0" spacing="10.0">

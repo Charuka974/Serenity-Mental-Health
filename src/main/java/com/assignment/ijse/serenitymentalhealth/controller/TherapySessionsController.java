@@ -209,9 +209,9 @@ public class TherapySessionsController implements Initializable {
         boolean saved = therapySessionBO.save(session);
         if (saved) {
             showAlert("Success", "Therapy session saved successfully!", Alert.AlertType.INFORMATION);
-            loadAllSessions();
             clearTimeTable();
             clearForm();
+            loadAllSessions();
         } else {
             showAlert("Error", "Failed to save therapy session.", Alert.AlertType.ERROR);
         }
@@ -265,8 +265,9 @@ public class TherapySessionsController implements Initializable {
 
         if (isUpdated) {
             showAlert("Success", "Session updated!", Alert.AlertType.INFORMATION);
-            loadAllSessions();
+            clearTimeTable();
             clearForm();
+            loadAllSessions();
         } else {
             showAlert("Failed", "Failed to update session.", Alert.AlertType.ERROR);
         }
@@ -283,8 +284,9 @@ public class TherapySessionsController implements Initializable {
         boolean isDeleted = therapySessionBO.delete(sessionId);
         if (isDeleted) {
             showAlert("Success", "Session deleted!", Alert.AlertType.INFORMATION);
-            loadAllSessions();
+            clearTimeTable();
             clearForm();
+            loadAllSessions();
         } else {
             showAlert("Failed", "Failed to delete session.", Alert.AlertType.ERROR);
         }
@@ -295,8 +297,8 @@ public class TherapySessionsController implements Initializable {
         String name = searchTxt.getText().trim();
         if (name.isEmpty()) {
             showAlert("Input Error", "Enter a patient Name to search.", Alert.AlertType.WARNING);
-            loadAllSessions();
             clearForm();
+            loadAllSessions();
             return;
         }
         List<PatientDto> patients = patientBO.findByPatientName(name);
@@ -331,8 +333,11 @@ public class TherapySessionsController implements Initializable {
         if (selected != null) {
             sessionIdTxt.setText(selected.getSessionId());
             patientIdTxt.setText(selected.getPatientId());
+            patientNameTxt.setText(patientBO.findPatientByID(selected.getPatientId()).getName());
             programIdTxt.setText(selected.getTherapyProgramId());
+            programNameTxt.setValue(therapyProgramBO.findTherapyProgramByID(selected.getTherapyProgramId()).getName());
             therapistIdTxt.setText(selected.getTherapistId());
+            therapistNameTxt.setValue(therapistBO.findByTherapistId(selected.getTherapistId()).getName());
             sessionDateTxt.setValue(selected.getSessionDate());
             sessionTimeTxt.setText(selected.getSessionTime().format(timeFormatter));
 
@@ -348,6 +353,8 @@ public class TherapySessionsController implements Initializable {
             statusTxtChoice.setValue(selected.getStatus());
             saveButton.setDisable(true);
             updateButton.setDisable(false);
+
+            loadDataToTimeTable(selected.getTherapistId());
         }
     }
 

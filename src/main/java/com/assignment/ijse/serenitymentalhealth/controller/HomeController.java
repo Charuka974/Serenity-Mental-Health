@@ -44,6 +44,9 @@ public class HomeController implements Initializable{
     private Button therapistsPageBtn;
 
     @FXML
+    private Button therapistAttendenceBtn;
+
+    @FXML
     private Button therapyProgramPageBtn;
 
     @FXML
@@ -100,6 +103,11 @@ public class HomeController implements Initializable{
     @FXML
     void loadPatientProgramPage(ActionEvent event) {
         navigate.navigateTo(bodyPane, "/view/patient-program-page.fxml");
+    }
+
+    @FXML
+    void loadTherapistAttendencePage(ActionEvent event) {
+        navigate.navigatePopup("/view/therapist-availability-page.fxml", "Manage Therapist Availability");
     }
 
     @FXML

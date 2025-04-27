@@ -8,7 +8,7 @@
 
 <AnchorPane fx:id="homeAnchorPane" prefHeight="795.0" prefWidth="1535.0" stylesheets="@../cssStyles/styles.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.ijse.serenitymentalhealth.controller.HomeController">
    <children>
-      <VBox fx:id="commonButtonBox" alignment="CENTER" layoutX="13.0" layoutY="30.0" prefHeight="338.0" prefWidth="180.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-radius: 20;">
+      <VBox fx:id="commonButtonBox" alignment="CENTER" layoutX="13.0" layoutY="30.0" prefHeight="378.0" prefWidth="180.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-radius: 20;">
          <children>
             <Button fx:id="welcomePageBtn" focusTraversable="false" mnemonicParsing="false" onAction="#loadWelcomePage" prefHeight="34.0" prefWidth="165.0" styleClass="page-nav-btn" text="Welcome">
                <effect>
@@ -35,6 +35,11 @@
                   <DropShadow />
                </effect>
             </Button>
+            <Button fx:id="therapistAttendenceBtn" focusTraversable="false" mnemonicParsing="false" onAction="#loadTherapistAttendencePage" prefHeight="34.0" prefWidth="165.0" style="-fx-font-size: 12px;" styleClass="page-nav-btn" text="Therapist Attendence">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
          </children>
          <effect>
             <DropShadow />
@@ -45,7 +50,7 @@
             <DropShadow />
          </effect>
       </Pane>
-      <VBox fx:id="adminOnlyButtonBox" alignment="CENTER" layoutX="13.0" layoutY="409.0" prefHeight="213.0" prefWidth="180.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-radius: 20;">
+      <VBox fx:id="adminOnlyButtonBox" alignment="CENTER" layoutX="13.0" layoutY="419.0" prefHeight="204.0" prefWidth="180.0" spacing="20.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-radius: 20;">
          <children>
             <Button fx:id="therapyProgramPageBtn" focusTraversable="false" mnemonicParsing="false" onAction="#loadTherapyProgramsPage" prefHeight="41.0" prefWidth="165.0" styleClass="page-nav-btn" text="Therapy Programs">
                <effect>

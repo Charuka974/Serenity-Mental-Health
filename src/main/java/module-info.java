@@ -11,6 +11,12 @@ module com.assignment.ijse.serenitymentalhealth {
     requires spring.security.crypto;
 
 
+
+    requires com.fasterxml.jackson.core;
+    requires com.fasterxml.jackson.databind;
+    requires org.apache.commons.logging;
+    requires net.sf.jasperreports.core;
+
     opens com.assignment.ijse.serenitymentalhealth.dto.tm to javafx.base;
     opens com.assignment.ijse.serenitymentalhealth.config to jakarta.persistence;
     opens com.assignment.ijse.serenitymentalhealth.entity to org.hibernate.orm.core;
@@ -20,4 +26,6 @@ module com.assignment.ijse.serenitymentalhealth {
     exports com.assignment.ijse.serenitymentalhealth.controller;
 
     opens com.assignment.ijse.serenitymentalhealth.controller to javafx.fxml;
+
+
 }

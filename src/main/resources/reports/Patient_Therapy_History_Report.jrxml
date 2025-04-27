@@ -1,0 +1,109 @@
+<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0-b478feaa9aab4375eba71de77b4ca138ad2f62aa  -->
+<jasperReport name="Patient_Therapy_History_Report" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d4024b5e-4ac5-4371-b20b-c202bdcd5a04">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SerenityTherapDBConnection"/>
+	<parameter name="patientID" class="java.lang.String"/>
+	<query language="SQL"><![CDATA[SELECT 
+    p.patient_id,
+    p.name,
+    p.phone,
+    p.email,
+    p.address,
+    p.medical_history
+FROM patient p
+WHERE p.patient_id = $P{patientID}]]></query>
+	<field name="patient_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="patient_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="patient_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="patient"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="name"/>
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="patient"/>
+	</field>
+	<field name="phone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="phone"/>
+		<property name="com.jaspersoft.studio.field.label" value="phone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="patient"/>
+	</field>
+	<field name="email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="email"/>
+		<property name="com.jaspersoft.studio.field.label" value="email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="patient"/>
+	</field>
+	<field name="address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="address"/>
+		<property name="com.jaspersoft.studio.field.label" value="address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="patient"/>
+	</field>
+	<field name="medical_history" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="medical_history"/>
+		<property name="com.jaspersoft.studio.field.label" value="medical_history"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="patient"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="38" splitType="Stretch">
+		<element kind="staticText" uuid="df26c333-af41-4f6e-83e8-8999dbc198d1" x="87" y="0" width="380" height="30" fontSize="20.0" hTextAlign="Center">
+			<text><![CDATA[Patient Therapy History]]></text>
+		</element>
+	</title>
+	<pageHeader height="56" splitType="Stretch"/>
+	<columnHeader height="57" splitType="Stretch">
+		<element kind="staticText" uuid="a261c69e-d20b-4d41-8e3b-32af56c44795" x="0" y="0" width="95" height="30">
+			<text><![CDATA[patient_id]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bc8666b0-7b77-4eaa-bad0-8e685ba24a23"/>
+		</element>
+		<element kind="staticText" uuid="c0c92cdb-65b1-44ec-9361-150a1e7410c8" x="95" y="0" width="92" height="30">
+			<text><![CDATA[name]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="576c63f7-60ce-40ed-84a3-97ce66250513"/>
+		</element>
+		<element kind="staticText" uuid="110f3d3b-8e38-4049-9111-0315e2ae25f5" x="187" y="0" width="92" height="30">
+			<text><![CDATA[phone]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a656e413-f571-4b18-828f-ade509fff721"/>
+		</element>
+		<element kind="staticText" uuid="17b8d9d9-94b8-402d-8c2b-8d40284c2d7b" x="279" y="0" width="92" height="30">
+			<text><![CDATA[email]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4545d1ba-0b9a-4bac-9a31-c97eafca03a1"/>
+		</element>
+		<element kind="staticText" uuid="ededb3cf-b861-4360-ac69-9152d15fa73b" x="371" y="0" width="92" height="30">
+			<text><![CDATA[address]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="369d8b03-311d-4bf7-bb7c-28838ade42e5"/>
+		</element>
+		<element kind="staticText" uuid="db175854-5883-4f6d-8027-b3fd9c231b44" x="463" y="0" width="92" height="30">
+			<text><![CDATA[medical_history]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9e61ae8b-d2cd-483e-b554-23ee80f9339a"/>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="72" splitType="Stretch">
+			<element kind="textField" uuid="296005be-d42f-441d-a5c8-dd099df85ef8" x="0" y="0" width="95" height="30">
+				<expression><![CDATA[$F{patient_id}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bc8666b0-7b77-4eaa-bad0-8e685ba24a23"/>
+			</element>
+			<element kind="textField" uuid="4bbf72e2-5d87-4b2f-9bfe-53c96999df9a" x="95" y="0" width="92" height="30">
+				<expression><![CDATA[$F{name}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="576c63f7-60ce-40ed-84a3-97ce66250513"/>
+			</element>
+			<element kind="textField" uuid="3b15ec0c-697c-406c-a39e-dce2ca2bd7a6" x="187" y="0" width="92" height="30">
+				<expression><![CDATA[$F{phone}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a656e413-f571-4b18-828f-ade509fff721"/>
+			</element>
+			<element kind="textField" uuid="391af7bf-61a4-4cc5-8211-131b793ba2cd" x="279" y="0" width="92" height="30">
+				<expression><![CDATA[$F{email}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4545d1ba-0b9a-4bac-9a31-c97eafca03a1"/>
+			</element>
+			<element kind="textField" uuid="09ae4827-b3b1-4e11-b821-5eb872bd6512" x="371" y="0" width="92" height="30">
+				<expression><![CDATA[$F{address}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="369d8b03-311d-4bf7-bb7c-28838ade42e5"/>
+			</element>
+			<element kind="textField" uuid="5fb5ea93-3d72-4a82-a297-05450dfc2352" x="463" y="0" width="92" height="30">
+				<expression><![CDATA[$F{medical_history}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9e61ae8b-d2cd-483e-b554-23ee80f9339a"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="45" splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>
