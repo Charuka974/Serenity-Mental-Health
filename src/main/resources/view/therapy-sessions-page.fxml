@@ -20,7 +20,7 @@
                 <Font name="System Bold" size="24.0" />
             </font>
         </Label>
-        <VBox layoutX="14.0" layoutY="81.0" prefHeight="365.0" prefWidth="774.0" spacing="20.0">
+        <VBox layoutX="14.0" layoutY="81.0" prefHeight="366.0" prefWidth="733.0" spacing="20.0">
             <children>
                 <HBox prefHeight="34.0" prefWidth="314.0">
                     <children>
@@ -34,12 +34,12 @@
                 </HBox>
                 <HBox prefHeight="34.0" prefWidth="314.0" spacing="10.0">
                     <children>
-                        <Label prefHeight="27.0" prefWidth="144.0" text="Patient Name">
+                        <Label prefHeight="27.0" prefWidth="134.0" text="Patient Name">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="patientNameTxt" prefHeight="26.0" prefWidth="283.0" />
+                        <TextField fx:id="patientNameTxt" prefHeight="26.0" prefWidth="209.0" />
                         <Button fx:id="patientSearchButton" focusTraversable="false" mnemonicParsing="false" onAction="#searchPatient" prefHeight="26.0" prefWidth="97.0" styleClass="process-button" stylesheets="@../cssStyles/process-button.css" text="Search">
                             <effect>
                                 <DropShadow />
@@ -48,44 +48,45 @@
                                 <Font name="System Bold" size="12.0" />
                             </font>
                         </Button>
-                        <Label prefHeight="27.0" prefWidth="106.0" text="Patient ID">
+                        <Label prefHeight="27.0" prefWidth="67.0" text="Phone">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="patientIdTxt" prefHeight="26.0" prefWidth="94.0" />
+                        <TextField fx:id="patientPhoneTxt" prefHeight="26.0" prefWidth="146.0" />
+                  <TextField fx:id="patientIdTxt" prefHeight="26.0" prefWidth="10.0" visible="false" />
                     </children>
                 </HBox>
                 <HBox prefHeight="34.0" prefWidth="314.0" spacing="10.0">
                     <children>
-                        <Label prefHeight="18.0" prefWidth="144.0" text="Program ">
+                        <Label prefHeight="27.0" prefWidth="134.0" text="Program ">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
                   <ChoiceBox fx:id="programNameTxt" prefHeight="26.0" prefWidth="283.0" />
-                        <Label prefHeight="18.0" prefWidth="106.0" text="Program ID">
+                        <Label prefHeight="18.0" prefWidth="106.0" text="Program ID" visible="false">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="programIdTxt" prefHeight="26.0" prefWidth="94.0" />
+                        <TextField fx:id="programIdTxt" prefHeight="26.0" prefWidth="94.0" visible="false" />
                     </children>
                 </HBox>
                 <HBox prefHeight="34.0" prefWidth="314.0" spacing="10.0">
                     <children>
-                        <Label prefHeight="18.0" prefWidth="144.0" text="Therapist">
+                        <Label prefHeight="27.0" prefWidth="134.0" text="Therapist">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
                   <ChoiceBox fx:id="therapistNameTxt" prefHeight="26.0" prefWidth="283.0" />
-                        <Label prefHeight="27.0" prefWidth="106.0" text="Therapist ID">
+                        <Label prefHeight="27.0" prefWidth="106.0" text="Therapist ID" visible="false">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="therapistIdTxt" prefHeight="26.0" prefWidth="94.0" />
+                        <TextField fx:id="therapistIdTxt" prefHeight="26.0" prefWidth="94.0" visible="false" />
                     </children>
                 </HBox>
                 <HBox prefHeight="34.0" prefWidth="314.0">
@@ -189,7 +190,7 @@
             <TableColumn fx:id="date5TSCol" text="Date 5" />
         </columns>
       </TableView>
-      <Label alignment="CENTER" layoutX="949.0" layoutY="45.0" prefHeight="27.0" prefWidth="193.0" text="Available Time Table">
+      <Label fx:id="timetableLabel" alignment="CENTER" layoutX="949.0" layoutY="45.0" prefHeight="27.0" prefWidth="193.0" text="Available Time Table">
          <font>
             <Font size="18.0" />
          </font>

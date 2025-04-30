@@ -121,6 +121,11 @@ public class TherapistsController implements Initializable {
         therapistEmailTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
         therapistPhoneTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
         therapistSpecsTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
+
+        searchButton.setText("Search / Clear");
+        searchButtonTP.setText("Search / Clear");
+
+
     }
 
     private boolean validateInputs() {
@@ -159,9 +164,9 @@ public class TherapistsController implements Initializable {
     }
     private void setFieldError(TextField field, boolean isError) {
         if (isError) {
-            field.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+            field.setStyle("-fx-border-color: red; -fx-border-width: 2px; -fx-border-radius: 5px;");
         } else {
-            field.setStyle("-fx-border-color: green; -fx-border-width: 2px;");
+            field.setStyle("-fx-border-color: none; -fx-border-width: 2px;");
         }
     }
 
@@ -246,7 +251,7 @@ public class TherapistsController implements Initializable {
         String name = searchTxt.getText().trim();
 
         if (name.isEmpty()) {
-            showAlert("Input Error", "Please enter a name to search", Alert.AlertType.WARNING);
+//            showAlert("Input Error", "Please enter a name to search", Alert.AlertType.WARNING);
             refreshPage();
             return;
         }
@@ -393,10 +398,20 @@ public class TherapistsController implements Initializable {
     @FXML
     void searchTP(ActionEvent event) {
         String name = searchTxtTP.getText();
+        if (name.isEmpty()) {
+//            showAlert("Input Error", "Please enter a name to search", Alert.AlertType.WARNING);
+            loadTPTableData();
+            return;
+        }
 
         List<TherapistProgramDto> results = therapistProgramBO.findByProgramName(name);
         updateTPTableView(results);
     }
+
+    private void clearTPTable() {
+        therapistProgramTable.getItems().clear();
+    }
+
 
     @FXML
     void tableClickTP(MouseEvent event) {
@@ -423,6 +438,12 @@ public class TherapistsController implements Initializable {
     }
 
     private void loadTPTableData() {
+        String therapistId = therapistIdTxt.getText();
+        if (therapistId.isEmpty()) {
+//            showAlert("Input Error", "Please select a therapist first.", Alert.AlertType.WARNING);
+            clearTPTable();
+            return;
+        }
         List<TherapistProgramDto> programs = therapistProgramBO.getTherapistProgramsByTherapist(therapistIdTxt.getText());
         updateTPTableView(programs);
         programIdTxt.setText("");

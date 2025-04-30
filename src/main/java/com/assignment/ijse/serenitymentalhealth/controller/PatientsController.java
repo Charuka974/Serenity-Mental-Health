@@ -105,6 +105,9 @@ public class PatientsController implements Initializable {
         patientAddressTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
         patientHistoryTxt.textProperty().addListener((obs, oldVal, newVal) -> validateInputs());
 
+        searchButton.setText("Search / Clear");
+
+
     }
 
     private boolean validateInputs() {
@@ -149,16 +152,16 @@ public class PatientsController implements Initializable {
     }
     private void setFieldError(TextField field, boolean isError) {
         if (isError) {
-            field.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+            field.setStyle("-fx-border-color: red; -fx-border-width: 2px; -fx-border-radius: 5px;");
         } else {
-            field.setStyle("-fx-border-color: green; -fx-border-width: 2px;");
+            field.setStyle("-fx-border-color: none; -fx-border-width: 2px;");
         }
     }
     private void setAreaError(TextArea field, boolean isError) {
         if (isError) {
-            field.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+            field.setStyle("-fx-border-color: red; -fx-border-width: 2px; -fx-border-radius: 5px;");
         } else {
-            field.setStyle("-fx-border-color: green; -fx-border-width: 2px;");
+            field.setStyle("-fx-border-color: none; -fx-border-width: 2px;");
         }
     }
 
@@ -250,7 +253,7 @@ public class PatientsController implements Initializable {
         String name = searchTxt.getText().trim();
 
         if (name.isEmpty()) {
-            showAlert("Input Error", "Please enter a name to search", Alert.AlertType.WARNING);
+//            showAlert("Input Error", "Please enter a name to search", Alert.AlertType.WARNING);
             refreshPage();
             return;
         }

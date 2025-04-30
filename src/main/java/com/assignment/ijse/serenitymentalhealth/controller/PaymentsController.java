@@ -153,6 +153,8 @@ public class PaymentsController implements Initializable {
 //            sessionIdPart.setVisible(false);
 //        }
 
+        searchButton.setText("Search / Clear");
+
         paymentTypeChoice.setVisible(false);
         paymentTypeLabel.setVisible(false);
         sessionIdPart.setVisible(isSessionPayment);
@@ -237,7 +239,7 @@ public class PaymentsController implements Initializable {
     void search(ActionEvent event) {
         String query = searchTxt.getText();
         if (query.isEmpty()) {
-            showAlert("Error", "Please enter a search term", Alert.AlertType.WARNING);
+//            showAlert("Error", "Please enter a search term", Alert.AlertType.WARNING);
             refreshPage();
             return;
         }

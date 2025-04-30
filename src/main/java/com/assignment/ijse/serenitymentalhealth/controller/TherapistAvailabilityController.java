@@ -122,6 +122,8 @@ public class TherapistAvailabilityController implements Initializable {
                 Comparator.comparing(TherapistAvailabilityTM::getAvailableDate)
         );
         tableSortToggleButton.setText("Sorted by Date");
+
+        searchButton.setText("Search / Clear");
     }
 
 
@@ -195,7 +197,7 @@ public class TherapistAvailabilityController implements Initializable {
     void search(ActionEvent event) {
         String searchTerm = searchTxt.getText();
         if (searchTerm.isEmpty()){
-            showAlert("Error", "Please enter a search term", Alert.AlertType.ERROR);
+//            showAlert("Error", "Please enter a search term", Alert.AlertType.ERROR);
             clearFields();
             loadAllAvailability();
             return;

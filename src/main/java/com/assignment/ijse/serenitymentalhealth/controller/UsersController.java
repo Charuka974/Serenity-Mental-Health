@@ -103,6 +103,8 @@ public class UsersController implements Initializable{
         loggedInUserId = KeepUserIDUtil.getInstance().getCurrentUserId();
         updateButton.setVisible(false);
         saveButton.setVisible(false);
+        searchButton.setText("Search / Clear");
+
 
 
     }
@@ -185,7 +187,7 @@ public class UsersController implements Initializable{
     void search(ActionEvent event) {
         String name = searchTxt.getText();
         if (name.isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Please enter a username to search").show();
+//            new Alert(Alert.AlertType.WARNING, "Please enter a username to search").show();
             loadAllUsers();
             clearForm();
             return;

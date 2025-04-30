@@ -118,6 +118,8 @@ public class PatientProgramController implements Initializable {
         leftToPayCol.setCellValueFactory(new PropertyValueFactory<>("leftToPay"));
 
         refreshTable();
+        searchButton.setText("Search / Clear");
+
     }
 
     private void refreshTable() {
@@ -220,7 +222,7 @@ public class PatientProgramController implements Initializable {
         String query = searchTxt.getText().trim();
 
         if (query.isEmpty()) {
-            showAlert("Input Error", "Please enter a search term", Alert.AlertType.WARNING);
+//            showAlert("Input Error", "Please enter a search term", Alert.AlertType.WARNING);
             refreshPage();
             return;
         }

@@ -50,6 +50,9 @@ public class TherapySessionsController implements Initializable {
     private TextField patientIdTxt;
 
     @FXML
+    private TextField patientPhoneTxt;
+
+    @FXML
     private TextField patientNameTxt;
 
     @FXML
@@ -90,6 +93,9 @@ public class TherapySessionsController implements Initializable {
 
     @FXML
     private TextField sessionIdTxt;
+
+    @FXML
+    private Label timetableLabel;
 
     @FXML
     private TableColumn<TherapySessionTM, String> sessionTimeCol;
@@ -146,6 +152,9 @@ public class TherapySessionsController implements Initializable {
         statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         loadTimeTable();
+        timeSlotTable.setVisible(false);
+        timetableLabel.setVisible(false);
+        searchButton.setText("Search / Clear");
 
         loadAllSessions();
 
@@ -296,9 +305,10 @@ public class TherapySessionsController implements Initializable {
     void search(ActionEvent event) {
         String name = searchTxt.getText().trim();
         if (name.isEmpty()) {
-            showAlert("Input Error", "Enter a patient Name to search.", Alert.AlertType.WARNING);
+//            showAlert("Input Error", "Enter a patient Name to search.", Alert.AlertType.WARNING);
             clearForm();
             loadAllSessions();
+            clearTimeTable();
             return;
         }
         List<PatientDto> patients = patientBO.findByPatientName(name);
@@ -333,6 +343,7 @@ public class TherapySessionsController implements Initializable {
         if (selected != null) {
             sessionIdTxt.setText(selected.getSessionId());
             patientIdTxt.setText(selected.getPatientId());
+            patientPhoneTxt.setText(patientBO.findPatientByID(selected.getPatientId()).getPhone());
             patientNameTxt.setText(patientBO.findPatientByID(selected.getPatientId()).getName());
             programIdTxt.setText(selected.getTherapyProgramId());
             programNameTxt.setValue(therapyProgramBO.findTherapyProgramByID(selected.getTherapyProgramId()).getName());
@@ -362,15 +373,16 @@ public class TherapySessionsController implements Initializable {
     private void clearForm() {
         sessionIdTxt.clear();
         patientIdTxt.clear();
+        patientPhoneTxt.clear();
         patientNameTxt.clear();
         programIdTxt.clear();
-        programNameTxt.getItems().clear();
+        programNameTxt.setValue("");
         therapistIdTxt.clear();
-        therapistNameTxt.getItems().clear();
+        therapistNameTxt.setValue("");
         sessionDateTxt.setValue(null);
         sessionTimeTxt.clear();
         sessionDurationTxt.getSelectionModel().clearSelection();
-        statusTxtChoice.getSelectionModel().clearSelection();
+        statusTxtChoice.setValue("");
         searchTxt.clear();
     }
 
@@ -395,6 +407,7 @@ public class TherapySessionsController implements Initializable {
 
         PatientDto patient = patients.getFirst();
         patientIdTxt.setText(patient.getPatientId());
+        patientPhoneTxt.setText(patient.getPhone());
         patientNameTxt.setText(patient.getName());
 
         List<PatientProgramDto> programs = patientProgramBO.getProgramsByPatientId(patient.getPatientId());
@@ -510,6 +523,9 @@ public class TherapySessionsController implements Initializable {
     }
 
     public void loadDataToTimeTable(String therapistId) {
+        timeSlotTable.setVisible(true);
+        timetableLabel.setVisible(true);
+
         nextFiveDates.clear();
         LocalDate today = LocalDate.now();
         for (int i = 0; i < 5; i++) {
@@ -557,6 +573,8 @@ public class TherapySessionsController implements Initializable {
     }
 
     public void clearTimeTable() {
+        timeSlotTable.setVisible(false);
+        timetableLabel.setVisible(false);
         timeSlotTable.getItems().clear(); // Clears all the rows in the table
     }
 
